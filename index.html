@@ -69,7 +69,44 @@
     <a href="#order">Order Letter</a>
     <a href="#request">Request/Application Letter</a>
     <a href="#leave">Leave Application</a>
-    <a href="#subjectverb">Subject-Verb Agreement</a>
+    <a href=Great — since I’ve already generated the full code for you earlier, here's how to find the navigation bar (menu bar) in your code and how to link your new SVC Rules page from there.
+
+
+---
+
+✅ Where is the Navigation Bar in Your Code?
+
+In your index.html, scroll to the very top of the code and look for a <nav> tag like this:
+
+<nav class="bg-white shadow-md py-4">
+  <div class="container mx-auto px-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-blue-700">Sanskar Shep's English Letter Hub</h1>
+    <div class="space-x-4">
+      <a href="#letter-to-editor" class="text-blue-700 font-semibold hover:underline">Letters</a>
+      <a href="#tenses" class="text-blue-700 font-semibold hover:underline">Tenses</a>
+      <!-- Add your SVC link here -->
+    </div>
+  </div>
+</nav>
+
+
+---
+
+✳️ What to Add to Link SVC Page?
+
+In the <div class="space-x-4">...</div> section above, add this line:
+
+<a href="svc.html" class="text-blue-700 font-semibold hover:underline">SVC Rules</a>
+
+Now the updated section looks like:
+
+<div class="space-x-4">
+  <a href="#letter-to-editor" class="text-blue-700 font-semibold hover:underline">Letters</a>
+  <a href="#tenses" class="text-blue-700 font-semibold hover:underline">Tenses</a>
+  <a href="svc.html" class="text-blue-700 font-semibold hover:underline">SVC Rules</a>
+</div>
+
+  
     <a href="#tenses">Tense Rules</a>
   </nav>
 
