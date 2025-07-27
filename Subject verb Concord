@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>32 Subject-Verb Agreement Rules</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.7;
+      background: #f4f4f9;
+      padding: 30px;
+      color: #333;
+    }
+    h1 {
+      color: #222;
+      text-align: center;
+    }
+    h2 {
+      color: #00509e;
+      margin-top: 30px;
+    }
+    p {
+      margin-bottom: 15px;
+    }
+    .rule {
+      background: #ffffff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    .nav {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    .nav a {
+      text-decoration: none;
+      color: #0077cc;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <a href="index.html">← Back to Homepage</a>
+  </div>
+
+  <h1>32 Subject-Verb Agreement Rules</h1>
+
+  <div class="rule">
+    <h2>Rule 1:</h2>
+    <p>If the subject is singular, the verb must be singular too.<br><strong>Example:</strong> She writes well.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 2:</h2>
+    <p>If the subject is plural, the verb must be plural.<br><strong>Example:</strong> They write well.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 3:</h2>
+    <p>When two subjects are connected by 'and', they usually take a plural verb.<br><strong>Example:</strong> John and Mary are friends.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 4:</h2>
+    <p>If two subjects refer to the same person or thing, use a singular verb.<br><strong>Example:</strong> The writer and poet is coming.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 5:</h2>
+    <p>When subjects are joined by "either/or" or "neither/nor," the verb agrees with the nearer subject.<br><strong>Example:</strong> Either the teacher or the students are attending.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 6:</h2>
+    <p>Collective nouns usually take singular verbs.<br><strong>Example:</strong> The team wins every match.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 7:</h2>
+    <p>Indefinite pronouns like everyone, somebody, each, either take singular verbs.<br><strong>Example:</strong> Everyone is happy.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 8:</h2>
+    <p>Some nouns that look plural but are singular in meaning take singular verbs.<br><strong>Example:</strong> Mathematics is interesting.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 9:</h2>
+    <p>Use plural verbs with subjects that are plural in form and meaning.<br><strong>Example:</strong> The scissors are on the table.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 10:</h2>
+    <p>Expressions like "a number of" take plural verbs; "the number of" takes singular.<br><strong>Example:</strong> A number of students are missing. The number of students is high.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 11:</h2>
+    <p>Plural nouns used as proper names take plural verbs.<br><strong>Example:</strong> The Netherlands are beautiful.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 12:</h2>
+    <p>When distances, periods, or amounts are seen as a unit, use singular verbs.<br><strong>Example:</strong> Five hours is a long time.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 13:</h2>
+    <p>Titles of books or movies take a singular verb.<br><strong>Example:</strong> The Avengers is my favorite movie.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 14:</h2>
+    <p>Each and every take singular verbs.<br><strong>Example:</strong> Every child is special.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 15:</h2>
+    <p>When the subject is a phrase starting with "what" or "how," treat it as singular.<br><strong>Example:</strong> What she needs is help.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 16:</h2>
+    <p>"There" and "Here" at the beginning don't affect the subject-verb agreement.<br><strong>Example:</strong> There are five books.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 17:</h2>
+    <p>Subjects joined by "with," "together with," etc., take the number of the first subject.<br><strong>Example:</strong> The teacher, along with the students, is going.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 18:</h2>
+    <p>In sentences beginning with "if," treat the subject like a regular one.<br><strong>Example:</strong> If he is late, start the meeting.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 19:</h2>
+    <p>Use singular verb when uncountable nouns are the subject.<br><strong>Example:</strong> Water is essential.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 20:</h2>
+    <p>Use singular verb with phrases like "more than one".<br><strong>Example:</strong> More than one student is absent.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 21:</h2>
+    <p>"A pair of" takes a singular verb.<br><strong>Example:</strong> A pair of shoes is on the floor.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 22:</h2>
+    <p>Use plural verb for separate individuals acting independently.<br><strong>Example:</strong> The manager and the assistant were present.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 23:</h2>
+    <p>Quantities expressed as fractions or percentages take singular/plural verb depending on noun.<br><strong>Example:</strong> 50% of the cake is gone. 50% of the people are missing.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 24:</h2>
+    <p>Units of measurement take singular verbs if seen as one unit.<br><strong>Example:</strong> Ten liters is enough.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 25:</h2>
+    <p>Use plural verbs when subject is two or more things not forming one unit.<br><strong>Example:</strong> The shirt and pants are clean.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 26:</h2>
+    <p>Some nouns look singular but are always plural.<br><strong>Example:</strong> Trousers are in the drawer.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 27:</h2>
+    <p>Use a singular verb when noun after "one of" is plural.<br><strong>Example:</strong> One of the students is missing.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 28:</h2>
+    <p>Use plural verb when two subjects are connected by "both...and."<br><strong>Example:</strong> Both the boys and the girls are ready.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 29:</h2>
+    <p>Use singular verb when amount is seen as a whole.<br><strong>Example:</strong> Twenty dollars is not enough.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 30:</h2>
+    <p>Titles of organizations take singular verbs.<br><strong>Example:</strong> The United Nations is meeting today.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 31:</h2>
+    <p>"Each of" and "Every one of" take singular verbs.<br><strong>Example:</strong> Each of the players is fit.</p>
+  </div>
+
+  <div class="rule">
+    <h2>Rule 32:</h2>
+    <p>Subjects with "many a," "more than one," take singular verbs.<br><strong>Example:</strong> Many a man has failed.</p>
+  </div>
+
+</body>
+
+</html>
+
+
