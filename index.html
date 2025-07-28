@@ -1,128 +1,26 @@
-
-
-<Head></Head>
-<body>
-<nav class="navbar">
-  <div class="nav-container">
-    <div class="logo">My Letters Site</div>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="letter-editor.html">Letter to the Editor</a></li>
-      <li><a href="complaint-letter.html">Complaint Letter</a></li>
-      <li><a href="leave-application.html">Leave Application</a></li>
-      <li><a href="request-application.html">Request Application</a></li>
-      <li><a href="order-letter.html">Order Letter</a></li>
-      <li><a href="enquiry-letter.html">Enquiry Letter</a></li>
-      <li><a href="svc.html">Subject-Verb Agreement</a></li>
-    </ul>
-  </div>
-</nav>
-
-
----
-
-
-
 <script>
   function toggleMenu() {
     document.getElementById("navLinks").classList.toggle("active");
   }
-</script>
-
-
-
-.navbar {
-  background-color: #333;
-  padding: 10px 20px;
-}
-
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.logo {
-  color: white;
-  font-size: 22px;
-  font-weight: bold;
-}
-
-.menu-toggle {
-  color: white;
-  font-size: 26px;
-  cursor: pointer;
-  display: none;
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-  margin-top: 10px;
-}
-
-.nav-links li a {
-  color: white;
-  text-decoration: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  transition: background 0.3s;
-}
-
-.nav-links li a:hover {
-  background-color: #555;
-}
-
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background-color: #333;
-    margin-top: 10px;
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .nav-links li {
-    text-align: center;
-  }
-}
-
-
----
-
-Now:
-
-On mobile, users see a hamburger icon (☰)
-
-Tapping it shows all links in vertical dropdown
-
-On larger screens, it works like a horizontal navbar
-
-
-
----
-
-Let me know if you want me to:
-
-Add icons 🌐✉️📚
-
-Animate the menu dropdown
-
-Add a sticky/fixed effect on scroll
-
-
-I can finish that in one go for you too!
+</script><body><!-- Navigation Bar -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">Sanskar Shep</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="letter-editor.html">📝 Letter to Editor</a></li>
+      <li><a href="complaint-letter.html">📢 Complaint Letter</a></li>
+      <li><a href="leave-application.html">📅 Leave Application</a></li>
+      <li><a href="request-application.html">🙏 Request Application</a></li>
+      <li><a href="order-letter.html">🛒 Order Letter</a></li>
+      <li><a href="enquiry-letter.html">🔍 Enquiry Letter</a></li>
+      <li><a href="svc.html">📚 Subject-Verb Agreement</a></li>
+      <li><a href="tense-rules.html">⌛ Tense Rules</a></li>
+      <li><a href="quiz.html">🧠 Quiz</a></li>
+    </ul>
+  </div>
+</nav>
 
   
 
