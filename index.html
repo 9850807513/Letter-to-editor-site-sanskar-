@@ -1,272 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teacher’s Day Special Notes</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: white;
-  color: black;
-  line-height: 1.6;
-}
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #222;
-  padding: 10px 20px;
-  color: white;
-}
-nav .menu a {
-  color: white;
-  margin: 0 15px;
-  text-decoration: none;
-  font-weight: bold;
-}
-nav .menu a:hover {
-  text-decoration: underline;
-}
-.container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 20px;
-}
-h2 {
-  border-bottom: 2px solid #444;
-  padding-bottom: 5px;
-}
-.toggle-btn {
-  cursor: pointer;
-  background: #444;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  margin-left: 20px;
-  border-radius: 5px;
-}
-.collapsible {
-  background: #eee;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-}
-.collapsible h3 {
-  cursor: pointer;
-}
-.collapsible .content {
-  display: none;
-  padding-top: 10px;
-}
-.flashcard {
-  display: inline-block;
-  background: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px;
-  width: 200px;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-.flashcard:hover {
-  transform: scale(1.05);
-}
-#teacherDay {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  background: gold;
-  color: black;
-  padding: 10px 20px;
-  border-radius: 30px;
-  font-weight: bold;
-  animation: float 3s infinite;
-}
-@keyframes float {
-  0%,100% {transform: translateY(0);}
-  50% {transform: translateY(-10px);}
-}
-#backToTop {
-  position: fixed;
-  bottom: 60px;
-  right: 10px;
-  background: #444;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.dark-mode {
-  background: #111;
-  color: #eee;
-}
-img {
-  max-width: 100%;
-  border-radius: 10px;
-  margin: 10px 0;
-}
-.search-box {
-  margin-top: 10px;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Teachers Day Notes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #f4fff4; color: #222;
+    }
+    header {
+      background: #228B22; color: white;
+      text-align: center; padding: 15px;
+      font-size: 22px; font-weight: bold;
+    }
+    nav {
+      display: flex; justify-content: center;
+      background: #2e8b57; padding: 10px;
+    }
+    nav a {
+      color: white; margin: 0 15px;
+      text-decoration: none; font-weight: bold;
+    }
+    section { padding: 20px; }
+    h2 { color: #006400; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
+    .highlight { background: lightgreen; font-weight: bold; }
+    .notes, .summary { margin: 15px 0; }
+    .flashcards { display: flex; flex-wrap: wrap; gap: 15px; }
+    .card {
+      width: 200px; height: 150px;
+      perspective: 1000px; cursor: pointer;
+    }
+    .inner {
+      position: relative;
+      width: 100%; height: 100%;
+      text-align: center;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+    .card.flipped .inner { transform: rotateY(180deg); }
+    .front, .back {
+      position: absolute; width: 100%; height: 100%;
+      backface-visibility: hidden;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid #006400; border-radius: 12px;
+      padding: 10px;
+    }
+    .front { background: #e6ffe6; }
+    .back { background: #ccffcc; transform: rotateY(180deg); }
+    .btns { margin: 15px 0; }
+    button {
+      padding: 8px 14px; margin: 5px;
+      background: #006400; color: white;
+      border: none; border-radius: 8px; cursor: pointer;
+    }
+    button:hover { background: #228B22; }
+    .back-to-top {
+      position: fixed; bottom: 20px; right: 20px;
+      background: #006400; color: white;
+      border: none; padding: 12px; border-radius: 50%;
+      cursor: pointer;
+    }
+    .dark-mode { background: #222; color: #eee; }
+    .dark-mode nav { background: #444; }
+    .dark-mode .front { background: #555; color: #fff; }
+    .dark-mode .back { background: #777; color: #fff; }
+  </style>
 </head>
 <body>
-<nav>
-  <div class="logo">📘 Study Notes</div>
-  <div class="menu">
+  <header>🌸 Happy Teachers’ Day! Special Notes Collection 🌸</header>
+  <nav>
     <a href="#class7">Class 7</a>
     <a href="#class8">Class 8</a>
     <a href="#class9">Class 9</a>
-  </div>
-  <button class="toggle-btn" onclick="toggleMode()">🌗</button>
-</nav>
+  </nav>
 
-<div class="container">
-  <input type="text" class="search-box" id="search" placeholder="🔍 Search in notes...">
-
-  <!-- Class 7 -->
+  <!-- CLASS 7 -->
   <section id="class7">
     <h2>Class 7 – Acids, Bases & Salts</h2>
-    <div class="collapsible">
-      <h3 onclick="toggleContent(this)">Acids</h3>
-      <div class="content">
-        <p>• Sour taste, turn blue litmus red.<br>
-        • Examples: Citric acid (lemon), Acetic acid (vinegar), Hydrochloric acid (HCl).</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Litmus_Test_Acid_Base.png" alt="Litmus Test">
-      </div>
+    <div class="notes">
+      <p><span class="highlight">Acid</span>: Sour in taste, turns blue litmus red.</p>
+      <p><span class="highlight">Base</span>: Bitter, soapy, turns red litmus blue.</p>
+      <p><span class="highlight">Salt</span>: Formed by neutralisation of acid and base.</p>
+      <h3>Indicators</h3>
+      <ul>
+        <li><span class="highlight">Litmus</span>: Acid → Red, Base → Blue</li>
+        <li><span class="highlight">Turmeric</span>: Acid → Yellow, Base → Reddish brown</li>
+        <li><span class="highlight">China Rose</span>: Acid → Dark pink/red, Base → Green</li>
+        <li><span class="highlight">Phenolphthalein</span>: Acid → Colorless, Base → Pink</li>
+        <li><span class="highlight">Methyl Orange</span>: Acid → Red, Base → Yellow</li>
+        <li><span class="highlight">Universal Indicator</span>: pH scale (0-14), Neutral = 7 (green)</li>
+      </ul>
+      <img src="https://i.imgur.com/DgyA1Pj.png" width="400" alt="Indicators Diagram">
     </div>
-    <div class="collapsible">
-      <h3 onclick="toggleContent(this)">Bases</h3>
-      <div class="content">
-        <p>• Bitter taste, soapy touch, turn red litmus blue.<br>
-        • Examples: NaOH (soap), Mg(OH)₂ (milk of magnesia).</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/NaOH.png" alt="Sodium Hydroxide">
-      </div>
-    </div>
-    <div class="collapsible">
-      <h3 onclick="toggleContent(this)">Salts & Neutralisation</h3>
-      <div class="content">
-        <p>• Acid + Base → Salt + Water + Heat.<br>
-        • Examples: NaCl (common salt), NaHCO₃ (baking soda), CaOCl₂ (bleaching powder).</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/PH_scale.png/640px-PH_scale.png" alt="pH Scale">
-      </div>
+
+    <div class="summary"><b>Summary:</b> Acids and bases identified using indicators. Salts formed by neutralisation. pH scale defines acidity/basicity.</div>
+
+    <h3>Flashcards: Indicators</h3>
+    <div class="flashcards">
+      <div class="card"><div class="inner"><div class="front">Blue litmus in acid?</div><div class="back">Red</div></div></div>
+      <div class="card"><div class="inner"><div class="front">Turmeric in base?</div><div class="back">Reddish-brown</div></div></div>
+      <div class="card"><div class="inner"><div class="front">Phenolphthalein in acid?</div><div class="back">Colorless</div></div></div>
+      <div class="card"><div class="inner"><div class="front">Methyl orange in base?</div><div class="back">Yellow</div></div></div>
+      <div class="card"><div class="inner"><div class="front">pH of neutral?</div><div class="back">7 (green)</div></div></div>
     </div>
   </section>
 
-  <!-- Class 8 -->
+  <!-- CLASS 8 -->
   <section id="class8">
     <h2>Class 8 – From Trade to Territory</h2>
-    <div class="collapsible">
-      <h3 onclick="toggleContent(this)">East India Company Comes</h3>
-      <div class="content">
-        <p>1600: Company formed in England.<br>
-        1757: Battle of Plassey → Company’s 1st big victory.<br>
-        1764: Battle of Buxar → Control over Bengal.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Battle_of_Plassey%2C_1757.jpg/640px-Battle_of_Plassey%2C_1757.jpg" alt="Battle of Plassey">
-      </div>
+    <div class="notes">
+      <p>1600 – East India Company formed.</p>
+      <p>1615 – Sir Thomas Roe got Farman from Jahangir.</p>
+      <p>1717 – Farrukhsiyar granted duty-free trade in Bengal.</p>
+      <h3>Battles</h3>
+      <ul>
+        <li>1757 – Battle of Plassey (Company vs Siraj-ud-Daulah → Company won Bengal)</li>
+        <li>1764 – Battle of Buxar (Company defeated Mir Qasim, Shuja-ud-Daulah, Shah Alam II)</li>
+        <li>1767–69 – First Anglo-Mysore War</li>
+        <li>1780–84 – Second Anglo-Mysore War</li>
+        <li>1790–92 – Third Anglo-Mysore War</li>
+        <li>1799 – Fourth Anglo-Mysore War (Tipu Sultan killed)</li>
+        <li>1775–82 – First Anglo-Maratha War</li>
+        <li>1803–05 – Second Anglo-Maratha War</li>
+        <li>1817–19 – Third Anglo-Maratha War (Marathas defeated)</li>
+      </ul>
+      <h3>Expansion Policies</h3>
+      <p>1798 – Subsidiary Alliance (Lord Wellesley)</p>
+      <p>1848 – Doctrine of Lapse (Lord Dalhousie)</p>
+      <p>1856 – Awadh annexed</p>
     </div>
-    <div class="collapsible">
-      <h3 onclick="toggleContent(this)">Wars with Indian Rulers</h3>
-      <div class="content">
-        <p>• Anglo-Mysore Wars (1767–1799).<br>
-        • Anglo-Maratha Wars (1775–1818).<br>
-        • Slowly, Company expanded its territory.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Tipu_Sultan_in_battle.jpg/640px-Tipu_Sultan_in_battle.jpg" alt="Tipu Sultan">
-      </div>
-    </div>
+    <div class="summary"><b>Summary:</b> From traders to rulers, British won battles (Plassey 1757, Buxar 1764, Mysore, Marathas). Used Subsidiary Alliance & Doctrine of Lapse for expansion.</div>
   </section>
 
-  <!-- Class 9 -->
+  <!-- CLASS 9 -->
   <section id="class9">
     <h2>Class 9 – Gravitation</h2>
-    <div class="collapsible">
-      <h3 onclick="toggleContent(this)">Newton’s Law</h3>
-      <div class="content">
-        <p>F = G (m1m2 / r²).<br>
-        Universal law of gravitation.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Newton%27s_apple.jpg" alt="Newton Apple">
-      </div>
+    <div class="notes">
+      <p><span class="highlight">Gravitation</span>: Force of attraction between any two masses in universe.</p>
+      <p><span class="highlight">Newton’s Law</span>: F = G m₁m₂ / r²</p>
+      <p><span class="highlight">Free fall</span>: Motion under gravity alone (acceleration = g).</p>
+      <p><span class="highlight">Mass & Weight</span>: Weight = m × g; varies with gravity, mass remains same.</p>
+      <p><span class="highlight">Thrust & Pressure</span>: Pressure = Force/Area.</p>
+      <p><span class="highlight">Archimedes’ Principle</span>: Buoyant force = weight of displaced liquid.</p>
+      <p><span class="highlight">Relative Density</span>: Density of substance ÷ Density of water.</p>
+      <h3>Einstein’s Contribution</h3>
+      <p>Gravity is bending of space-time caused by mass. Explains planetary motion more accurately than Newton’s law.</p>
+      <img src="https://i.imgur.com/mVy3TLx.png" width="400" alt="Gravitation Diagram">
     </div>
-    <div class="collapsible">
-      <h3 onclick="toggleContent(this)">Mass, Weight, Free Fall</h3>
-      <div class="content">
-        <p>Mass = constant, Weight = mg.<br>
-        Free fall: motion only under gravity.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Free_fall.gif" alt="Free Fall">
-      </div>
-    </div>
-    <div class="collapsible">
-      <h3 onclick="toggleContent(this)">Archimedes & Buoyancy</h3>
-      <div class="content">
-        <p>Buoyant force = weight of displaced liquid.<br>
-        Applications: ships, submarines.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Archimedes_principle.png" alt="Archimedes Principle">
-      </div>
-    </div>
-    <div class="collapsible">
-      <h3 onclick="toggleContent(this)">Einstein’s View</h3>
-      <div class="content">
-        <p>Mass bends space-time → objects move along curve.<br>
-        Explains planetary motion better.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Spacetime_curvature.png" alt="Einstein Spacetime">
-      </div>
-    </div>
+    <div class="summary"><b>Summary:</b> Gravitation explained by Newton’s law, free fall, Archimedes’ principle, and Einstein’s space-time concept.</div>
   </section>
 
-  <!-- Flashcards -->
-  <h2>Quick Revision Flashcards</h2>
-  <div class="flashcard" onclick="flip(this)">Acid + Base = ?</div>
-  <div class="flashcard" onclick="flip(this)">Battle of Plassey Year?</div>
-  <div class="flashcard" onclick="flip(this)">Value of g on Earth?</div>
+  <!-- Buttons -->
+  <div class="btns" style="text-align:center;">
+    <button onclick="readContent()">🔊 Read Notes</button>
+    <button onclick="readSummary()">📖 Read Summary</button>
+    <button onclick="stopReading()">⏹ Stop</button>
+    <button onclick="toggleMode()">🌙 Toggle Dark/Light</button>
+    <button onclick="downloadPDF()">⬇ Download PDF</button>
+  </div>
 
-  <br><br>
-  <button onclick="downloadPDF()">📥 Download Notes as PDF</button>
-  <button onclick="speakText()">🎤 Read Aloud</button>
-</div>
+  <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<div id="teacherDay">🎉 Happy Teacher’s Day 🎉</div>
-<button id="backToTop" onclick="scrollToTop()">⬆️</button>
+  <script>
+    // Flashcard flip
+    document.querySelectorAll('.card').forEach(card=>{
+      card.addEventListener('click',()=>{ card.classList.toggle('flipped'); });
+    });
 
-<script>
-function toggleContent(el) {
-  let content = el.nextElementSibling;
-  content.style.display = content.style.display === "block" ? "none" : "block";
-}
-function toggleMode() {
-  document.body.classList.toggle("dark-mode");
-}
-function flip(el) {
-  if (el.innerHTML.includes("?")) {
-    if (el.innerHTML.includes("Acid")) el.innerHTML = "Salt + Water";
-    else if (el.innerHTML.includes("Plassey")) el.innerHTML = "1757";
-    else if (el.innerHTML.includes("g")) el.innerHTML = "9.8 m/s²";
-  } else {
-    el.innerHTML = "Click Again!";
-  }
-}
-function scrollToTop() {
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-function speakText() {
-  let msg = new SpeechSynthesisUtterance(document.body.innerText);
-  msg.rate = 1; msg.pitch = 1;
-  speechSynthesis.speak(msg);
-}
-function downloadPDF() {
-  alert("Tip: Press Ctrl+P in browser → Save as PDF.");
-}
-document.getElementById("search").addEventListener("keyup", function() {
-  let value = this.value.toLowerCase();
-  document.querySelectorAll(".container section").forEach(sec=>{
-    sec.style.display = sec.innerText.toLowerCase().includes(value) ? "block":"none";
-  });
-});
-</script>
+    // Speech
+    let synth = window.speechSynthesis; let utter;
+    function readContent(){ stopReading(); utter=new SpeechSynthesisUtterance(document.body.innerText); synth.speak(utter); }
+    function readSummary(){ stopReading(); utter=new SpeechSynthesisUtterance([...document.querySelectorAll('.summary')].map(s=>s.innerText).join(' ')); synth.speak(utter); }
+    function stopReading(){ if(synth.speaking){ synth.cancel(); } }
+
+    // Dark/Light mode
+    function toggleMode(){ document.body.classList.toggle('dark-mode'); }
+
+    // PDF download
+    function downloadPDF(){ alert("PDF download feature can be added using jsPDF or server-side tools."); }
+  </script>
 </body>
 </html>
