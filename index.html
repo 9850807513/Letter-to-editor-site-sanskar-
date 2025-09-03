@@ -4,22 +4,23 @@
 <meta charset="UTF-8">
 <title>School Notes – Classes 7, 8, 9</title>
 <style>
-body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f4fff4; color: #222; line-height: 1.6; }
-header { background: #228B22; color: white; text-align: center; padding: 15px; font-size: 22px; font-weight: bold; }
-nav { text-align: center; margin: 15px; }
-nav button { margin: 0 5px; padding: 10px 15px; background: #006400; color: white; border: none; border-radius: 8px; cursor: pointer; }
-nav button:hover { background: #228B22; }
-section { padding: 20px; max-width: 900px; margin: auto; display: none; }
-h2 { color: #006400; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
-h3 { color: #228B22; margin-top: 20px; }
-.highlight { background: lightgreen; font-weight: bold; }
-img { display: block; margin: 15px auto; max-width: 400px; }
-.btns { text-align: center; margin: 20px; }
-button.action { padding: 8px 14px; margin: 5px; background: #006400; color: white; border: none; border-radius: 8px; cursor: pointer; }
-button.action:hover { background: #228B22; }
-.back-to-top { position: fixed; bottom: 20px; right: 20px; background: #006400; color: white; border: none; padding: 12px; border-radius: 50%; cursor: pointer; }
-.dark-mode { background: #222; color: #eee; }
-.dark-mode header { background: #444; }
+body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f4fff4; color:#222; line-height:1.6; }
+header { background:#228B22; color:white; text-align:center; padding:15px; font-size:22px; font-weight:bold; }
+nav { text-align:center; margin:15px; }
+nav button { margin:0 5px; padding:10px 15px; background:#006400; color:white; border:none; border-radius:8px; cursor:pointer; }
+nav button:hover { background:#228B22; }
+section { padding:20px; max-width:900px; margin:auto; display:none; }
+h2 { color:#006400; border-bottom:2px solid #ccc; padding-bottom:5px; }
+h3 { color:#228B22; margin-top:20px; }
+.highlight { background: lightgreen; font-weight:bold; }
+img { display:block; margin:15px auto; max-width:400px; }
+.btns { text-align:center; margin:20px; }
+button.action { padding:8px 14px; margin:5px; background:#006400; color:white; border:none; border-radius:8px; cursor:pointer; }
+button.action:hover { background:#228B22; }
+.back-to-top { position:fixed; bottom:20px; right:20px; background:#006400; color:white; border:none; padding:12px; border-radius:50%; cursor:pointer; }
+.dark-mode { background:#222; color:#eee; }
+.dark-mode header { background:#444; }
+#voiceSelect { padding:5px 8px; margin-top:10px; }
 </style>
 </head>
 <body>
@@ -28,8 +29,10 @@ button.action:hover { background: #228B22; }
 
 <!-- Voice Selection Dropdown -->
 <div style="text-align:center; margin:15px;">
-  <label for="voiceSelect">Choose Voice: </label>
+  <label for="voiceSelect">Choose Voice (Indian English): </label>
   <select id="voiceSelect"></select>
+  <button onclick="readContent()">🔊 Read Notes</button>
+  <button onclick="stopReading()">⏹ Stop</button>
 </div>
 
 <nav>
@@ -69,23 +72,27 @@ button.action:hover { background: #228B22; }
 <section id="class8">
 <h2>Class 8 History – Trade to Territory</h2>
 <h3>European Arrival</h3>
-<p>1498 – Vasco da Gama reached Calicut, opening sea route to India.</p>
-<p>Portuguese, Dutch, French, British traders competed for power.</p>
+<p>1498 – Vasco da Gama reached Calicut, opening sea route to India. Portuguese, Dutch, French, and British traders arrived seeking trade and influence.</p>
 
 <h3>British Expansion</h3>
-<p>1600 – East India Company established trading centres in Surat, Madras, Bombay, Calcutta.</p>
+<p>1600 – East India Company established trading centres in Surat, Madras, Bombay, and Calcutta. They signed treaties with local rulers, gained trading rights, and started collecting revenue.</p>
 
-<h3>Important Battles</h3>
+<h3>Important Battles & Dates</h3>
 <ul>
-<li><b>Battle of Plassey (1757):</b> British defeated Siraj-ud-Daulah, gained Bengal.</li>
-<li><b>Battle of Buxar (1764):</b> British defeated Shuja-ud-Daula, Mir Qasim, Shah Alam II.</li>
-<li><b>Anglo-Mysore Wars (1767–1799):</b> Tipu Sultan died in 4th war, 1799.</li>
-<li><b>Anglo-Maratha Wars (1775–1818):</b> British won → Maratha power ended.</li>
-<li><b>Anglo-Sikh Wars (1845–49):</b> Punjab annexed.</li>
+<li><b>Battle of Plassey (1757):</b> British defeated Siraj-ud-Daulah, gained Bengal control.</li>
+<li><b>Battle of Buxar (1764):</b> British defeated Shuja-ud-Daula, Mir Qasim, Shah Alam II; Bengal & Bihar consolidated.</li>
+<li><b>Anglo-Mysore Wars (1767–1799):</b> Tipu Sultan defeated & died in 4th war (1799); Mysore annexed.</li>
+<li><b>Anglo-Maratha Wars (1775–1818):</b> Maratha power ended; British expanded territory.</li>
+<li><b>Anglo-Sikh Wars (1845–49):</b> Punjab annexed to British India.</li>
 </ul>
 
 <h3>Administrative Changes</h3>
-<p>Company got Diwani rights (1765). Collected revenue, maintained army. Introduced laws, systems, and became powerful rulers.</p>
+<ul>
+<li>1765 – Diwani rights in Bengal, Bihar, Orissa; revenue collection by Company.</li>
+<li>Company maintained army, introduced British laws and administration.</li>
+<li>Shifted from trade to territorial control → early British Empire in India.</li>
+<li>Impact: Economy, land revenue systems, social structure transformed.</li>
+</ul>
 <img src="https://i.imgur.com/qbWyxLm.png" alt="Battle Scene">
 </section>
 
@@ -93,18 +100,17 @@ button.action:hover { background: #228B22; }
 <section id="class9">
 <h2>Class 9 Science – Gravitation</h2>
 <h3>Gravitation</h3>
-<p>Every object in the universe attracts every other object with a force. This force is called <span class="highlight">Gravitational Force</span>. It is universal – acts between all objects (from apples to planets, stars, galaxies).</p>
+<p>Every object in the universe attracts every other object with a force called <span class="highlight">Gravitational Force</span>. Universal force acts between all objects.</p>
 
 <h3>Newton’s Law of Gravitation</h3>
-<p>Stated by <span class="highlight">Sir Isaac Newton</span> in 1687.</p>
-<p><b>Law:</b> Force between two objects is directly proportional to product of masses, inversely proportional to square of distance.</p>
+<p>Force between two objects is directly proportional to product of their masses and inversely proportional to square of distance.</p>
 <p><b>Formula:</b> F = G × (m₁ × m₂) / r², G = 6.67 × 10⁻¹¹ Nm²/kg².</p>
 
 <h3>Free Fall</h3>
-<p>Object falls only under gravity. Acceleration g = 9.8 m/s² on Earth.</p>
+<p>Objects fall only under gravity. Acceleration g = 9.8 m/s² on Earth.</p>
 
 <h3>Mass & Weight</h3>
-<p>Mass: Amount of matter, constant. Weight: W = m × g, changes with g.</p>
+<p>Mass: Constant quantity of matter. Weight: W = m × g, changes with gravity.</p>
 
 <h3>Thrust & Pressure</h3>
 <p>Pressure = Force / Area. Broad area → less pressure. Example: Camel feet.</p>
@@ -116,22 +122,20 @@ button.action:hover { background: #228B22; }
 <p>Density of substance ÷ Density of water. No units.</p>
 
 <h3>Einstein’s Contribution</h3>
-<p>Mass bends <span class="highlight">space-time</span>, bodies move along curves. Example: Moon revolves around Earth.</p>
+<p>Mass bends <span class="highlight">space-time</span>; planets move along curves. Example: Moon revolves around Earth.</p>
 
 <h3>Important Points</h3>
 <ul>
 <li>Gravity controls universe structure.</li>
 <li>Planets revolve around Sun due to gravity.</li>
-<li>Satellites stay in orbit due to balance of speed & gravity.</li>
+<li>Satellites stay in orbit due to speed & gravity balance.</li>
 <li>Artificial satellites: communication, GPS, weather, defence.</li>
-<li>Without gravity, atmosphere, oceans, life wouldn’t exist.</li>
+<li>Without gravity, life, atmosphere, oceans wouldn’t exist.</li>
 </ul>
 <img src="https://i.imgur.com/mVy3TLx.png" alt="Gravitation Diagram">
 </section>
 
 <div class="btns">
-<button class="action" onclick="readContent()">🔊 Read Notes</button>
-<button class="action" onclick="stopReading()">⏹ Stop</button>
 <button class="action" onclick="toggleMode()">🌙 Toggle Dark/Light</button>
 </div>
 
@@ -142,38 +146,50 @@ let synth = window.speechSynthesis;
 let utter;
 let voiceSelect = document.getElementById('voiceSelect');
 
-// Populate voice dropdown with Male/Female label
+// Populate Indian English voices
 function populateVoices() {
     let voices = synth.getVoices();
     voiceSelect.innerHTML = '';
-    voices.forEach((voice,i)=>{
-        let genderLabel = (voice.name.toLowerCase().includes('female') || voice.name.toLowerCase().includes('woman')) ? 'Female' : 'Male';
-        let option = document.createElement('option');
-        option.value = i;
-        option.textContent = `${voice.name} (${genderLabel})`;
-        voiceSelect.appendChild(option);
+    voices.forEach((voice, i) => {
+        if(voice.lang.includes('en-IN')){ 
+            let genderLabel = (voice.name.toLowerCase().includes('female') || voice.name.toLowerCase().includes('woman')) ? 'Female' : 'Male';
+            let option = document.createElement('option');
+            option.value = i;
+            option.textContent = `${voice.name} (${genderLabel})`;
+            voiceSelect.appendChild(option);
+        }
     });
 }
 populateVoices();
 if(speechSynthesis.onvoiceschanged !== undefined) { speechSynthesis.onvoiceschanged = populateVoices; }
 
-// Show section function
+// Show section
 function showSection(id){
   document.querySelectorAll('section').forEach(s=>s.style.display='none');
   document.getElementById(id).style.display='block';
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// Read aloud
+// Read notes naturally line by line
 function readContent(){
-  stopReading();
-  utter = new SpeechSynthesisUtterance(document.body.innerText);
-  let voices = synth.getVoices();
-  let selectedIndex = voiceSelect.value || 0;
-  utter.voice = voices[selectedIndex];
-  utter.rate = 1;
-  utter.pitch = 1;
-  synth.speak(utter);
+    stopReading();
+    let activeSection = Array.from(document.querySelectorAll('section')).find(s=>s.style.display==='block');
+    if(activeSection){
+        let lines = activeSection.innerText.split(/\n+/).filter(line => line.trim() !== "");
+        let voices = synth.getVoices();
+        let selectedIndex = voiceSelect.value || 0;
+        let readLine = (index) => {
+            if(index < lines.length){
+                utter = new SpeechSynthesisUtterance(lines[index]);
+                utter.voice = voices[selectedIndex];
+                utter.rate = 1;
+                utter.pitch = 1;
+                utter.onend = () => { setTimeout(()=>readLine(index+1), 350); }; // 350ms pause
+                synth.speak(utter);
+            }
+        }
+        readLine(0);
+    }
 }
 
 function stopReading(){ if(synth.speaking){ synth.cancel(); } }
@@ -184,4 +200,4 @@ window.onload = function(){ showSection('class7'); }
 </script>
 
 </body>
-</html>
+                                      </html>
