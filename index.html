@@ -10,7 +10,6 @@ nav { text-align: center; margin: 15px; }
 nav button { margin: 0 5px; padding: 10px 15px; background: #006400; color: white; border: none; border-radius: 8px; cursor: pointer; }
 nav button:hover { background: #228B22; }
 section { padding: 20px; max-width: 900px; margin: auto; display: none; }
-section.active { display: block; }
 h2 { color: #006400; border-bottom: 2px solid #ccc; padding-bottom: 5px; }
 h3 { color: #228B22; margin-top: 20px; }
 .highlight { background: lightgreen; font-weight: bold; }
@@ -134,7 +133,6 @@ button.action:hover { background: #228B22; }
 <button class="action" onclick="readContent()">🔊 Read Notes</button>
 <button class="action" onclick="stopReading()">⏹ Stop</button>
 <button class="action" onclick="toggleMode()">🌙 Toggle Dark/Light</button>
-<button class="action" onclick="downloadPDF()">⬇ Download PDF</button>
 </div>
 
 <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
@@ -144,6 +142,46 @@ let synth = window.speechSynthesis;
 let utter;
 let voiceSelect = document.getElementById('voiceSelect');
 
+// Populate voice dropdown with Male/Female label
 function populateVoices() {
     let voices = synth.getVoices();
-    voiceSelect.innerHTML
+    voiceSelect.innerHTML = '';
+    voices.forEach((voice,i)=>{
+        let genderLabel = (voice.name.toLowerCase().includes('female') || voice.name.toLowerCase().includes('woman')) ? 'Female' : 'Male';
+        let option = document.createElement('option');
+        option.value = i;
+        option.textContent = `${voice.name} (${genderLabel})`;
+        voiceSelect.appendChild(option);
+    });
+}
+populateVoices();
+if(speechSynthesis.onvoiceschanged !== undefined) { speechSynthesis.onvoiceschanged = populateVoices; }
+
+// Show section function
+function showSection(id){
+  document.querySelectorAll('section').forEach(s=>s.style.display='none');
+  document.getElementById(id).style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// Read aloud
+function readContent(){
+  stopReading();
+  utter = new SpeechSynthesisUtterance(document.body.innerText);
+  let voices = synth.getVoices();
+  let selectedIndex = voiceSelect.value || 0;
+  utter.voice = voices[selectedIndex];
+  utter.rate = 1;
+  utter.pitch = 1;
+  synth.speak(utter);
+}
+
+function stopReading(){ if(synth.speaking){ synth.cancel(); } }
+function toggleMode(){ document.body.classList.toggle('dark-mode'); }
+
+// Show Class 7 by default
+window.onload = function(){ showSection('class7'); }
+</script>
+
+</body>
+</html>
