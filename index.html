@@ -2,265 +2,326 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>From Trade to Territory - Class 8 Notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>From Trade to Territory – Class 8</title>
   <style>
-    :root {
-      --bg: #f9f9f9;
-      --text: #222;
-      --card: #fff;
-      --brand: #0d47a1;
-      --accent: #f59e0b;
+    /* Reset + Fonts */
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background: #f5f7fa;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
     }
     body.dark {
-      --bg: #0f172a;
-      --text: #e5e7eb;
-      --card: #1e293b;
-      --brand: #facc15;
-      --accent: #22d3ee;
+      background: #121212;
+      color: #eee;
     }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+    h1, h2, h3 {
+      margin-bottom: 10px;
+      color: #2c3e50;
     }
-    header {
-      background: var(--card);
-      padding: 10px 20px;
+    body.dark h1, body.dark h2, body.dark h3 { color: #f5f5f5; }
+
+    /* Navbar */
+    nav {
+      background: #34495e;
+      color: #fff;
+      padding: 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,.1);
       position: sticky;
       top: 0;
       z-index: 1000;
     }
-    header nav a {
-      margin: 0 10px;
+    nav a {
+      color: #fff;
       text-decoration: none;
-      color: var(--text);
+      margin: 0 12px;
       font-weight: bold;
     }
-    .btn { cursor: pointer; padding: 6px 12px; border-radius: 6px; border: none; }
-    .dark-toggle { background: var(--brand); color: #fff; }
-    .hero {
-      padding: 20px;
-      text-align: center;
+    nav a:hover { text-decoration: underline; }
+    .dark-toggle {
+      cursor: pointer;
+      background: #2ecc71;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      color: white;
     }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 30px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Vasco_da_Gama_-_Discovery_of_the_Sea_Route_to_India.jpg/800px-Vasco_da_Gama_-_Discovery_of_the_Sea_Route_to_India.jpg') no-repeat center center/cover;
+      color: white;
+    }
+    .hero h1 {
+      background: rgba(0,0,0,0.6);
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+
+    /* Content */
+    .container { max-width: 1000px; margin: auto; padding: 20px; }
+    .note-section { margin-bottom: 40px; }
+    .note-section img {
+      width: 100%;
+      border-radius: 10px;
+      margin: 15px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    details {
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: #fff;
+    }
+    body.dark details { background: #1f1f1f; border: 1px solid #444; }
+
+    /* Timeline */
     .timeline {
       position: relative;
-      max-width: 800px;
-      margin: auto;
+      margin: 40px 0;
+      padding-left: 40px;
+      border-left: 3px solid #3498db;
     }
-    .timeline::after {
-      content: '';
-      position: absolute;
-      width: 4px;
-      background: var(--brand);
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      margin-left: -2px;
-    }
-    .container {
-      padding: 15px 30px;
+    .timeline-item {
+      margin: 20px 0;
       position: relative;
-      width: 50%;
     }
-    .left { left: 0; }
-    .right { left: 50%; }
-    .content {
-      background: var(--card);
-      padding: 15px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      position: relative;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-    }
-    .content img { max-width: 100%; border-radius: 8px; margin-top: 10px; }
-    .container::after {
-      content: '';
+    .timeline-item::before {
+      content: "";
       position: absolute;
-      width: 18px;
-      height: 18px;
-      top: 20px;
-      right: -9px;
-      background: var(--brand);
+      left: -11px;
+      background: #3498db;
       border-radius: 50%;
-      z-index: 1;
+      width: 20px;
+      height: 20px;
+      top: 0;
     }
-    .right::after { left: -9px; }
-    details {
-      background: var(--card);
-      margin: 10px auto;
-      max-width: 800px;
-      padding: 12px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    .timeline-item h3 { color: #2980b9; }
+
+    /* Search */
+    .search-box {
+      margin: 20px 0;
+      text-align: center;
     }
-    summary { font-weight: bold; cursor: pointer; }
-    .quiz {
-      background: var(--card);
-      margin: 20px auto;
-      max-width: 800px;
-      padding: 16px;
-      border-radius: 8px;
+    .search-box input {
+      padding: 8px;
+      width: 60%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-    .floating {
+
+    /* Back to Top */
+    #backToTop {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .fab {
-      background: var(--accent);
-      color: #fff;
+      background: #e74c3c;
+      color: white;
       border: none;
+      padding: 10px 15px;
       border-radius: 50%;
-      padding: 12px;
       cursor: pointer;
+      display: none;
       font-size: 18px;
+    }
+
+    /* Floating Greeting */
+    .greeting {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #2ecc71;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 20px;
+      animation: float 3s infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Quiz */
+    .quiz {
+      background: #ecf0f1;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
+    body.dark .quiz { background: #1e1e1e; }
+    .quiz button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      margin-top: 10px;
+      border-radius: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div><strong>History Notes</strong></div>
-    <nav>
+  <!-- Navbar -->
+  <nav>
+    <div>
       <a href="#">7th Class</a>
       <a href="#">8th Class</a>
       <a href="#">9th Class</a>
-    </nav>
-    <button class="btn dark-toggle">🌙</button>
-  </header>
+    </div>
+    <button class="dark-toggle" onclick="toggleDark()">🌙 Toggle</button>
+  </nav>
 
-  <section class="hero">
-    <h1>📘 From Trade to Territory</h1>
-    <p>Class 8 – Complete Notes with Timeline</p>
-    <audio controls autoplay loop>
-      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
-  </section>
-
-  <section class="timeline">
-    <div class="container left">
-      <div class="content">
-        <h2>1600</h2>
-        <p>East India Company formed in England.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/70/East_India_House%2C_London.jpg" alt="East India Company House">
-      </div>
-    </div>
-    <div class="container right">
-      <div class="content">
-        <h2>1746–1763</h2>
-        <p>Carnatic Wars (British vs French) – British victory, French lost influence.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Battle_of_Wandiwash.jpg" alt="Carnatic Wars">
-      </div>
-    </div>
-    <div class="container left">
-      <div class="content">
-        <h2>1757</h2>
-        <p>Battle of Plassey – Siraj-ud-Daulah defeated, Bengal under Company.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Battle_of_Plassey%2C_1757.jpg" alt="Battle of Plassey">
-      </div>
-    </div>
-    <div class="container right">
-      <div class="content">
-        <h2>1764</h2>
-        <p>Battle of Buxar – Company defeated Mir Qasim, Shuja-ud-Daulah & Shah Alam II.</p>
-      </div>
-    </div>
-    <div class="container left">
-      <div class="content">
-        <h2>1799</h2>
-        <p>Fourth Anglo-Mysore War – Tipu Sultan killed, Mysore under Company.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Tipu_Sultan.jpg" alt="Tipu Sultan">
-      </div>
-    </div>
-    <div class="container right">
-      <div class="content">
-        <h2>1817–1818</h2>
-        <p>Third Anglo-Maratha War – Marathas defeated, Company supreme in India.</p>
-      </div>
-    </div>
-    <div class="container left">
-      <div class="content">
-        <h2>1848</h2>
-        <p>Doctrine of Lapse by Dalhousie – Annexation of Satara, Jhansi, Nagpur.</p>
-      </div>
-    </div>
-    <div class="container right">
-      <div class="content">
-        <h2>1857</h2>
-        <p>Company controlled most of India → Revolt of 1857 started soon after.</p>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <details>
-      <summary>⚔ Carnatic Wars</summary>
-      <ul>
-        <li>1st War (1746–1748) – No clear result.</li>
-        <li>2nd War (1749–1754) – French defeated.</li>
-        <li>3rd War (1756–1763) – British victory, French lost power in India.</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚔ Anglo-Mysore Wars</summary>
-      <ul>
-        <li>1st War (1767–1769) – No result.</li>
-        <li>2nd War (1780–1784) – Treaty of Mangalore.</li>
-        <li>3rd War (1790–1792) – Tipu lost half his territory.</li>
-        <li>4th War (1799) – Tipu Sultan killed.</li>
-      </ul>
-    </details>
-    <details>
-      <summary>⚔ Anglo-Maratha Wars</summary>
-      <ul>
-        <li>1st War (1775–1782) – Treaty of Salbai.</li>
-        <li>2nd War (1803–1805) – British gained large territories.</li>
-        <li>3rd War (1817–1818) – Marathas defeated, Company supreme.</li>
-      </ul>
-    </details>
-  </section>
-
-  <section class="quiz">
-    <h3>🎯 Quick Quiz</h3>
-    <div class="q">
-      <h5>1. In which year was the Battle of Plassey fought?</h5>
-      <label><input type="radio" name="q1"> 1757</label>
-      <label><input type="radio" name="q1"> 1764</label>
-      <label><input type="radio" name="q1"> 1857</label>
-    </div>
-    <div class="q">
-      <h5>2. Who introduced Doctrine of Lapse?</h5>
-      <label><input type="radio" name="q2"> Robert Clive</label>
-      <label><input type="radio" name="q2"> Lord Dalhousie</label>
-      <label><input type="radio" name="q2"> Warren Hastings</label>
-    </div>
-    <button onclick="checkQuiz()">Submit Quiz</button>
-    <div id="result" class="result"></div>
-  </section>
-
-  <div class="floating">
-    <button class="fab" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button>
-    <button class="fab" onclick="alert('🎉 Happy Teachers Day! 🎉')">🎉</button>
+  <!-- Hero -->
+  <div class="hero">
+    <h1>From Trade to Territory – Class 8 History</h1>
   </div>
 
+  <!-- Search -->
+  <div class="search-box">
+    <input type="text" id="searchInput" onkeyup="searchNotes()" placeholder="Search year or event...">
+  </div>
+
+  <!-- Notes -->
+  <div class="container">
+    <h2>📘 Detailed Notes</h2>
+
+    <div class="note-section" id="notes">
+      <details open>
+        <summary><strong>1. Arrival of Europeans</strong></summary>
+        <p>The Portuguese were the first Europeans to arrive in India when Vasco da Gama landed in Calicut in <b>1498</b>. Soon, Dutch, French and English traders followed. The <b>East India Company</b> was established in England in <b>1600</b>. By 1651, the English had set up their first factory in Hooghly (Bengal). Gradually, they established trading posts in Surat, Madras, Bombay, and Calcutta.</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Vasco_da_Gama_-_Discovery_of_the_Sea_Route_to_India.jpg" alt="Vasco da Gama arrival">
+      </details>
+
+      <details>
+        <summary><strong>2. Carnatic Wars (1746–1763)</strong></summary>
+        <p>The English and French fought three Carnatic Wars for control of trade and territory in South India.</p>
+        <ul>
+          <li>1st War (1746–1748): No clear winner.</li>
+          <li>2nd War (1749–1754): French defeated, British gained influence.</li>
+          <li>3rd War (1756–1763): British won, French lost all political power in India.</li>
+        </ul>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Dupleix.jpg" alt="Joseph Dupleix French Commander">
+      </details>
+
+      <details>
+        <summary><strong>3. Bengal and the Battles of Plassey & Buxar</strong></summary>
+        <p><b>Battle of Plassey (1757):</b> Siraj-ud-Daulah, Nawab of Bengal, was defeated by the British under Robert Clive due to betrayal by Mir Jafar. Bengal came under Company control.</p>
+        <p><b>Battle of Buxar (1764):</b> The Company defeated the alliance of Mir Qasim (Bengal), Shuja-ud-Daulah (Oudh), and Mughal Emperor Shah Alam II. This made the Company supreme in Bengal.</p>
+        <p><b>Treaty of Allahabad (1765):</b> The Company gained Diwani rights (tax collection) of Bengal, Bihar, and Orissa.</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Battle_of_Plassey.jpg" alt="Battle of Plassey painting">
+      </details>
+
+      <details>
+        <summary><strong>4. Mysore Wars (1767–1799)</strong></summary>
+        <p>Mysore under Hyder Ali and Tipu Sultan became powerful. Four Anglo-Mysore Wars were fought:</p>
+        <ul>
+          <li>1st (1767–1769): Ended without result.</li>
+          <li>2nd (1780–1784): Treaty of Mangalore signed.</li>
+          <li>3rd (1790–1792): Tipu lost half his territory.</li>
+          <li>4th (1799): Tipu killed → Mysore fell to British.</li>
+        </ul>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Death_of_Tipu_Sultan.jpg" alt="Death of Tipu Sultan">
+      </details>
+
+      <details>
+        <summary><strong>5. Maratha Wars (1775–1818)</strong></summary>
+        <ul>
+          <li>1st (1775–1782): Treaty of Salbai → no change.</li>
+          <li>2nd (1803–1805): British gained large territories.</li>
+          <li>3rd (1817–1818): Marathas finally defeated → British supremacy in India.</li>
+        </ul>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Anglo-Maratha_War.jpg" alt="Anglo-Maratha War painting">
+      </details>
+
+      <details>
+        <summary><strong>6. Policies of Annexation</strong></summary>
+        <p><b>Subsidiary Alliance (1798):</b> Introduced by Lord Wellesley. Indian rulers forced to accept British troops and pay for their maintenance. Hyderabad was first to accept it.</p>
+        <p><b>Doctrine of Lapse (1848):</b> Introduced by Lord Dalhousie. If a ruler died without a male heir, his kingdom was annexed. Satara, Jhansi, and Nagpur were annexed this way.</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Lord_Dalhousie.jpg" alt="Lord Dalhousie">
+      </details>
+
+      <details>
+        <summary><strong>7. End of Company Rule</strong></summary>
+        <p>By 1856, the British controlled almost all of India. The oppressive policies and expansionist measures caused great resentment. This finally led to the Revolt of 1857, the first major rebellion against British rule.</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Siege_of_Delhi_1857.jpg" alt="Revolt of 1857 painting">
+      </details>
+    </div>
+
+    <!-- Timeline -->
+    <h2>📜 Timeline of Events</h2>
+    <div class="timeline" id="timeline">
+      <div class="timeline-item"><h3>1498</h3><p>Vasco da Gama arrived in Calicut.</p></div>
+      <div class="timeline-item"><h3>1600</h3><p>East India Company formed.</p></div>
+      <div class="timeline-item"><h3>1651</h3><p>First English factory at Hooghly.</p></div>
+      <div class="timeline-item"><h3>1746–1763</h3><p>Carnatic Wars → British defeated French.</p></div>
+      <div class="timeline-item"><h3>1757</h3><p>Battle of Plassey → Bengal under Company.</p></div>
+      <div class="timeline-item"><h3>1764</h3><p>Battle of Buxar → Company supremacy in Bengal.</p></div>
+      <div class="timeline-item"><h3>1765</h3><p>Treaty of Allahabad → Diwani rights.</p></div>
+      <div class="timeline-item"><h3>1767–1799</h3><p>Four Anglo-Mysore Wars.</p></div>
+      <div class="timeline-item"><h3>1775–1818</h3><p>Three Anglo-Maratha Wars.</p></div>
+      <div class="timeline-item"><h3>1798</h3><p>Subsidiary Alliance introduced.</p></div>
+      <div class="timeline-item"><h3>1848</h3><p>Doctrine of Lapse by Dalhousie.</p></div>
+      <div class="timeline-item"><h3>1857</h3><p>Revolt against Company rule.</p></div>
+    </div>
+
+    <!-- Quiz -->
+    <div class="quiz">
+      <h2>🎯 Quick Quiz</h2>
+      <p>1. Who was defeated in the Battle of Plassey (1757)?</p>
+      <button onclick="alert('Answer: Siraj-ud-Daulah, Nawab of Bengal')">Show Answer</button>
+      <p>2. Which policy was introduced by Lord Dalhousie in 1848?</p>
+      <button onclick="alert('Answer: Doctrine of Lapse')">Show Answer</button>
+      <p>3. In which war was Tipu Sultan killed?</p>
+      <button onclick="alert('Answer: 4th Anglo-Mysore War, 1799')">Show Answer</button>
+    </div>
+  </div>
+
+  <!-- Back to Top -->
+  <button id="backToTop" onclick="topFunction()">⬆</button>
+
+  <!-- Greeting -->
+  <div class="greeting">🎉 Happy Teacher's Day! 🎉</div>
+
   <script>
-    document.querySelector('.dark-toggle').onclick = () => {
-      document.body.classList.toggle('dark');
+    // Dark Mode
+    function toggleDark() {
+      document.body.classList.toggle("dark");
+    }
+
+    // Back to Top
+    let backBtn = document.getElementById("backToTop");
+    window.onscroll = function() {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        backBtn.style.display = "block";
+      } else {
+        backBtn.style.display = "none";
+      }
     };
-    function checkQuiz() {
-      let score = 0;
-      if(document.querySelector('input[name=q1]:checked')?.parentElement.textContent.trim() === '1757') score++;
-      if(document.querySelector('input[name=q2]:checked')?.parentElement.textContent.trim() === 'Lord Dalhousie') score++;
-      document.getElementById('result').innerText = 'You scored ' + score + '/2';
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+
+    // Search Notes
+    function searchNotes() {
+      let input = document.getElementById("searchInput").value.toUpperCase();
+      let sections = document.querySelectorAll("#notes details, #timeline .timeline-item");
+      sections.forEach(sec => {
+        if (sec.innerText.toUpperCase().includes(input)) {
+          sec.style.display = "";
+        } else {
+          sec.style.display = "none";
+        }
+      });
     }
   </script>
 </body>
