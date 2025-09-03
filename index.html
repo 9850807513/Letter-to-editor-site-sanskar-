@@ -27,6 +27,12 @@ button.action:hover { background: #228B22; }
 
 <header>📘 School Notes – Classes 7, 8, 9</header>
 
+<!-- Voice Selection Dropdown -->
+<div style="text-align:center; margin:15px;">
+  <label for="voiceSelect">Choose Voice: </label>
+  <select id="voiceSelect"></select>
+</div>
+
 <nav>
 <button onclick="showSection('class7')">Class 7 – Acids, Bases & Salts</button>
 <button onclick="showSection('class8')">Class 8 – Trade to Territory</button>
@@ -134,19 +140,10 @@ button.action:hover { background: #228B22; }
 <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
-let synth = window.speechSynthesis; let utter;
-function showSection(id){
-  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function readContent(){ stopReading(); utter=new SpeechSynthesisUtterance(document.body.innerText); synth.speak(utter); }
-function stopReading(){ if(synth.speaking){ synth.cancel(); } }
-function toggleMode(){ document.body.classList.toggle('dark-mode'); }
-function downloadPDF(){ alert("PDF download can be added with jsPDF or server tools."); }
-// Show Class 7 by default
-showSection('class7');
-</script>
+let synth = window.speechSynthesis; 
+let utter;
+let voiceSelect = document.getElementById('voiceSelect');
 
-</body>
-</html>
+function populateVoices() {
+    let voices = synth.getVoices();
+    voiceSelect.innerHTML
