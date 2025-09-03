@@ -1,534 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>From Trade to Territory - Class 8 Notes</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* Reset + Fonts */
-    * {margin: 0; padding: 0; box-sizing: border-box;}
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      background: #f5f7fa;
-      color: #333;
-      transition: background 0.3s, color 0.3s;
-    }
-    body.dark {
-      background: #121212;
-      color: #eee;
-    }
-    h1, h2, h3 {
-      margin-bottom: 10px;
-      color: #2c3e50;
-    }
-    body.dark h1, body.dark h2, body.dark h3 { color: #f5f5f5; }
-
-    /* Navbar */
-    nav {
-      background: #34495e;
-      color: #fff;
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 12px;
-      font-weight: bold;
-    }
-    nav a:hover { text-decoration: underline; }
-    .dark-toggle {
-      cursor: pointer;
-      background: #2ecc71;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 5px;
-      color: white;
-    }
-
-    /* Hero */
-    .hero {
-      text-align: center;
-      padding: 30px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Vasco_da_Gama_-_Discovery_of_the_Sea_Route_to_India.jpg/800px-Vasco_da_Gama_-_Discovery_of_the_Sea_Route_to_India.jpg') no-repeat center center/cover;
-      color: white;
-    }
-    .hero h1 {
-      background: rgba(0,0,0,0.6);
-      display: inline-block;
-      padding: 10px 20px;
-      border-radius: 10px;
-    }
-
-    /* Content */
-    .container { max-width: 1000px; margin: auto; padding: 20px; }
-    .note-section { margin-bottom: 40px; }
-    .note-section img {
-      width: 100%;
-      border-radius: 10px;
-      margin: 15px 0;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    }
-    details {
-      margin: 10px 0;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background: #fff;
-    }
-    body.dark details { background: #1f1f1f; border: 1px solid #444; }
-
-    /* Timeline */
-    .timeline {
-      position: relative;
-      margin: 40px 0;
-      padding-left: 40px;
-      border-left: 3px solid #3498db;
-    }
-    .timeline-item {
-      margin: 20px 0;
-      position: relative;
-    }
-    .timeline-item::before {
-      content: "";
-      position: absolute;
-      left: -11px;
-      background: #3498db;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      top: 0;
-    }
-    .timeline-item h3 { color: #2980b9; }
-
-    /* Search */
-    .search-box {
-      margin: 20px 0;
-      text-align: center;
-    }
-    .search-box input {
-      padding: 8px;
-      width: 60%;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    /* Back to Top */
-    #backToTop {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #e74c3c;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: none;
-      font-size: 18px;
-    }
-
-    /* Floating Greeting */
-    .greeting {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: #2ecc71;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 20px;
-      animation: float 3s infinite;
-    }
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    /* Quiz */
-    .quiz {
-      background: #ecf0f1;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 30px;
-    }
-    body.dark .quiz { background: #1e1e1e; }
-    .quiz button {
-      background: #3498db;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      margin-top: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher’s Day Special Notes</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: white;
+  color: black;
+  line-height: 1.6;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #222;
+  padding: 10px 20px;
+  color: white;
+}
+nav .menu a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+nav .menu a:hover {
+  text-decoration: underline;
+}
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+h2 {
+  border-bottom: 2px solid #444;
+  padding-bottom: 5px;
+}
+.toggle-btn {
+  cursor: pointer;
+  background: #444;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 20px;
+  border-radius: 5px;
+}
+.collapsible {
+  background: #eee;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+.collapsible h3 {
+  cursor: pointer;
+}
+.collapsible .content {
+  display: none;
+  padding-top: 10px;
+}
+.flashcard {
+  display: inline-block;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.flashcard:hover {
+  transform: scale(1.05);
+}
+#teacherDay {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: gold;
+  color: black;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: bold;
+  animation: float 3s infinite;
+}
+@keyframes float {
+  0%,100% {transform: translateY(0);}
+  50% {transform: translateY(-10px);}
+}
+#backToTop {
+  position: fixed;
+  bottom: 60px;
+  right: 10px;
+  background: #444;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.dark-mode {
+  background: #111;
+  color: #eee;
+}
+img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+.search-box {
+  margin-top: 10px;
+}
+</style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav>
-    <div>
-      <a href="#">7th Class</a>
-      <a href="#">8th Class</a>
-      <a href="#">9th Class</a>
-    </div>
-    <button class="dark-toggle" onclick="toggleDark()">🌙 Toggle</button>
-  </nav>
-
-  <!-- Hero -->
-  <div class="hero">
-    <h1>From Trade to Territory – Class 8 History</h1>
-  </div>
-
-  <!-- Search -->
-  <div class="search-box">
-    <input type="text" id="searchInput" onkeyup="searchNotes()" placeholder="Search year or event...">
-  </div>
-
-  <!-- Notes -->
-  <div class="container">
-    <h2>📘 Detailed Notes</h2>
-
-    <div class="note-section" id="notes">
-      <details open>
-        <summary><strong>1. Arrival of Europeans</strong></summary>
-        <p>The Portuguese were the first Europeans to arrive in India when Vasco da Gama landed in Calicut in <b>1498</b>. Soon, Dutch, French and English traders followed. The <b>East India Company</b> was established in England in <b>1600</b>. By 1651, the English had set up their first factory in Hooghly (Bengal). Gradually, they established trading posts in Surat, Madras, Bombay, and Calcutta.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Vasco_da_Gama_-_Discovery_of_the_Sea_Route_to_India.jpg" alt="Vasco da Gama arrival">
-      </details>
-
-      <details>
-        <summary><strong>2. Carnatic Wars (1746–1763)</strong></summary>
-        <p>The English and French fought three Carnatic Wars for control of trade and territory in South India.</p>
-        <ul>
-          <li>1st War (1746–1748): No clear winner.</li>
-          <li>2nd War (1749–1754): French defeated, British gained influence.</li>
-          <li>3rd War (1756–1763): British won, French lost all political power in India.</li>
-        </ul>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Dupleix.jpg" alt="Joseph Dupleix French Commander">
-      </details>
-
-      <details>
-        <summary><strong>3. Bengal and the Battles of Plassey & Buxar</strong></summary>
-        <p><b>Battle of Plassey (1757):</b> Siraj-ud-Daulah, Nawab of Bengal, was defeated by the British under Robert Clive due to betrayal by Mir Jafar. Bengal came under Company control.</p>
-        <p><b>Battle of Buxar (1764):</b> The Company defeated the alliance of Mir Qasim (Bengal), Shuja-ud-Daulah (Oudh), and Mughal Emperor Shah Alam II. This made the Company supreme in Bengal.</p>
-        <p><b>Treaty of Allahabad (1765):</b> The Company gained Diwani rights (tax collection) of Bengal, Bihar, and Orissa.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Battle_of_Plassey.jpg" alt="Battle of Plassey painting">
-      </details>
-
-      <details>
-        <summary><strong>4. Mysore Wars (1767–1799)</strong></summary>
-        <p>Mysore under Hyder Ali and Tipu Sultan became powerful. Four Anglo-Mysore Wars were fought:</p>
-        <ul>
-          <li>1st (1767–1769): Ended without result.</li>
-          <li>2nd (1780–1784): Treaty of Mangalore signed.</li>
-          <li>3rd (1790–1792): Tipu lost half his territory.</li>
-          <li>4th (1799): Tipu killed → Mysore fell to British.</li>
-        </ul>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Death_of_Tipu_Sultan.jpg" alt="Death of Tipu Sultan">
-      </details>
-
-      <details>
-        <summary><strong>5. Maratha Wars (1775–1818)</strong></summary>
-        <ul>
-          <li>1st (1775–1782): Treaty of Salbai → no change.</li>
-          <li>2nd (1803–1805): British gained large territories.</li>
-          <li>3rd (1817–1818): Marathas finally defeated → British supremacy in India.</li>
-        </ul>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Anglo-Maratha_War.jpg" alt="Anglo-Maratha War painting">
-      </details>
-
-      <details>
-        <summary><strong>6. Policies of Annexation</strong></summary>
-        <p><b>Subsidiary Alliance (1798):</b> Introduced by Lord Wellesley. Indian rulers forced to accept British troops and pay for their maintenance. Hyderabad was first to accept it.</p>
-        <p><b>Doctrine of Lapse (1848):</b> Introduced by Lord Dalhousie. If a ruler died without a male heir, his kingdom was annexed. Satara, Jhansi, and Nagpur were annexed this way.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Lord_Dalhousie.jpg" alt="Lord Dalhousie">
-      </details>
-
-      <details>
-        <summary><strong>7. End of Company Rule</strong></summary>
-        <p>By 1856, the British controlled almost all of India. The oppressive policies and expansionist measures caused great resentment. This finally led to the Revolt of 1857, the first major rebellion against British rule.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Siege_of_Delhi_1857.jpg" alt="Revolt of 1857 painting">
-      </details>
-    </div>
-
-    <!-- Timeline -->
-    <h2>📜 Timeline of Events</h2>
-    <div class="timeline" id="timeline">
-      <div class="timeline-item"><h3>1498</h3><p>Vasco da Gama arrived in Calicut.</p></div>
-      <div class="timeline-item"><h3>1600</h3><p>East India Company formed.</p></div>
-      <div class="timeline-item"><h3>1651</h3><p>First English factory at Hooghly.</p></div>
-      <div class="timeline-item"><h3>1746–1763</h3><p>Carnatic Wars → British defeated French.</p></div>
-      <div class="timeline-item"><h3>1757</h3><p>Battle of Plassey → Bengal under Company.</p></div>
-      <div class="timeline-item"><h3>1764</h3><p>Battle of Buxar → Company supremacy in Bengal.</p></div>
-      <div class="timeline-item"><h3>1765</h3><p>Treaty of Allahabad → Diwani rights.</p></div>
-      <div class="timeline-item"><h3>1767–1799</h3><p>Four Anglo-Mysore Wars.</p></div>
-      <div class="timeline-item"><h3>1775–1818</h3><p>Three Anglo-Maratha Wars.</p></div>
-      <div class="timeline-item"><h3>1798</h3><p>Subsidiary Alliance introduced.</p></div>
-      <div class="timeline-item"><h3>1848</h3><p>Doctrine of Lapse by Dalhousie.</p></div>
-      <div class="timeline-item"><h3>1857</h3><p>Revolt against Company rule.</p></div>
-    </div>
-
-    <!-- Quiz -->
-    <div class="quiz">
-      <h2>🎯 Quick Quiz</h2>
-      <p>1. Who was defeated in the Battle of Plassey (1757)?</p>
-      <button onclick="alert('Answer: Siraj-ud-Daulah, Nawab of Bengal')">Show Answer</button>
-      <p>2. Which policy was introduced by Lord Dalhousie in 1848?</p>
-      <button onclick="alert('Answer: Doctrine of Lapse')">Show Answer</button>
-      <p>3. In which war was Tipu Sultan killed?</p>
-      <button onclick="alert('Answer: 4th Anglo-Mysore War, 1799')">Show Answer</button>
-    </div>
-  </div>
-
-  <!-- Back to Top -->
-  <button id="backToTop" onclick="topFunction()">⬆</button>
-
-  <!-- Greeting -->
-  <div class="greeting">🎉 Happy Teacher's Day! 🎉</div>
-
-  <script>
-    // Dark Mode
-    function toggleDark() {
-      document.body.classList.toggle("dark");
-    }
-
-    // Back to Top
-    let backBtn = document.getElementById("backToTop");
-    window.onscroll = function() {
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        backBtn.style.display = "block";
-      } else {
-        backBtn.style.display = "none";
-      }
-    };
-    function topFunction() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
-
-    // Search Notes
-    function searchNotes() {
-      let input = document.getElementById("searchInput").value.toUpperCase();
-      let sections = document.querySelectorAll("#notes details, #timeline .timeline-item");
-      sections.forEach(sec => {
-        if (sec.innerText.toUpperCase().includes(input)) {
-          sec.style.display = "";
-        } else {
-          sec.style.display = "none";
-        }
-      });
-    }
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gravitation - Class 9 Notes</title>
-  <style>
-    body {
-      font-family: "Segoe UI", sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f4f7fc;
-      color: #222;
-    }
-    /* Navigation Bar */
-    nav {
-      background: #2c3e50;
-      padding: 12px;
-      text-align: center;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-size: 18px;
-      transition: 0.3s;
-    }
-    nav a:hover {
-      color: #f1c40f;
-    }
-    header {
-      background: #1e3c72;
-      color: white;
-      padding: 30px;
-      text-align: center;
-    }
-    .container {
-      width: 90%;
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-    }
-    .note-block {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      border-left: 6px solid #1e90ff;
-    }
-    .note-block h2 {
-      margin-top: 0;
-      color: #1e3c72;
-    }
-    .note-block img {
-      max-width: 100%;
-      margin-top: 12px;
-      border-radius: 10px;
-    }
-    .timeline {
-      margin: 20px 0;
-      padding: 20px;
-      border-left: 4px solid #27ae60;
-      background: #f9fdf9;
-      border-radius: 8px;
-    }
-    .timeline p {
-      margin: 8px 0;
-    }
-    .summary {
-      background: #fffbea;
-      padding: 15px;
-      border: 1px solid #f1c40f;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-    .quiz {
-      background: #eafaf1;
-      border: 1px solid #27ae60;
-      padding: 15px;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-    footer {
-      text-align: center;
-      padding: 15px;
-      background: #2c3e50;
-      color: white;
-      margin-top: 30px;
-    }
-  </style>
-</head>
-<body>
-
-<!-- Navigation -->
 <nav>
-  <a href="#">7th Class</a>
-  <a href="#">8th Class</a>
-  <a href="#">9th Class</a>
+  <div class="logo">📘 Study Notes</div>
+  <div class="menu">
+    <a href="#class7">Class 7</a>
+    <a href="#class8">Class 8</a>
+    <a href="#class9">Class 9</a>
+  </div>
+  <button class="toggle-btn" onclick="toggleMode()">🌗</button>
 </nav>
 
-<!-- Header -->
-<header>
-  <h1>📘 Gravitation – Class 9 Notes</h1>
-  <p>NCERT Concepts + Einstein’s Gravity (Extra)</p>
-</header>
-
 <div class="container">
+  <input type="text" class="search-box" id="search" placeholder="🔍 Search in notes...">
 
-  <div class="note-block">
-    <h2>🔹 Universal Law of Gravitation</h2>
-    <p>Every object in the universe attracts every other object with a force which is directly proportional to the product of their masses and inversely proportional to the square of the distance between them.</p>
-    <p><b>Formula:</b> F = G × (m₁ × m₂) / r²</p>
-    <p>Universal Gravitational Constant (G) = 6.67 × 10⁻¹¹ Nm²/kg²</p>
-    <img src="https://i.ibb.co/Zm9LbF8/gravity-law.png" alt="Newton's Law of Gravitation">
-  </div>
+  <!-- Class 7 -->
+  <section id="class7">
+    <h2>Class 7 – Acids, Bases & Salts</h2>
+    <div class="collapsible">
+      <h3 onclick="toggleContent(this)">Acids</h3>
+      <div class="content">
+        <p>• Sour taste, turn blue litmus red.<br>
+        • Examples: Citric acid (lemon), Acetic acid (vinegar), Hydrochloric acid (HCl).</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Litmus_Test_Acid_Base.png" alt="Litmus Test">
+      </div>
+    </div>
+    <div class="collapsible">
+      <h3 onclick="toggleContent(this)">Bases</h3>
+      <div class="content">
+        <p>• Bitter taste, soapy touch, turn red litmus blue.<br>
+        • Examples: NaOH (soap), Mg(OH)₂ (milk of magnesia).</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/NaOH.png" alt="Sodium Hydroxide">
+      </div>
+    </div>
+    <div class="collapsible">
+      <h3 onclick="toggleContent(this)">Salts & Neutralisation</h3>
+      <div class="content">
+        <p>• Acid + Base → Salt + Water + Heat.<br>
+        • Examples: NaCl (common salt), NaHCO₃ (baking soda), CaOCl₂ (bleaching powder).</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/PH_scale.png/640px-PH_scale.png" alt="pH Scale">
+      </div>
+    </div>
+  </section>
 
-  <div class="note-block">
-    <h2>🔹 Free Fall</h2>
-    <p>Whenever an object falls towards Earth under the influence of gravitational force alone, it is said to be in free fall.</p>
-    <p><b>Acceleration due to gravity (g)</b> on Earth = 9.8 m/s².</p>
-    <img src="https://i.ibb.co/fCZgrJD/freefall.png" alt="Free Fall">
-  </div>
+  <!-- Class 8 -->
+  <section id="class8">
+    <h2>Class 8 – From Trade to Territory</h2>
+    <div class="collapsible">
+      <h3 onclick="toggleContent(this)">East India Company Comes</h3>
+      <div class="content">
+        <p>1600: Company formed in England.<br>
+        1757: Battle of Plassey → Company’s 1st big victory.<br>
+        1764: Battle of Buxar → Control over Bengal.</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Battle_of_Plassey%2C_1757.jpg/640px-Battle_of_Plassey%2C_1757.jpg" alt="Battle of Plassey">
+      </div>
+    </div>
+    <div class="collapsible">
+      <h3 onclick="toggleContent(this)">Wars with Indian Rulers</h3>
+      <div class="content">
+        <p>• Anglo-Mysore Wars (1767–1799).<br>
+        • Anglo-Maratha Wars (1775–1818).<br>
+        • Slowly, Company expanded its territory.</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Tipu_Sultan_in_battle.jpg/640px-Tipu_Sultan_in_battle.jpg" alt="Tipu Sultan">
+      </div>
+    </div>
+  </section>
 
-  <div class="note-block">
-    <h2>🔹 Mass and Weight</h2>
-    <ul>
-      <li><b>Mass:</b> Quantity of matter in a body (constant everywhere).</li>
-      <li><b>Weight:</b> Force with which Earth attracts a body. (W = m × g)</li>
-      <li>Weight on Moon = 1/6 of Earth’s weight.</li>
-    </ul>
-    <img src="https://i.ibb.co/DKxsw1s/moon-weight.png" alt="Mass vs Weight">
-  </div>
+  <!-- Class 9 -->
+  <section id="class9">
+    <h2>Class 9 – Gravitation</h2>
+    <div class="collapsible">
+      <h3 onclick="toggleContent(this)">Newton’s Law</h3>
+      <div class="content">
+        <p>F = G (m1m2 / r²).<br>
+        Universal law of gravitation.</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Newton%27s_apple.jpg" alt="Newton Apple">
+      </div>
+    </div>
+    <div class="collapsible">
+      <h3 onclick="toggleContent(this)">Mass, Weight, Free Fall</h3>
+      <div class="content">
+        <p>Mass = constant, Weight = mg.<br>
+        Free fall: motion only under gravity.</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Free_fall.gif" alt="Free Fall">
+      </div>
+    </div>
+    <div class="collapsible">
+      <h3 onclick="toggleContent(this)">Archimedes & Buoyancy</h3>
+      <div class="content">
+        <p>Buoyant force = weight of displaced liquid.<br>
+        Applications: ships, submarines.</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Archimedes_principle.png" alt="Archimedes Principle">
+      </div>
+    </div>
+    <div class="collapsible">
+      <h3 onclick="toggleContent(this)">Einstein’s View</h3>
+      <div class="content">
+        <p>Mass bends space-time → objects move along curve.<br>
+        Explains planetary motion better.</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Spacetime_curvature.png" alt="Einstein Spacetime">
+      </div>
+    </div>
+  </section>
 
-  <div class="note-block">
-    <h2>🔹 Potential & Kinetic Energy</h2>
-    <p><b>Potential Energy (PE)</b> = m × g × h</p>
-    <p><b>Kinetic Energy (KE)</b> = ½ m v²</p>
-    <p><b>Law of Conservation of Energy:</b> Energy can neither be created nor destroyed, only changes form.</p>
-  </div>
+  <!-- Flashcards -->
+  <h2>Quick Revision Flashcards</h2>
+  <div class="flashcard" onclick="flip(this)">Acid + Base = ?</div>
+  <div class="flashcard" onclick="flip(this)">Battle of Plassey Year?</div>
+  <div class="flashcard" onclick="flip(this)">Value of g on Earth?</div>
 
-  <div class="note-block">
-    <h2>🔹 Pressure in Fluids & Archimedes’ Principle</h2>
-    <ul>
-      <li>Fluids exert pressure in all directions.</li>
-      <li>Pressure increases with depth.</li>
-      <li><b>Archimedes’ Principle:</b> Buoyant force = Weight of displaced fluid.</li>
-    </ul>
-    <p><i>Applications:</i> Ships, submarines, hydrometers, hot-air balloons.</p>
-    <img src="https://i.ibb.co/YbYhZzX/archimedes.png" alt="Archimedes Principle">
-  </div>
-
-  <!-- Timeline -->
-  <div class="timeline">
-    <h2>📜 Timeline of Discoveries</h2>
-    <p><b>1687:</b> Newton discovers Universal Law of Gravitation.</p>
-    <p><b>1915:</b> Einstein proposes General Theory of Relativity.</p>
-    <p><b>1969:</b> Astronauts on Moon experience 1/6th gravity.</p>
-    <p><b>Present:</b> Gravity research continues in black holes & space science.</p>
-  </div>
-
-  <!-- Einstein Extra -->
-  <div class="note-block">
-    <h2>🌌 Einstein’s Gravity (Extra Knowledge)</h2>
-    <ul>
-      <li>Newton: Gravity = Force of attraction.</li>
-      <li>Einstein: Gravity = Bending of space-time.</li>
-      <li>Massive objects like Earth and Sun bend space-time → smaller objects move around them.</li>
-      <li>Explains: bending of light near stars, planets revolving around Sun.</li>
-    </ul>
-    <img src="https://i.ibb.co/jvB3Vqn/spacetime.png" alt="Einstein Gravity">
-  </div>
-
-  <!-- Summary -->
-  <div class="summary">
-    <h3>📝 Quick Summary</h3>
-    <ul>
-      <li>F = G m₁m₂ / r²</li>
-      <li>g = 9.8 m/s² (varies with height & depth)</li>
-      <li>Mass constant, Weight = m g (changes with place)</li>
-      <li>PE = m g h, KE = ½ m v²</li>
-      <li>Archimedes’ Principle → Buoyant force = displaced fluid</li>
-      <li>Einstein: Gravity = Bending of space-time</li>
-    </ul>
-  </div>
-
-  <!-- Quiz -->
-  <div class="quiz">
-    <h3>🎯 Quick Quiz</h3>
-    <ol>
-      <li>State Universal Law of Gravitation.</li>
-      <li>What is the value of g on Earth?</li>
-      <li>Why is weight on Moon less than on Earth?</li>
-      <li>State Archimedes’ Principle.</li>
-      <li>How did Einstein explain gravity?</li>
-    </ol>
-  </div>
-
+  <br><br>
+  <button onclick="downloadPDF()">📥 Download Notes as PDF</button>
+  <button onclick="speakText()">🎤 Read Aloud</button>
 </div>
 
-<footer>
-  <p>Prepared by Sanskar Shep – Teacher’s Day Special 🌟</p>
-</footer>
+<div id="teacherDay">🎉 Happy Teacher’s Day 🎉</div>
+<button id="backToTop" onclick="scrollToTop()">⬆️</button>
 
+<script>
+function toggleContent(el) {
+  let content = el.nextElementSibling;
+  content.style.display = content.style.display === "block" ? "none" : "block";
+}
+function toggleMode() {
+  document.body.classList.toggle("dark-mode");
+}
+function flip(el) {
+  if (el.innerHTML.includes("?")) {
+    if (el.innerHTML.includes("Acid")) el.innerHTML = "Salt + Water";
+    else if (el.innerHTML.includes("Plassey")) el.innerHTML = "1757";
+    else if (el.innerHTML.includes("g")) el.innerHTML = "9.8 m/s²";
+  } else {
+    el.innerHTML = "Click Again!";
+  }
+}
+function scrollToTop() {
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function speakText() {
+  let msg = new SpeechSynthesisUtterance(document.body.innerText);
+  msg.rate = 1; msg.pitch = 1;
+  speechSynthesis.speak(msg);
+}
+function downloadPDF() {
+  alert("Tip: Press Ctrl+P in browser → Save as PDF.");
+}
+document.getElementById("search").addEventListener("keyup", function() {
+  let value = this.value.toLowerCase();
+  document.querySelectorAll(".container section").forEach(sec=>{
+    sec.style.display = sec.innerText.toLowerCase().includes(value) ? "block":"none";
+  });
+});
+</script>
 </body>
 </html>
