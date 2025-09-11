@@ -1,103 +1,380 @@
-<!DOCTYPE html><html lang="en">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Talentex Olympiad MCQ Platform</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Talentex — Olympiad MCQ Platform (Upgraded)</title>
 <style>
-body { font-family: 'Arial', sans-serif; background: #f4f6f8; margin: 0; }
-.container { max-width: 1200px; margin: auto; padding: 20px; }
-header { background: #2c3e50; color: white; padding: 15px; text-align: center; }
-nav { display: flex; justify-content: center; gap: 20px; margin: 15px 0; }
-nav button { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; background: #3498db; color: white; font-size: 16px; }
-nav button:hover { background: #2980b9; }
-.section { display: none; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-.active { display: block; }
-.question { font-size: 20px; margin: 20px 0; }
-.options button { display: block; width: 100%; margin: 8px 0; padding: 10px; border-radius: 8px; border: 1px solid #ccc; background: #ecf0f1; text-align: left; cursor: pointer; }
-.correct { background: #2ecc71 !important; color: white; }
-.wrong { background: #e74c3c !important; color: white; }
-#explanation { margin-top: 15px; font-style: italic; }
-.score, .timer { font-size: 18px; margin: 5px; }
-.leaderboard, .review { margin-top: 20px; background: #f8f9fa; padding: 15px; border-radius: 10px; }
-.case-study { text-align: left; background: #f4f6f8; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 15px; }
+  :root{
+    --bg:#f4f7fb; --card:#fff; --accent:#0b63ff; --ok:#16a34a; --err:#ef4444; --muted:#6b7280;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);color:#071026}
+  .app{max-width:1200px;margin:28px auto;padding:20px;background:var(--card);border-radius:14px;box-shadow:0 12px 40px rgba(2,6,23,0.06)}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .brand{font-weight:800;color:var(--accent);font-size:20px}
+  .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  select,input,button{padding:8px 12px;border-radius:8px;border:1px solid rgba(11,92,255,0.08);font-size:14px}
+  button.primary{background:var(--accent);color:white;border:none;cursor:pointer}
+  .tabbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .tab{padding:8px 12px;border-radius:9px;cursor:pointer;border:1px solid transparent}
+  .tab.active{background:#eef6ff;border-color:rgba(11,92,255,0.12);color:var(--accent)}
+  .layout{display:grid;grid-template-columns:1fr 360px;gap:14px;margin-top:16px}
+  @media(max-width:980px){.layout{grid-template-columns:1fr}}
+  .card{background:linear-gradient(180deg,#fff,#fbfdff);padding:14px;border-radius:12px;border:1px solid rgba(7,12,34,0.03)}
+  .question{font-size:18px;font-weight:700;text-align:left;margin-bottom:8px}
+  .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .options{display:flex;flex-direction:column;gap:8px}
+  .opt{background:#f7fafc;border:1px solid #eef3ff;padding:10px;border-radius:8px;text-align:left;cursor:pointer}
+  .opt.correct{background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.24)}
+  .opt.wrong{background:rgba(255,99,132,0.08);border-color:rgba(239,68,68,0.16)}
+  .chip{display:inline-block;padding:6px 8px;border-radius:8px;background:#f0f7ff;color:var(--accent);font-weight:600}
+  .small{font-size:13px;color:var(--muted)}
+  .leaderboard{max-height:420px;overflow:auto;padding:6px;border-radius:8px}
+  .grid-rows{display:grid;gap:8px}
+  .footer{margin-top:12px;color:var(--muted);font-size:13px;text-align:center}
+  .export-btn{background:#111827;color:white;padding:8px;border-radius:8px;border:none}
+  .type-AR{border-left:6px solid #f59e0b;padding-left:10px} /* assertion-reason */
+  .type-MF{border-left:6px solid #6366f1;padding-left:10px} /* match-follow */
+  .type-MX{border-left:6px solid #06b6d4;padding-left:10px} /* matrix */
+  .case{border-left:6px solid #10b981;padding-left:10px} /* case study */
 </style>
 </head>
 <body>
-<header>
-<h1>Talentex Olympiad Practice Platform</h1>
-</header>
-<div class="container">
-<nav>
-<button onclick="showSection('home')">Home</button>
-<button onclick="showSection('practice')">Practice</button>
-<button onclick="showSection('mock')">Mock Test</button>
-<button onclick="showSection('review')">Review</button>
-<button onclick="showSection('leaderboard')">Leaderboard</button>
-</nav>
-<div id="home" class="section active">
-<h2>Welcome</h2>
-<p>Select Practice for random questions, or Mock Test for real exam simulation (50Q / 60min).</p>
+<div class="app" id="app">
+  <header>
+    <div>
+      <div class="brand">Talentex — Olympiad MCQ Platform (Upgraded)</div>
+      <div class="small">Fixed mock: 50 Q / 60 min • Infinite practice (no repeats) • AR, Match, Matrix, Case-study supported</div>
+    </div>
+
+    <div class="controls">
+      <label class="small">Mode
+        <select id="mode">
+          <option value="practice">Practice</option>
+          <option value="mock">Mock Test</option>
+          <option value="review">Review</option>
+          <option value="leaderboard">Leaderboard</option>
+        </select>
+      </label>
+
+      <label class="small">Subject
+        <select id="subject">
+          <option value="all">All</option>
+          <option value="physics">Physics</option>
+          <option value="chemistry">Chemistry</option>
+          <option value="biology">Biology</option>
+          <option value="maths">Maths</option>
+          <option value="iq">IQ</option>
+        </select>
+      </label>
+
+      <label class="small">Topic
+        <select id="topic"><option value="all">All</option></select>
+      </label>
+
+      <button id="btn-practice" class="primary">Start Practice</button>
+      <button id="btn-gen-mock">Generate Mock (50 Q)</button>
+      <button id="btn-start-mock">Start Mock</button>
+    </div>
+  </header>
+
+  <div class="tabbar" role="tablist" style="margin-top:12px">
+    <div class="tab active" data-tab="practice">Practice</div>
+    <div class="tab" data-tab="mock">Mock</div>
+    <div class="tab" data-tab="review">Review</div>
+    <div class="tab" data-tab="leaderboard">Leaderboard</div>
+  </div>
+
+  <div class="layout" style="margin-top:14px">
+    <main>
+      <!-- Practice -->
+      <section id="panel-practice" class="card tabcontent">
+        <div class="meta">
+          <div><strong>Practice (Infinite — mostly hard)</strong> <span class="small">• No repeated Qs</span></div>
+          <div><span id="practice-timer" class="small">Time: —</span> &nbsp; <span id="practice-score" class="small">Score: 0</span></div>
+        </div>
+
+        <div id="practice-area">
+          <div id="q-container">
+            <div class="question" id="q-text">Click Start Practice to generate questions.</div>
+            <div id="q-svg"></div>
+            <div class="options" id="q-options"></div>
+            <div id="q-explanation" class="small" style="margin-top:10px"></div>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <button id="btn-next-practice">Next</button>
+            <button id="btn-reset-asked" class="small">Reset asked pool</button>
+            <button id="btn-export-review" class="export-btn">Export Review (Print)</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mock -->
+      <section id="panel-mock" class="card tabcontent" style="display:none;margin-top:12px">
+        <div class="meta">
+          <div><strong>Fixed Mock</strong> <div class="small">50 Q • 60 minutes • Mixed types</div></div>
+          <div>
+            <button id="btn-preview-mock">Preview</button>
+            <button id="btn-submit-mock">Submit</button>
+            <button id="btn-export-mock" class="export-btn">Export (Print Solutions)</button>
+          </div>
+        </div>
+
+        <div id="mock-meta" class="small muted">No mock generated.</div>
+        <div id="mock-area" style="margin-top:12px"></div>
+      </section>
+
+      <!-- Review -->
+      <section id="panel-review" class="card tabcontent" style="display:none;margin-top:12px">
+        <div class="meta"><strong>Review — Mistakes & Bookmarks</strong> <div class="small">Visit later to re-practice</div></div>
+        <div id="review-list" class="grid-rows" style="max-height:520px;overflow:auto"></div>
+      </section>
+
+    </main>
+
+    <aside>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div><strong>Quick Status</strong></div><div class="small">Overview</div>
+        </div>
+        <div style="margin-top:8px">
+          <div class="small">Practice score: <span id="s-practice">0</span></div>
+          <div class="small" style="margin-top:6px">Saved mocks: <span id="s-mock-count">0</span></div>
+          <div class="small" style="margin-top:6px">Review items: <span id="s-review-count">0</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div><strong>Leaderboard</strong></div><div><button id="btn-clear-lb">Clear</button></div>
+        </div>
+        <div id="leaderboard" class="leaderboard" style="margin-top:8px"></div>
+      </div>
+
+      <div class="card" style="margin-top:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div><strong>Tools</strong></div><div></div></div>
+        <div style="margin-top:8px">
+          <button id="btn-export-lb" class="export-btn">Export Leaderboard (CSV)</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="footer">Single-file SPA — save as <code>index.html</code> in repo root and deploy on Netlify. If anything breaks, paste console errors and I'll fix.</div>
 </div>
-<div id="practice" class="section">
-<h2>Practice Mode</h2>
-<label>Subject: <select id="subject"></select></label>
-<label>Topic: <select id="topic"><option value="all">All</option></select></label>
-<button onclick="generateQuestion()">New Question</button>
-<div class="timer" id="timerP">Time: 60s</div>
-<div class="score" id="scoreP">Score: 0</div>
-<div class="question" id="question"></div>
-<div class="options" id="options"></div>
-<div id="explanation"></div>
-</div>
-<div id="mock" class="section">
-<h2>Mock Test</h2>
-<div class="timer" id="timerM">Time: 60:00</div>
-<div class="score" id="scoreM">Score: 0</div>
-<div class="question" id="mockQuestion"></div>
-<div class="options" id="mockOptions"></div>
-<div id="mockExplanation"></div>
-<button onclick="submitMock()">Submit Test</button>
-<div id="mockResult"></div>
-</div>
-<div id="review" class="section">
-<h2>Review Mistakes</h2>
-<div id="reviewList"></div>
-</div>
-<div id="leaderboard" class="section">
-<h2>Leaderboard</h2>
-<ol id="scoresList"></ol>
-<button onclick="exportLeaderboard()">Export Leaderboard</button>
-</div>
-</div>
+
 <script>
-let scoreP = 0, timerP = 60, timerIdP;
-let mockQ = [], mockIndex=0, mockScore=0, mockTimer=3600, timerIdM;
-let askedSet = new Set(), mistakes=[];
-let leaderboard = JSON.parse(localStorage.getItem('leaderboard'))||[];
-const subjects = ['Physics','Chemistry','Biology','Maths','IQ'];
-const topics = { Physics:['Motion','Work','Energy'], Chemistry:['Reactions','Atoms'], Biology:['Control','Coordination'], Maths:['Algebra','Geometry'], IQ:['Series','Logic'] };
-const questionBank = {
- Physics:{ Motion:{ hard:()=>({ type:'mcq', q:'A ball is thrown up at 20m/s. Height after 2s?', options:['20m','30m','40m','0m'], correct:'20m', explanation:'s=ut-1/2gt^2=20*2-20=20m'}),
- ar:()=>({ type:'ar', q:'Assertion: Myelin sheath speeds impulses. Reason: It insulates axon.', assertion:'True', reason:'True', correct:'Both true and reason explains', explanation:'Myelin speeds signals by insulation.'}) }, },
- Chemistry:{ Reactions:{ hard:()=>({ type:'mcq', q:'Which is redox?', options:['Zn+HCl','NaOH+HCl','AgNO3+NaCl','BaSO4→BaO+SO3'], correct:'Zn+HCl', explanation:'Oxidation-reduction occurs.'}) }, },
- Biology:{ Control:{ hard:()=>({ type:'mcq', q:'Damage to myelin sheath causes?', options:['MS','Asthma','TB','Diabetes'], correct:'MS', explanation:'MS is demyelination disorder'}) }, },
- Maths:{ Algebra:{ hard:()=>({ type:'numeric', q:'x^2-5x+6=0, find product of roots?', correct:'6', explanation:'Product = c/a=6'}), }, },
- IQ:{ Series:{ hard:()=>({ type:'mcq', q:'1,2,6,24,?', options:['120','48','36','30'], correct:'120', explanation:'Factorials'}), }, }
+/* -------------------------
+   Storage keys and helpers
+   ------------------------- */
+const KEY_LB = 'talentex_v2_lb';
+const KEY_REVIEW = 'talentex_v2_review';
+const KEY_MOCK = 'talentex_v2_mock';
+const KEY_ASKED = 'talentex_v2_asked';
+
+const $ = id => document.getElementById(id);
+function rand(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
+function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]] } return arr; }
+function save(key,val){ localStorage.setItem(key, JSON.stringify(val)); }
+function load(key){ try { return JSON.parse(localStorage.getItem(key)||'null'); } catch(e){ return null; } }
+function now(){ return Date.now(); }
+
+/* -------------------------
+   Asked-pool (no repetition)
+   persisted across sessions
+   ------------------------- */
+let askedPool = new Set(load(KEY_ASKED) || []);
+function markAsked(qid){
+  askedPool.add(qid);
+  save(KEY_ASKED, Array.from(askedPool));
+}
+function resetAsked(){
+  askedPool = new Set();
+  save(KEY_ASKED, []);
+  alert('Asked-pool reset. Questions may reappear now.');
+}
+
+/* -------------------------
+   Topics + Generators
+   - Each generator returns full question object:
+     { id, subject, topic, type, q, options, correct, explanation, svg? }
+   - Types: 'single','numeric','AR','match','matrix','case'
+   ------------------------- */
+const TOPICS = {
+  physics:['motion','electricity','optics','gravitation','work_energy'],
+  chemistry:['reactions','acids_bases','electrochem','organic'],
+  biology:['nutrition','heredity','respiration','transport'],
+  maths:['algebra','number','geometry','combinatorics'],
+  iq:['series','puzzles','logical']
 };
-function showSection(id){ document.querySelectorAll('.section').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-function populateSubjects(){ let sel=document.getElementById('subject'); sel.innerHTML=''; subjects.forEach(s=>{ let opt=document.createElement('option'); opt.value=s.toLowerCase(); opt.text=s; sel.appendChild(opt); }); }
-populateSubjects();
-function startTimerP(){ clearInterval(timerIdP); timerP=60; timerIdP=setInterval(()=>{ timerP--; document.getElementById('timerP').innerText=`Time: ${timerP}s`; if(timerP<=0){ clearInterval(timerIdP); document.getElementById('explanation').innerText='Time up!'; document.querySelectorAll('#options button').forEach(b=>b.disabled=true); } },1000); }
-function generateQuestion(){ startTimerP(); let subj=document.getElementById('subject').value; let subjKey=subj.charAt(0).toUpperCase()+subj.slice(1); let topicKeys=Object.keys(questionBank[subjKey]); let topic=topicKeys[Math.floor(Math.random()*topicKeys.length)]; let qFunc=questionBank[subjKey][topic][Object.keys(questionBank[subjKey][topic])[0]]; let qObj=qFunc(); if(askedSet.has(qObj.q)) return generateQuestion(); askedSet.add(qObj.q); renderQuestion(qObj,'question','options','explanation','P'); }
-function renderQuestion(qObj,qId,oId,eId,mode){ document.getElementById(qId).innerText=qObj.q; let opts=document.getElementById(oId); opts.innerHTML=''; if(qObj.type==='ar'){ opts.innerHTML='<b>Assertion:</b> '+qObj.q+'<br><b>Reason:</b> '+qObj.reason; let arr=['Both true and reason explains','Both true but not explains','Assertion true reason false','Assertion false reason true']; arr.forEach(opt=>{ let b=document.createElement('button'); b.innerText=opt; b.onclick=()=>checkAnswer(opt,qObj,eId,mode,b); opts.appendChild(b); }); } else if(qObj.type==='numeric'){ let b=document.createElement('button'); b.innerText='Submit numeric'; b.onclick=()=>{ let ans=prompt('Enter numeric answer'); checkAnswer(ans,qObj,eId,mode,b); }; opts.appendChild(b); } else { qObj.options.forEach(opt=>{ let b=document.createElement('button'); b.innerText=opt; b.onclick=()=>checkAnswer(opt,qObj,eId,mode,b); opts.appendChild(b); }); }
+
+let globalId = 1;
+function qobj(sub, topic, type, q, options, correct, explanation, svg){
+  return { id:`Q${globalId++}`, subject:sub, topic, type, q, options, correct, explanation, svg: svg||null };
 }
-function checkAnswer(opt,qObj,eId,mode,btn){ if(opt==qObj.correct){ btn.classList.add('correct'); if(mode==='P'){ scoreP++; document.getElementById('scoreP').innerText='Score: '+scoreP; } else { mockScore++; document.getElementById('scoreM').innerText='Score: '+mockScore; } } else { btn.classList.add('wrong'); mistakes.push(qObj); }
- document.getElementById(eId).innerText='Explanation: '+qObj.explanation; document.querySelectorAll('#'+btn.parentNode.id+' button').forEach(b=>b.disabled=true);
+
+/* small utility for matrix/match formatting */
+function makeMatchOptions(pairs){ // pairs: [{L:'A',R:'1'}, ...]
+  // For front-end we'll present L list and R list shuffled; correct will be mapping like {A:'1',...}
+  const left = pairs.map(p=>p.L);
+  let right = pairs.map(p=>p.R); right = shuffle(right);
+  const options = { left, right };
+  const correct = pairs.reduce((m,p)=>{ m[p.L]=p.R; return m; }, {});
+  return { options, correct };
 }
-function startMock(){ mockQ=[]; mockIndex=0; mockScore=0; mockTimer=3600; clearInterval(timerIdM); timerIdM=setInterval(()=>{ mockTimer--; let m=Math.floor(mockTimer/60),s=mockTimer%60; document.getElementById('timerM').innerText=`Time: ${m}:${s}`; if(mockTimer<=0) submitMock(); },1000); for(let i=0;i<50;i++){ mockQ.push(questionBank.Physics.Motion.hard()); } renderQuestion(mockQ[mockIndex],'mockQuestion','mockOptions','mockExplanation','M'); }
-function submitMock(){ clearInterval(timerIdM); document.getElementById('mockResult').innerText=`Test over! Score: ${mockScore}/50`; leaderboard.push({score:mockScore,date:new Date().toLocaleString()}); localStorage.setItem('leaderboard',JSON.stringify(leaderboard)); updateLeaderboard(); }
-function updateLeaderboard(){ let list=document.getElementById('scoresList'); list.innerHTML=''; leaderboard.sort((a,b)=>b.score-a.score); leaderboard.forEach(e=>{ let li=document.createElement('li'); li.innerText=`${e.date}: ${e.score}`; list.appendChild(li); }); }
-function exportLeaderboard(){ let csv='Date,Score\n'; leaderboard.forEach(e=>{ csv+=`${e.date},${e.score}\n`; }); let blob=new Blob([csv],{type:'text/csv'}); let url=URL.createObjectURL(blob); let a=document.createElement('a'); a.href=url; a.download='leaderboard.csv'; a.click(); }
-</script>
-</body>
-</html>
+
+/* core question generators (examples — expand as needed) */
+const GENERATORS = {
+  physics: {
+    motion: {
+      medium: ()=>{ const h=rand(5,40); const t=(Math.sqrt(2*h/10)).toFixed(2); return qobj('physics','motion','numeric',`A body is dropped from ${h} m. Time to hit ground? (g=10)`, [`${t} s`, `${(parseFloat(t)+0.5).toFixed(2)} s`, `${(Math.max(0,parseFloat(t)-0.5)).toFixed(2)} s`, `${(parseFloat(t)+1).toFixed(2)} s`], `${t} s`, 'Use s = 1/2 g t^2 → t = √(2h/g).'); },
+      hard: ()=>{ const u=rand(15,40); const s=rand(5,30); const disc=Math.max(0,u*u - 2*10*s); const t1=((u - Math.sqrt(disc))/10).toFixed(2); return qobj('physics','motion','single',`A body thrown up at ${u} m/s reaches height ${s} m. Earliest time? (g=10)`, [`${t1} s`, `${(parseFloat(t1)+1).toFixed(2)} s`, `${(parseFloat(t1)+2).toFixed(2)} s`, `No real time`], `${t1} s`, 'Solve s = ut - 1/2 g t^2; take smaller root.'); }
+    },
+    electricity: {
+      medium: ()=>{ const V=rand(6,24), R=rand(1,12); const I=(V/R).toFixed(2); return qobj('physics','electricity','numeric',`Voltage ${V}V across ${R}Ω. Current?`, [`${I} A`, `${(parseFloat(I)+0.5).toFixed(2)} A`, `${(Math.max(0,parseFloat(I)-0.5)).toFixed(2)} A`, `${(parseFloat(I)+1).toFixed(2)} A`], `${I} A`, "Ohm's law I = V/R."); },
+      hard: ()=>{ const r1=rand(5,30), r2=rand(5,30), r3=rand(5,30), V=rand(12,48); const req = ((r1*r2)/(r1+r2) + r3).toFixed(2); const I=(V/req).toFixed(2); return qobj('physics','electricity','single',`R1=${r1}Ω and R2=${r2}Ω are parallel; this pair in series with R3=${r3}Ω across ${V}V. Total current?`, [`${I} A`, `${(parseFloat(I)+1).toFixed(2)} A`, `${(Math.max(0,parseFloat(I)-1)).toFixed(2)} A`, `${(parseFloat(I)+2).toFixed(2)} A`], `${I} A`, 'Compute equivalent resistance and I=V/R_eq.'); }
+    },
+    optics: {
+      hard: ()=>{ const f=rand(5,30), v=rand(f+10,f+50); const u = ((v*f)/(v-f)).toFixed(2); return qobj('physics','optics','numeric',`Convex lens of focal ${f}cm forms image at v=${v}cm. Object distance?`, [`${u} cm`, `${(parseFloat(u)+5).toFixed(2)} cm`, `${(parseFloat(u)-5).toFixed(2)} cm`, `Cannot be determined`], `${u} cm`, 'Use lens formula: 1/f = 1/v + 1/u.'); }
+    }
+  },
+
+  chemistry: {
+    reactions: {
+      medium: ()=> qobj('chemistry','reactions','single','AB + CD → AD + CB is which reaction?',['Double displacement','Redox','Combination','Decomposition'],'Double displacement','Ions exchange partners.'),
+      hard: ()=>{ const a=rand(1,6), b=rand(1,10), needB=1.5*a; const limiting = b<needB?'B':'A'; return qobj('chemistry','reactions','single',`2A+3B→products. Given ${a} mol A and ${b} mol B, limiting reagent?`,[limiting, limiting==='A'?'B':'A','Both','Cannot tell'], limiting, 'Compare required stoichiometric amounts.'); }
+    },
+    acids_bases: {
+      hard: ()=> qobj('chemistry','acids_bases','numeric','If pH changes from 3 to 6, [H+] changes by factor?',['1000','3','100','10'],'1000','Each pH unit is 10x; 3 units → 10^3.')
+    }
+  },
+
+  biology: {
+    heredity: {
+      hard: ()=> qobj('biology','heredity','numeric','Hardy-Weinberg: if p=0.6, homozygous dominant frequency?', ['0.36','0.24','0.16','0.64'],'0.36','p^2 = 0.36.')
+    },
+    nutrition: {
+      medium: ()=> qobj('biology','nutrition','single','Which pigment captures light in plants?',['Chlorophyll','Haemoglobin','Keratin','Myosin'],'Chlorophyll','Chlorophyll absorbs light for photosynthesis.'),
+      hard: ()=> qobj('biology','nutrition','single','Which process converts glucose to ethanol anaerobically?',['Fermentation','Respiration','Photosynthesis','Transpiration'],'Fermentation','Anaerobic conversion → fermentation.')
+    }
+  },
+
+  maths: {
+    combinatorics: {
+      medium: ()=> qobj('maths','combinatorics','numeric','5 people shake hands once each: total handshakes?',['10','5','20','15'],'10','n(n-1)/2'),
+      hard: ()=> qobj('maths','combinatorics','numeric','In row of 7 students, ways 2 particular students sit together?',['720','1440','120','100'],'720','Treat pair as one: 6!×2 = 720.')
+    },
+    algebra: {
+      hard: ()=>{ const a=rand(2,9); const b=rand(1,9); return qobj('maths','algebra','single',`If x^2 - ${a}x + ${b} = 0, express α^2+β^2 in terms of a,b.`,['a^2 - 2b','a^2 + b','a - b','2b - a^2'],'a^2 - 2b','Use (α+β)=a, αβ=b → α^2+β^2=(α+β)^2 -2αβ.'); }
+    }
+  },
+
+  iq: {
+    series: {
+      hard: ()=> qobj('iq','series','single','1,2,6,24,?',['120','48','30','100'],'120','Factorials: 5!=120')
+    },
+    puzzles: {
+      hard: ()=> qobj('iq','puzzles','single','Find odd one out: 2,3,5,9,11,13',['9','11','5','3'],'9','All others are prime except 9.')
+    }
+  }
+};
+
+/* Assertion-Reason and Match/Matrix/Case generators (examples) */
+function genAssertionReason(){
+  // Example AR: simple conceptual
+  const arr = [
+    { sub:'physics', topic:'motion', A:'Net force on a body is zero ⇒ velocity is constant.', R:'If net force is zero, acceleration is zero.', ans:'BothTrue', explanation:'Zero net force ⇒ zero acceleration ⇒ velocity constant.' },
+    { sub:'chemistry', topic:'acids_bases', A:'pH 7 is neutral at 25°C.', R:'Neutral pH always equals 7 at any temperature.', ans:'AtrueRfalse', explanation:'At 25°C neutral pH = 7; at other temperatures neutrality pH differs.' }
+  ];
+  const pick = arr[rand(0,arr.length-1)];
+  // convert to MCQ with options:
+  const options = ['Both A and R are true and R explains A','Both A and R are true but R does not explain A','A true R false','A false R true'];
+  const correct = pick.ans==='BothTrue' ? options[0] : (pick.ans==='BothTrueNoExplain'? options[1] : (pick.ans==='AtrueRfalse'? options[2] : options[3]));
+  return qobj(pick.sub, pick.topic, 'AR', `Assertion: ${pick.A}\nReason: ${pick.R}`, options, correct, pick.explanation);
+}
+
+function genMatch(){
+  // simple match example
+  const pairs = [
+    {L:'Mitochondria', R:'ATP production'},
+    {L:'Ribosome', R:'Protein synthesis'},
+    {L:'Chloroplast', R:'Photosynthesis'}
+  ];
+  const mm = makeMatchOptions(pairs);
+  // produce human-friendly options: show left and right lists separated
+  const options = [ JSON.stringify(mm.options) ]; // we will handle rendering specially
+  return { id:`Q${globalId++}`, subject:'biology', topic:'match', type:'match', q:'Match the following (L → R):', options: mm.options, correct: mm.correct, explanation:'Match organelles with their main function.' };
+}
+
+function genMatrix(){
+  // Example: select all correct pairs (matrix match). We'll encode as left array and right array and list of correct mappings.
+  const left = ['A: 2x', 'B: x^2', 'C: x^3'];
+  const right = ['1: linear', '2: quadratic', '3: cubic'];
+  const correct = {'A':'1','B':'2','C':'3'};
+  return { id:`Q${globalId++}`, subject:'maths', topic:'matrix', type:'matrix', q:'Match degrees with polynomial types', options:{left,right}, correct, explanation:'Linear=degree1, Quadratic=2, Cubic=3.' };
+}
+
+function genCaseStudy(){
+  const passage = "A 20-year-old student plants seeds. He notices seedlings grow towards light and roots grow into the soil. Study this and answer.";
+  const qs = [
+    qobj('biology','case','case', passage + "\nQ: The movement towards light is called?", ['Phototropism','Geotropism','Transpiration','Osmosis'], 'Phototropism', 'Movement of plant parts towards light.'),
+    qobj('biology','case','case', passage + "\nQ: Roots growing downwards is called?", ['Geotropism','Phototropism','Hydrotropism','Nastic movement'], 'Geotropism', 'Growth in response to gravity.')
+  ];
+  return qs; // returns array of case questions
+}
+
+/* makeMatchOptions helper used earlier */
+function makeMatchOptions(pairs){
+  const left = pairs.map(p=>p.L);
+  let right = pairs.map(p=>p.R);
+  right = shuffle(right);
+  const correct = {};
+  pairs.forEach(p=> correct[p.L] = p.R);
+  return { left, right, correct };
+}
+
+/* -------------------------
+   UI wiring
+   ------------------------- */
+function populateTopics(){
+  const s = $('subject').value;
+  const t = $('topic');
+  t.innerHTML = '<option value="all">All</option>';
+  if(s==='all') return;
+  (TOPICS[s]||[]).forEach(x=>{
+    const o = document.createElement('option'); o.value=x; o.text = x; t.appendChild(o);
+  });
+}
+$('subject').addEventListener('change', populateTopics);
+populateTopics();
+
+/* ---------- Practice logic ---------- */
+let practiceState = { score:0, timer:null, timePerQ:60, lastQ:null };
+$('btn-practice').addEventListener('click', ()=>{ openTab('practice'); nextPractice(); });
+
+$('btn-next-practice').addEventListener('click', nextPractice);
+$('btn-reset-asked').addEventListener('click', ()=>{ if(confirm('Reset asked pool? This will allow previous questions to reappear.')) resetAsked(); });
+
+function pickPracticeQ(subjectFilter, topicFilter){
+  // choose subject
+  const subjects = subjectFilter==='all'? Object.keys(GENERATORS) : [subjectFilter];
+  const s = subjects[rand(0,subjects.length-1)];
+  const topics = topicFilter==='all'? Object.keys(GENERATORS[s]) : [topicFilter];
+  const t = topics[rand(0, topics.length-1)];
+  // prefer hard (75%) else medium
+  const kind = Math.random() < 0.75 && GENERATORS[s][t].hard ? 'hard' : 'medium';
+  const q = GENERATORS[s][t][kind]();
+  if(askedPool.has(q.id)){
+    // try a few times
+    for(let i=0;i<8;i++){
+      const s2 = subjects[rand(0,subjects.length-1)];
+      const t2 = topicFilter==='all'? Object.keys(GENERATORS[s2])[rand(0,Object.keys(GENERATORS[s2]).length-1)] : topics[0];
+      const kind2 = Math.random() < 0.75 && GENERATORS[s2][t2].hard ? 'hard' : 'medium';
+      const q2 = GENERATORS[s2][t2][kind2]();
+      if(!askedPool.has(q2.id)) return q2;
+    }
+    // fallback: return q (may repeat)
+  }
+  return 
