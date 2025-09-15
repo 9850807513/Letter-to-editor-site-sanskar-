@@ -3,47 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pro Studio - All-in-One</title>
+<title>Pro Studio - Fully Functional</title>
 <style>
-  /* Reset & Body */
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1a1a1a, #111); color:#fff; padding:20px; }
-  
-  /* Headings */
   h1, h2 { text-align:center; margin-bottom:15px; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
   h2 { margin-top:30px; }
 
-  /* Buttons */
   .btn { background:linear-gradient(90deg,#1E90FF,#00BFFF); color:white; padding:12px 25px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; margin:5px; transition:all 0.3s ease; }
-  .btn:hover { transform:scale(1.05); background:linear-gradient(90deg,#00BFFF,#1E90FF); }
+  .btn:hover:not(:disabled) { transform:scale(1.05); background:linear-gradient(90deg,#00BFFF,#1E90FF); }
+  .btn:disabled { background:grey; cursor:not-allowed; }
 
-  /* Inputs */
   input[type=file], input[type=text], input[type=range], select, textarea { width:100%; padding:10px; border-radius:8px; border:none; margin:5px 0; background:#222; color:#fff; font-size:1rem; }
   input[type=range] { accent-color:#00BFFF; }
 
-  /* Containers */
   .section { background: rgba(255,255,255,0.05); padding:20px; border-radius:12px; margin-bottom:25px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
   .flex-center { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; }
-
-  /* Video */
   video { display:block; margin:20px auto; max-width:90%; border-radius:12px; border:2px solid #00BFFF; box-shadow: 0 0 20px #00BFFF; }
-
-  /* Track list */
   .track { display:flex; align-items:center; gap:10px; background:#222; padding:10px; border-radius:8px; margin:5px 0; }
-
-  /* Textarea */
-  textarea { resize:none; }
-
-  /* Labels */
   label { display:block; margin:10px 0 5px; font-weight:bold; }
-
+  textarea { resize:none; }
+  #loading { text-align:center; color:#00BFFF; margin-top:10px; font-weight:bold; }
 </style>
 </head>
 <body>
 
-<h1>🎵 Pro Studio - All-in-One</h1>
+<h1>🎵 Pro Studio - Fully Functional</h1>
 
-<!-- Music Controls -->
+<!-- Background Music -->
 <div class="section">
   <h2>Background Music</h2>
   <div class="flex-center">
@@ -57,8 +44,9 @@
   <h2>Video Upload & Trim</h2>
   <input type="file" id="videoUpload" accept="video/*">
   <div class="flex-center">
-    <button class="btn" id="trimVideo">✂ Trim 0-5s</button>
+    <button class="btn" id="trimVideo" disabled>✂ Trim 0-5s</button>
   </div>
+  <div id="loading"></div>
   <video id="videoPlayer" controls></video>
 </div>
 
@@ -78,7 +66,7 @@
   <label>Pitch Control</label>
   <input type="range" id="pitchSlider" min="0.5" max="2" step="0.05" value="1">
   <div class="flex-center">
-    <button class="btn" id="playVoice">🔊 Play Modulated Voice</button>
+    <button class="btn" id="playVoice" disabled>🔊 Play Modulated Voice</button>
   </div>
 </div>
 
@@ -103,7 +91,6 @@
   </div>
 </div>
 
-<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.0/dist/ffmpeg.min.js"></script>
 <script>
 /* Background Music */
@@ -115,15 +102,28 @@ document.getElementById('pauseAudio').onclick = ()=>audio.pause();
 const { createFFmpeg, fetchFile } = FFmpeg;
 const ffmpeg = createFFmpeg({ log:true });
 let videoFile;
-document.getElementById('videoUpload').addEventListener('change', e => { videoFile = e.target.files[0]; });
-document.getElementById('trimVideo').addEventListener('click', async ()=>{
-  if(!videoFile){ alert("Upload a video first"); return; }
+const trimBtn = document.getElementById('trimVideo');
+const playVoiceBtn = document.getElementById('playVoice');
+const loadingDiv = document.getElementById('loading');
+
+document.getElementById('videoUpload').addEventListener('change', e => {
+  videoFile = e.target.files[0];
+  if(videoFile) { trimBtn.disabled = false; playVoiceBtn.disabled = false; }
+});
+
+/* Trim Video Function */
+trimBtn.addEventListener('click', async ()=>{
+  if(!videoFile) { alert("Upload a video first"); return; }
+  trimBtn.disabled = true; loadingDiv.textContent = "Loading FFmpeg...";
   if(!ffmpeg.isLoaded()) await ffmpeg.load();
+  loadingDiv.textContent = "Processing video...";
   ffmpeg.FS('writeFile','input.mp4', await fetchFile(videoFile));
   await ffmpeg.run('-i','input.mp4','-ss','0','-to','5','output.mp4');
   const data = ffmpeg.FS('readFile','output.mp4');
   const url = URL.createObjectURL(new Blob([data.buffer], {type:'video/mp4'}));
   document.getElementById('videoPlayer').src = url;
+  loadingDiv.textContent = "✅ Video ready!";
+  trimBtn.disabled = false;
 });
 
 /* Multitrack Audio */
@@ -132,12 +132,10 @@ let tracks = [];
 document.getElementById('addTrack').onclick = ()=>{
   const div = document.createElement('div'); div.className='track';
   const input = document.createElement('input'); input.type='file'; input.accept='audio/*';
-  div.appendChild(input);
-  tracksContainer.appendChild(div);
-  tracks.push(input);
+  div.appendChild(input); tracksContainer.appendChild(div); tracks.push(input);
 };
 document.getElementById('mixTracks').onclick = ()=>{
-  alert("Multitrack mix simulated. Full mix requires WebAudio API advanced setup.");
+  alert("Multitrack mix simulated. Full mix requires advanced Web Audio API setup.");
 };
 
 /* Voice Modulation */
@@ -145,7 +143,7 @@ const audioCtx = new (window.AudioContext||window.webkitAudioContext)();
 const gainNode = audioCtx.createGain();
 let source;
 document.getElementById('playVoice').onclick = async ()=>{
-  if(!videoFile){ alert("Upload a video first for audio"); return; }
+  if(!videoFile) { alert("Upload a video first"); return; }
   const pitch = parseFloat(document.getElementById('pitchSlider').value);
   const fileArrayBuffer = await videoFile.arrayBuffer();
   const buffer = await audioCtx.decodeAudioData(fileArrayBuffer);
@@ -164,8 +162,7 @@ if('webkitSpeechRecognition' in window){
   recognition = new webkitSpeechRecognition();
   recognition.continuous=true; recognition.interimResults=true;
   recognition.onresult = e=>{
-    let transcript='';
-    for(let i=e.resultIndex;i<e.results.length;i++) transcript+=e.results[i][0].transcript;
+    let transcript=''; for(let i=e.resultIndex;i<e.results.length;i++) transcript+=e.results[i][0].transcript;
     speechText.value=transcript;
   };
 } else alert("Speech recognition not supported");
@@ -174,12 +171,8 @@ document.getElementById('stopSpeech').onclick = ()=>recognition.stop();
 
 /* Presets */
 function loadPresets(){
-  const select = document.getElementById('loadPreset');
-  select.innerHTML = '';
-  for(const key in localStorage){
-    const option = document.createElement('option'); option.value=key; option.text=key;
-    select.appendChild(option);
-  }
+  const select = document.getElementById('loadPreset'); select.innerHTML='';
+  for(const key in localStorage){ const option = document.createElement('option'); option.value=key; option.text=key; select.appendChild(option); }
 }
 document.getElementById('savePreset').onclick = ()=>{
   const name = document.getElementById('presetName').value.trim();
@@ -196,6 +189,5 @@ document.getElementById('applyPreset').onclick = ()=>{
 };
 loadPresets();
 </script>
-
 </body>
-  </html>
+</html>
