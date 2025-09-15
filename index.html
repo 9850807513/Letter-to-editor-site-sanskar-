@@ -3,36 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pro Studio - Fully Functional</title>
+<title>Pro Studio - Professional UI</title>
 <style>
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1a1a1a, #111); color:#fff; padding:20px; }
-  h1, h2 { text-align:center; margin-bottom:15px; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
-  h2 { margin-top:30px; }
+/* Reset & Body */
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f0f; color:#fff; padding:20px; }
+h1 { text-align:center; margin-bottom:30px; font-size:2.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
+h2 { font-size:1.5rem; margin-bottom:15px; text-align:center; }
 
-  .btn { background:linear-gradient(90deg,#1E90FF,#00BFFF); color:white; padding:12px 25px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; margin:5px; transition:all 0.3s ease; }
-  .btn:hover:not(:disabled) { transform:scale(1.05); background:linear-gradient(90deg,#00BFFF,#1E90FF); }
-  .btn:disabled { background:grey; cursor:not-allowed; }
+/* Sections */
+.section { background: rgba(255,255,255,0.05); padding:25px; border-radius:15px; margin-bottom:30px; box-shadow: 0 0 25px rgba(0,0,0,0.7); transition: transform 0.3s; }
+.section:hover { transform: translateY(-5px); }
 
-  input[type=file], input[type=text], input[type=range], select, textarea { width:100%; padding:10px; border-radius:8px; border:none; margin:5px 0; background:#222; color:#fff; font-size:1rem; }
-  input[type=range] { accent-color:#00BFFF; }
+/* Buttons */
+.btn { background: linear-gradient(90deg,#1E90FF,#00BFFF); color:white; padding:12px 28px; border:none; border-radius:12px; cursor:pointer; font-weight:bold; margin:5px; transition:all 0.3s ease; font-size:1rem; }
+.btn:hover:not(:disabled) { transform: scale(1.05); background: linear-gradient(90deg,#00BFFF,#1E90FF); }
+.btn:disabled { background: grey; cursor:not-allowed; }
 
-  .section { background: rgba(255,255,255,0.05); padding:20px; border-radius:12px; margin-bottom:25px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-  .flex-center { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; }
-  video { display:block; margin:20px auto; max-width:90%; border-radius:12px; border:2px solid #00BFFF; box-shadow: 0 0 20px #00BFFF; }
-  .track { display:flex; align-items:center; gap:10px; background:#222; padding:10px; border-radius:8px; margin:5px 0; }
-  label { display:block; margin:10px 0 5px; font-weight:bold; }
-  textarea { resize:none; }
-  #loading { text-align:center; color:#00BFFF; margin-top:10px; font-weight:bold; }
+/* Inputs */
+input[type=file], input[type=text], input[type=range], select, textarea { width:100%; padding:12px; border-radius:12px; border:none; margin:8px 0; background:#222; color:#fff; font-size:1rem; }
+input[type=range] { accent-color:#00BFFF; }
+
+/* Flex helper */
+.flex-center { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; }
+video { display:block; margin:20px auto; max-width:90%; border-radius:15px; border:2px solid #00BFFF; box-shadow:0 0 25px #00BFFF; }
+.track { display:flex; align-items:center; gap:12px; background:#222; padding:12px; border-radius:12px; margin:8px 0; }
+
+/* Labels */
+label { display:block; margin:12px 0 5px; font-weight:bold; }
+
+/* Loading text */
+#loading { text-align:center; color:#00BFFF; font-weight:bold; margin-top:10px; }
 </style>
 </head>
 <body>
 
-<h1>🎵 Pro Studio - Fully Functional</h1>
+<h1>🎵 Pro Studio</h1>
 
 <!-- Background Music -->
 <div class="section">
-  <h2>Background Music</h2>
+  <h2>🎶 Background Music</h2>
   <div class="flex-center">
     <button class="btn" id="playAudio">▶ Play Music</button>
     <button class="btn" id="pauseAudio">⏸ Pause Music</button>
@@ -41,7 +51,7 @@
 
 <!-- Video Upload & Trim -->
 <div class="section">
-  <h2>Video Upload & Trim</h2>
+  <h2>🎬 Video Upload & Trim</h2>
   <input type="file" id="videoUpload" accept="video/*">
   <div class="flex-center">
     <button class="btn" id="trimVideo" disabled>✂ Trim 0-5s</button>
@@ -52,17 +62,17 @@
 
 <!-- Multitrack Audio -->
 <div class="section">
-  <h2>Multitrack Audio</h2>
+  <h2>🎚 Multitrack Audio</h2>
   <div id="tracksContainer"></div>
   <div class="flex-center">
     <button class="btn" id="addTrack">➕ Add Track</button>
-    <button class="btn" id="mixTracks">🎚 Mix Tracks</button>
+    <button class="btn" id="mixTracks">🔀 Mix Tracks</button>
   </div>
 </div>
 
 <!-- Voice Modulation -->
 <div class="section">
-  <h2>Voice Modulation</h2>
+  <h2>🗣 Voice Modulation</h2>
   <label>Pitch Control</label>
   <input type="range" id="pitchSlider" min="0.5" max="2" step="0.05" value="1">
   <div class="flex-center">
@@ -72,17 +82,17 @@
 
 <!-- Speech Recognition -->
 <div class="section">
-  <h2>Speech Recognition</h2>
+  <h2>🎤 Speech Recognition</h2>
   <textarea id="speechText" placeholder="Your speech transcript will appear here..."></textarea>
   <div class="flex-center">
-    <button class="btn" id="startSpeech">🎤 Start Recognition</button>
+    <button class="btn" id="startSpeech">🎙 Start Recognition</button>
     <button class="btn" id="stopSpeech">⏹ Stop Recognition</button>
   </div>
 </div>
 
 <!-- Presets -->
 <div class="section">
-  <h2>Presets</h2>
+  <h2>💾 Presets</h2>
   <input type="text" id="presetName" placeholder="Enter preset name">
   <div class="flex-center">
     <button class="btn" id="savePreset">💾 Save Preset</button>
@@ -108,22 +118,21 @@ const loadingDiv = document.getElementById('loading');
 
 document.getElementById('videoUpload').addEventListener('change', e => {
   videoFile = e.target.files[0];
-  if(videoFile) { trimBtn.disabled = false; playVoiceBtn.disabled = false; }
+  if(videoFile){ trimBtn.disabled=false; playVoiceBtn.disabled=false; }
 });
 
-/* Trim Video Function */
 trimBtn.addEventListener('click', async ()=>{
-  if(!videoFile) { alert("Upload a video first"); return; }
-  trimBtn.disabled = true; loadingDiv.textContent = "Loading FFmpeg...";
+  if(!videoFile){ alert("Upload a video first"); return; }
+  trimBtn.disabled=true; loadingDiv.textContent="Loading FFmpeg...";
   if(!ffmpeg.isLoaded()) await ffmpeg.load();
-  loadingDiv.textContent = "Processing video...";
+  loadingDiv.textContent="Processing video...";
   ffmpeg.FS('writeFile','input.mp4', await fetchFile(videoFile));
   await ffmpeg.run('-i','input.mp4','-ss','0','-to','5','output.mp4');
   const data = ffmpeg.FS('readFile','output.mp4');
   const url = URL.createObjectURL(new Blob([data.buffer], {type:'video/mp4'}));
-  document.getElementById('videoPlayer').src = url;
-  loadingDiv.textContent = "✅ Video ready!";
-  trimBtn.disabled = false;
+  document.getElementById('videoPlayer').src=url;
+  loadingDiv.textContent="✅ Video ready!";
+  trimBtn.disabled=false;
 });
 
 /* Multitrack Audio */
@@ -143,7 +152,7 @@ const audioCtx = new (window.AudioContext||window.webkitAudioContext)();
 const gainNode = audioCtx.createGain();
 let source;
 document.getElementById('playVoice').onclick = async ()=>{
-  if(!videoFile) { alert("Upload a video first"); return; }
+  if(!videoFile){ alert("Upload a video first"); return; }
   const pitch = parseFloat(document.getElementById('pitchSlider').value);
   const fileArrayBuffer = await videoFile.arrayBuffer();
   const buffer = await audioCtx.decodeAudioData(fileArrayBuffer);
@@ -161,33 +170,5 @@ let recognition;
 if('webkitSpeechRecognition' in window){
   recognition = new webkitSpeechRecognition();
   recognition.continuous=true; recognition.interimResults=true;
-  recognition.onresult = e=>{
-    let transcript=''; for(let i=e.resultIndex;i<e.results.length;i++) transcript+=e.results[i][0].transcript;
-    speechText.value=transcript;
-  };
-} else alert("Speech recognition not supported");
-document.getElementById('startSpeech').onclick = ()=>recognition.start();
-document.getElementById('stopSpeech').onclick = ()=>recognition.stop();
-
-/* Presets */
-function loadPresets(){
-  const select = document.getElementById('loadPreset'); select.innerHTML='';
-  for(const key in localStorage){ const option = document.createElement('option'); option.value=key; option.text=key; select.appendChild(option); }
-}
-document.getElementById('savePreset').onclick = ()=>{
-  const name = document.getElementById('presetName').value.trim();
-  if(!name) return alert("Enter preset name");
-  const preset = { pitch: document.getElementById('pitchSlider').value };
-  localStorage.setItem(name, JSON.stringify(preset));
-  loadPresets();
-};
-document.getElementById('applyPreset').onclick = ()=>{
-  const name = document.getElementById('loadPreset').value;
-  if(!name) return alert("Select preset");
-  const preset = JSON.parse(localStorage.getItem(name));
-  document.getElementById('pitchSlider').value = preset.pitch;
-};
-loadPresets();
-</script>
-</body>
-</html>
+  recognition.onresult=e=>{
+    let transcript=''; for(let i=e.resultIndex;i<e.results.length;i++) transcript+=e.results[i][0
