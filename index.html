@@ -1,164 +1,201 @@
-pro-studio/
-├── index.html
-├── package.json
-├── vite.config.js
-├── tailwind.config.cjs
-├── postcss.config.cjs
-├── src/
-│   ├── main.jsx
-│   ├── App.jsx
-│   ├── styles.css
-│   └── assets/
-│       └── background-music.mp3
-└── README.md
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pro Studio</title>
-  </head>
-  <body class="bg-gray-900 text-white">
-    <div id="root"></div>
-  </body>
-</html>
-{
-  "name": "pro-studio",
-  "version": "1.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-speech-recognition": "^3.11.0",
-    "use-sound": "^4.0.1",
-    "@ffmpeg/ffmpeg": "^0.12.0",
-    "react-timeline-editor": "^0.1.1"
-  },
-  "devDependencies": {
-    "vite": "^4.4.0",
-    "@vitejs/plugin-react": "^3.2.0",
-    "tailwindcss": "^3.3.3",
-    "postcss": "^8.4.27",
-    "autoprefixer": "^10.4.14"
-  }
-}
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro Studio - All-in-One</title>
+<style>
+  /* Reset & Body */
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1a1a1a, #111); color:#fff; padding:20px; }
+  
+  /* Headings */
+  h1, h2 { text-align:center; margin-bottom:15px; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
+  h2 { margin-top:30px; }
 
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    open: true
-  }
+  /* Buttons */
+  .btn { background:linear-gradient(90deg,#1E90FF,#00BFFF); color:white; padding:12px 25px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; margin:5px; transition:all 0.3s ease; }
+  .btn:hover { transform:scale(1.05); background:linear-gradient(90deg,#00BFFF,#1E90FF); }
+
+  /* Inputs */
+  input[type=file], input[type=text], input[type=range], select, textarea { width:100%; padding:10px; border-radius:8px; border:none; margin:5px 0; background:#222; color:#fff; font-size:1rem; }
+  input[type=range] { accent-color:#00BFFF; }
+
+  /* Containers */
+  .section { background: rgba(255,255,255,0.05); padding:20px; border-radius:12px; margin-bottom:25px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+  .flex-center { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; }
+
+  /* Video */
+  video { display:block; margin:20px auto; max-width:90%; border-radius:12px; border:2px solid #00BFFF; box-shadow: 0 0 20px #00BFFF; }
+
+  /* Track list */
+  .track { display:flex; align-items:center; gap:10px; background:#222; padding:10px; border-radius:8px; margin:5px 0; }
+
+  /* Textarea */
+  textarea { resize:none; }
+
+  /* Labels */
+  label { display:block; margin:10px 0 5px; font-weight:bold; }
+
+</style>
+</head>
+<body>
+
+<h1>🎵 Pro Studio - All-in-One</h1>
+
+<!-- Music Controls -->
+<div class="section">
+  <h2>Background Music</h2>
+  <div class="flex-center">
+    <button class="btn" id="playAudio">▶ Play Music</button>
+    <button class="btn" id="pauseAudio">⏸ Pause Music</button>
+  </div>
+</div>
+
+<!-- Video Upload & Trim -->
+<div class="section">
+  <h2>Video Upload & Trim</h2>
+  <input type="file" id="videoUpload" accept="video/*">
+  <div class="flex-center">
+    <button class="btn" id="trimVideo">✂ Trim 0-5s</button>
+  </div>
+  <video id="videoPlayer" controls></video>
+</div>
+
+<!-- Multitrack Audio -->
+<div class="section">
+  <h2>Multitrack Audio</h2>
+  <div id="tracksContainer"></div>
+  <div class="flex-center">
+    <button class="btn" id="addTrack">➕ Add Track</button>
+    <button class="btn" id="mixTracks">🎚 Mix Tracks</button>
+  </div>
+</div>
+
+<!-- Voice Modulation -->
+<div class="section">
+  <h2>Voice Modulation</h2>
+  <label>Pitch Control</label>
+  <input type="range" id="pitchSlider" min="0.5" max="2" step="0.05" value="1">
+  <div class="flex-center">
+    <button class="btn" id="playVoice">🔊 Play Modulated Voice</button>
+  </div>
+</div>
+
+<!-- Speech Recognition -->
+<div class="section">
+  <h2>Speech Recognition</h2>
+  <textarea id="speechText" placeholder="Your speech transcript will appear here..."></textarea>
+  <div class="flex-center">
+    <button class="btn" id="startSpeech">🎤 Start Recognition</button>
+    <button class="btn" id="stopSpeech">⏹ Stop Recognition</button>
+  </div>
+</div>
+
+<!-- Presets -->
+<div class="section">
+  <h2>Presets</h2>
+  <input type="text" id="presetName" placeholder="Enter preset name">
+  <div class="flex-center">
+    <button class="btn" id="savePreset">💾 Save Preset</button>
+    <select id="loadPreset"></select>
+    <button class="btn" id="applyPreset">⚡ Apply Preset</button>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.0/dist/ffmpeg.min.js"></script>
+<script>
+/* Background Music */
+const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+document.getElementById('playAudio').onclick = ()=>audio.play();
+document.getElementById('pauseAudio').onclick = ()=>audio.pause();
+
+/* FFmpeg Video Trim */
+const { createFFmpeg, fetchFile } = FFmpeg;
+const ffmpeg = createFFmpeg({ log:true });
+let videoFile;
+document.getElementById('videoUpload').addEventListener('change', e => { videoFile = e.target.files[0]; });
+document.getElementById('trimVideo').addEventListener('click', async ()=>{
+  if(!videoFile){ alert("Upload a video first"); return; }
+  if(!ffmpeg.isLoaded()) await ffmpeg.load();
+  ffmpeg.FS('writeFile','input.mp4', await fetchFile(videoFile));
+  await ffmpeg.run('-i','input.mp4','-ss','0','-to','5','output.mp4');
+  const data = ffmpeg.FS('readFile','output.mp4');
+  const url = URL.createObjectURL(new Blob([data.buffer], {type:'video/mp4'}));
+  document.getElementById('videoPlayer').src = url;
 });
-module.exports = {
-  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
-  theme: {
-    extend: {}
-  },
-  plugins: []
+
+/* Multitrack Audio */
+const tracksContainer = document.getElementById('tracksContainer');
+let tracks = [];
+document.getElementById('addTrack').onclick = ()=>{
+  const div = document.createElement('div'); div.className='track';
+  const input = document.createElement('input'); input.type='file'; input.accept='audio/*';
+  div.appendChild(input);
+  tracksContainer.appendChild(div);
+  tracks.push(input);
 };
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {}
-  }
+document.getElementById('mixTracks').onclick = ()=>{
+  alert("Multitrack mix simulated. Full mix requires WebAudio API advanced setup.");
 };
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-.btn {
-  @apply px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition;
-}
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './styles.css';
-import App from './App';
+/* Voice Modulation */
+const audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+const gainNode = audioCtx.createGain();
+let source;
+document.getElementById('playVoice').onclick = async ()=>{
+  if(!videoFile){ alert("Upload a video first for audio"); return; }
+  const pitch = parseFloat(document.getElementById('pitchSlider').value);
+  const fileArrayBuffer = await videoFile.arrayBuffer();
+  const buffer = await audioCtx.decodeAudioData(fileArrayBuffer);
+  if(source) source.stop();
+  source = audioCtx.createBufferSource();
+  source.buffer = buffer;
+  source.playbackRate.value = pitch;
+  source.connect(gainNode).connect(audioCtx.destination);
+  source.start();
+};
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-import React, { useState } from 'react';
-import { useSpeechRecognition } from 'react-speech-recognition';
-import useSound from 'use-sound';
-import { Timeline } from 'react-timeline-editor';
-import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
-
-const App = () => {
-  const [ffmpeg] = useState(() => createFFmpeg({ log: true }));
-  const { transcript, resetTranscript } = useSpeechRecognition();
-  const [audio] = useSound('/assets/background-music.mp3');
-  const [videoFile, setVideoFile] = useState(null);
-  const [processedVideo, setProcessedVideo] = useState(null);
-
-  const handleAudioPlay = () => audio.play();
-  const handleAudioPause = () => audio.pause();
-
-  const handleVideoUpload = (e) => setVideoFile(e.target.files[0]);
-
-  const handleVideoTrim = async (start = 0, end = 5) => {
-    if (!videoFile) return;
-    await ffmpeg.load();
-    ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(videoFile));
-    await ffmpeg.run('-i', 'input.mp4', '-ss', `${start}`, '-to', `${end}`, 'output.mp4');
-    const data = ffmpeg.FS('readFile', 'output.mp4');
-    const url = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
-    setProcessedVideo(url);
+/* Speech Recognition */
+const speechText = document.getElementById('speechText');
+let recognition;
+if('webkitSpeechRecognition' in window){
+  recognition = new webkitSpeechRecognition();
+  recognition.continuous=true; recognition.interimResults=true;
+  recognition.onresult = e=>{
+    let transcript='';
+    for(let i=e.resultIndex;i<e.results.length;i++) transcript+=e.results[i][0].transcript;
+    speechText.value=transcript;
   };
+} else alert("Speech recognition not supported");
+document.getElementById('startSpeech').onclick = ()=>recognition.start();
+document.getElementById('stopSpeech').onclick = ()=>recognition.stop();
 
-  return (
-    <div className="flex flex-col items-center p-4 space-y-4">
-      <h1 className="text-3xl font-bold">Pro Studio</h1>
-
-      <div className="flex space-x-4">
-        <button onClick={handleAudioPlay} className="btn">Play Audio</button>
-        <button onClick={handleAudioPause} className="btn">Pause Audio</button>
-      </div>
-
-      <input type="file" accept="video/*" onChange={handleVideoUpload} className="btn" />
-
-      <button onClick={() => handleVideoTrim(0, 5)} className="btn">Trim Video 0-5s</button>
-
-      {processedVideo && (
-        <video src={processedVideo} controls className="w-96 mt-4" />
-      )}
-
-      <Timeline items={[]} onChange={(newItems) => console.log(newItems)} />
-
-      <textarea
-        value={transcript}
-        onChange={(e) => resetTranscript(e.target.value)}
-        placeholder="Speak something..."
-        className="w-full p-2 bg-gray-800 text-white"
-      />
-    </div>
-  );
+/* Presets */
+function loadPresets(){
+  const select = document.getElementById('loadPreset');
+  select.innerHTML = '';
+  for(const key in localStorage){
+    const option = document.createElement('option'); option.value=key; option.text=key;
+    select.appendChild(option);
+  }
+}
+document.getElementById('savePreset').onclick = ()=>{
+  const name = document.getElementById('presetName').value.trim();
+  if(!name) return alert("Enter preset name");
+  const preset = { pitch: document.getElementById('pitchSlider').value };
+  localStorage.setItem(name, JSON.stringify(preset));
+  loadPresets();
 };
+document.getElementById('applyPreset').onclick = ()=>{
+  const name = document.getElementById('loadPreset').value;
+  if(!name) return alert("Select preset");
+  const preset = JSON.parse(localStorage.getItem(name));
+  document.getElementById('pitchSlider').value = preset.pitch;
+};
+loadPresets();
+</script>
 
-export default App;
-   # Pro Studio
-
-A private React-based studio for voice modulation, video editing, and multitrack audio mixing.
-
-## Features
-- Voice modulation (Chipmunk, Robot, Deep, Reverb)
-- Video trimming & processing
-- Multitrack audio
-- Presets & timeline editing
-- Local use, deployable on Netlify
-
-## Setup
-1. Install dependencies:
-```bash
-npm install
-        npm run dev
-        ---
-
+</body>
+  </html>
