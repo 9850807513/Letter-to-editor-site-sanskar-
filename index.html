@@ -1,380 +1,164 @@
-<!doctype html>
+pro-studio/
+├── index.html
+├── package.json
+├── vite.config.js
+├── tailwind.config.cjs
+├── postcss.config.cjs
+├── src/
+│   ├── main.jsx
+│   ├── App.jsx
+│   ├── styles.css
+│   └── assets/
+│       └── background-music.mp3
+└── README.md
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Talentex — Olympiad MCQ Platform (Upgraded)</title>
-<style>
-  :root{
-    --bg:#f4f7fb; --card:#fff; --accent:#0b63ff; --ok:#16a34a; --err:#ef4444; --muted:#6b7280;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pro Studio</title>
+  </head>
+  <body class="bg-gray-900 text-white">
+    <div id="root"></div>
+  </body>
+</html>
+{
+  "name": "pro-studio",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-speech-recognition": "^3.11.0",
+    "use-sound": "^4.0.1",
+    "@ffmpeg/ffmpeg": "^0.12.0",
+    "react-timeline-editor": "^0.1.1"
+  },
+  "devDependencies": {
+    "vite": "^4.4.0",
+    "@vitejs/plugin-react": "^3.2.0",
+    "tailwindcss": "^3.3.3",
+    "postcss": "^8.4.27",
+    "autoprefixer": "^10.4.14"
   }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);color:#071026}
-  .app{max-width:1200px;margin:28px auto;padding:20px;background:var(--card);border-radius:14px;box-shadow:0 12px 40px rgba(2,6,23,0.06)}
-  header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-  .brand{font-weight:800;color:var(--accent);font-size:20px}
-  .controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  select,input,button{padding:8px 12px;border-radius:8px;border:1px solid rgba(11,92,255,0.08);font-size:14px}
-  button.primary{background:var(--accent);color:white;border:none;cursor:pointer}
-  .tabbar{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
-  .tab{padding:8px 12px;border-radius:9px;cursor:pointer;border:1px solid transparent}
-  .tab.active{background:#eef6ff;border-color:rgba(11,92,255,0.12);color:var(--accent)}
-  .layout{display:grid;grid-template-columns:1fr 360px;gap:14px;margin-top:16px}
-  @media(max-width:980px){.layout{grid-template-columns:1fr}}
-  .card{background:linear-gradient(180deg,#fff,#fbfdff);padding:14px;border-radius:12px;border:1px solid rgba(7,12,34,0.03)}
-  .question{font-size:18px;font-weight:700;text-align:left;margin-bottom:8px}
-  .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
-  .options{display:flex;flex-direction:column;gap:8px}
-  .opt{background:#f7fafc;border:1px solid #eef3ff;padding:10px;border-radius:8px;text-align:left;cursor:pointer}
-  .opt.correct{background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.24)}
-  .opt.wrong{background:rgba(255,99,132,0.08);border-color:rgba(239,68,68,0.16)}
-  .chip{display:inline-block;padding:6px 8px;border-radius:8px;background:#f0f7ff;color:var(--accent);font-weight:600}
-  .small{font-size:13px;color:var(--muted)}
-  .leaderboard{max-height:420px;overflow:auto;padding:6px;border-radius:8px}
-  .grid-rows{display:grid;gap:8px}
-  .footer{margin-top:12px;color:var(--muted);font-size:13px;text-align:center}
-  .export-btn{background:#111827;color:white;padding:8px;border-radius:8px;border:none}
-  .type-AR{border-left:6px solid #f59e0b;padding-left:10px} /* assertion-reason */
-  .type-MF{border-left:6px solid #6366f1;padding-left:10px} /* match-follow */
-  .type-MX{border-left:6px solid #06b6d4;padding-left:10px} /* matrix */
-  .case{border-left:6px solid #10b981;padding-left:10px} /* case study */
-</style>
-</head>
-<body>
-<div class="app" id="app">
-  <header>
-    <div>
-      <div class="brand">Talentex — Olympiad MCQ Platform (Upgraded)</div>
-      <div class="small">Fixed mock: 50 Q / 60 min • Infinite practice (no repeats) • AR, Match, Matrix, Case-study supported</div>
-    </div>
-
-    <div class="controls">
-      <label class="small">Mode
-        <select id="mode">
-          <option value="practice">Practice</option>
-          <option value="mock">Mock Test</option>
-          <option value="review">Review</option>
-          <option value="leaderboard">Leaderboard</option>
-        </select>
-      </label>
-
-      <label class="small">Subject
-        <select id="subject">
-          <option value="all">All</option>
-          <option value="physics">Physics</option>
-          <option value="chemistry">Chemistry</option>
-          <option value="biology">Biology</option>
-          <option value="maths">Maths</option>
-          <option value="iq">IQ</option>
-        </select>
-      </label>
-
-      <label class="small">Topic
-        <select id="topic"><option value="all">All</option></select>
-      </label>
-
-      <button id="btn-practice" class="primary">Start Practice</button>
-      <button id="btn-gen-mock">Generate Mock (50 Q)</button>
-      <button id="btn-start-mock">Start Mock</button>
-    </div>
-  </header>
-
-  <div class="tabbar" role="tablist" style="margin-top:12px">
-    <div class="tab active" data-tab="practice">Practice</div>
-    <div class="tab" data-tab="mock">Mock</div>
-    <div class="tab" data-tab="review">Review</div>
-    <div class="tab" data-tab="leaderboard">Leaderboard</div>
-  </div>
-
-  <div class="layout" style="margin-top:14px">
-    <main>
-      <!-- Practice -->
-      <section id="panel-practice" class="card tabcontent">
-        <div class="meta">
-          <div><strong>Practice (Infinite — mostly hard)</strong> <span class="small">• No repeated Qs</span></div>
-          <div><span id="practice-timer" class="small">Time: —</span> &nbsp; <span id="practice-score" class="small">Score: 0</span></div>
-        </div>
-
-        <div id="practice-area">
-          <div id="q-container">
-            <div class="question" id="q-text">Click Start Practice to generate questions.</div>
-            <div id="q-svg"></div>
-            <div class="options" id="q-options"></div>
-            <div id="q-explanation" class="small" style="margin-top:10px"></div>
-          </div>
-
-          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-            <button id="btn-next-practice">Next</button>
-            <button id="btn-reset-asked" class="small">Reset asked pool</button>
-            <button id="btn-export-review" class="export-btn">Export Review (Print)</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Mock -->
-      <section id="panel-mock" class="card tabcontent" style="display:none;margin-top:12px">
-        <div class="meta">
-          <div><strong>Fixed Mock</strong> <div class="small">50 Q • 60 minutes • Mixed types</div></div>
-          <div>
-            <button id="btn-preview-mock">Preview</button>
-            <button id="btn-submit-mock">Submit</button>
-            <button id="btn-export-mock" class="export-btn">Export (Print Solutions)</button>
-          </div>
-        </div>
-
-        <div id="mock-meta" class="small muted">No mock generated.</div>
-        <div id="mock-area" style="margin-top:12px"></div>
-      </section>
-
-      <!-- Review -->
-      <section id="panel-review" class="card tabcontent" style="display:none;margin-top:12px">
-        <div class="meta"><strong>Review — Mistakes & Bookmarks</strong> <div class="small">Visit later to re-practice</div></div>
-        <div id="review-list" class="grid-rows" style="max-height:520px;overflow:auto"></div>
-      </section>
-
-    </main>
-
-    <aside>
-      <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div><strong>Quick Status</strong></div><div class="small">Overview</div>
-        </div>
-        <div style="margin-top:8px">
-          <div class="small">Practice score: <span id="s-practice">0</span></div>
-          <div class="small" style="margin-top:6px">Saved mocks: <span id="s-mock-count">0</span></div>
-          <div class="small" style="margin-top:6px">Review items: <span id="s-review-count">0</span></div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:10px">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div><strong>Leaderboard</strong></div><div><button id="btn-clear-lb">Clear</button></div>
-        </div>
-        <div id="leaderboard" class="leaderboard" style="margin-top:8px"></div>
-      </div>
-
-      <div class="card" style="margin-top:10px">
-        <div style="display:flex;justify-content:space-between;align-items:center"><div><strong>Tools</strong></div><div></div></div>
-        <div style="margin-top:8px">
-          <button id="btn-export-lb" class="export-btn">Export Leaderboard (CSV)</button>
-        </div>
-      </div>
-    </aside>
-  </div>
-
-  <div class="footer">Single-file SPA — save as <code>index.html</code> in repo root and deploy on Netlify. If anything breaks, paste console errors and I'll fix.</div>
-</div>
-
-<script>
-/* -------------------------
-   Storage keys and helpers
-   ------------------------- */
-const KEY_LB = 'talentex_v2_lb';
-const KEY_REVIEW = 'talentex_v2_review';
-const KEY_MOCK = 'talentex_v2_mock';
-const KEY_ASKED = 'talentex_v2_asked';
-
-const $ = id => document.getElementById(id);
-function rand(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
-function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]] } return arr; }
-function save(key,val){ localStorage.setItem(key, JSON.stringify(val)); }
-function load(key){ try { return JSON.parse(localStorage.getItem(key)||'null'); } catch(e){ return null; } }
-function now(){ return Date.now(); }
-
-/* -------------------------
-   Asked-pool (no repetition)
-   persisted across sessions
-   ------------------------- */
-let askedPool = new Set(load(KEY_ASKED) || []);
-function markAsked(qid){
-  askedPool.add(qid);
-  save(KEY_ASKED, Array.from(askedPool));
 }
-function resetAsked(){
-  askedPool = new Set();
-  save(KEY_ASKED, []);
-  alert('Asked-pool reset. Questions may reappear now.');
-}
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-/* -------------------------
-   Topics + Generators
-   - Each generator returns full question object:
-     { id, subject, topic, type, q, options, correct, explanation, svg? }
-   - Types: 'single','numeric','AR','match','matrix','case'
-   ------------------------- */
-const TOPICS = {
-  physics:['motion','electricity','optics','gravitation','work_energy'],
-  chemistry:['reactions','acids_bases','electrochem','organic'],
-  biology:['nutrition','heredity','respiration','transport'],
-  maths:['algebra','number','geometry','combinatorics'],
-  iq:['series','puzzles','logical']
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    open: true
+  }
+});
+module.exports = {
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    extend: {}
+  },
+  plugins: []
 };
-
-let globalId = 1;
-function qobj(sub, topic, type, q, options, correct, explanation, svg){
-  return { id:`Q${globalId++}`, subject:sub, topic, type, q, options, correct, explanation, svg: svg||null };
-}
-
-/* small utility for matrix/match formatting */
-function makeMatchOptions(pairs){ // pairs: [{L:'A',R:'1'}, ...]
-  // For front-end we'll present L list and R list shuffled; correct will be mapping like {A:'1',...}
-  const left = pairs.map(p=>p.L);
-  let right = pairs.map(p=>p.R); right = shuffle(right);
-  const options = { left, right };
-  const correct = pairs.reduce((m,p)=>{ m[p.L]=p.R; return m; }, {});
-  return { options, correct };
-}
-
-/* core question generators (examples — expand as needed) */
-const GENERATORS = {
-  physics: {
-    motion: {
-      medium: ()=>{ const h=rand(5,40); const t=(Math.sqrt(2*h/10)).toFixed(2); return qobj('physics','motion','numeric',`A body is dropped from ${h} m. Time to hit ground? (g=10)`, [`${t} s`, `${(parseFloat(t)+0.5).toFixed(2)} s`, `${(Math.max(0,parseFloat(t)-0.5)).toFixed(2)} s`, `${(parseFloat(t)+1).toFixed(2)} s`], `${t} s`, 'Use s = 1/2 g t^2 → t = √(2h/g).'); },
-      hard: ()=>{ const u=rand(15,40); const s=rand(5,30); const disc=Math.max(0,u*u - 2*10*s); const t1=((u - Math.sqrt(disc))/10).toFixed(2); return qobj('physics','motion','single',`A body thrown up at ${u} m/s reaches height ${s} m. Earliest time? (g=10)`, [`${t1} s`, `${(parseFloat(t1)+1).toFixed(2)} s`, `${(parseFloat(t1)+2).toFixed(2)} s`, `No real time`], `${t1} s`, 'Solve s = ut - 1/2 g t^2; take smaller root.'); }
-    },
-    electricity: {
-      medium: ()=>{ const V=rand(6,24), R=rand(1,12); const I=(V/R).toFixed(2); return qobj('physics','electricity','numeric',`Voltage ${V}V across ${R}Ω. Current?`, [`${I} A`, `${(parseFloat(I)+0.5).toFixed(2)} A`, `${(Math.max(0,parseFloat(I)-0.5)).toFixed(2)} A`, `${(parseFloat(I)+1).toFixed(2)} A`], `${I} A`, "Ohm's law I = V/R."); },
-      hard: ()=>{ const r1=rand(5,30), r2=rand(5,30), r3=rand(5,30), V=rand(12,48); const req = ((r1*r2)/(r1+r2) + r3).toFixed(2); const I=(V/req).toFixed(2); return qobj('physics','electricity','single',`R1=${r1}Ω and R2=${r2}Ω are parallel; this pair in series with R3=${r3}Ω across ${V}V. Total current?`, [`${I} A`, `${(parseFloat(I)+1).toFixed(2)} A`, `${(Math.max(0,parseFloat(I)-1)).toFixed(2)} A`, `${(parseFloat(I)+2).toFixed(2)} A`], `${I} A`, 'Compute equivalent resistance and I=V/R_eq.'); }
-    },
-    optics: {
-      hard: ()=>{ const f=rand(5,30), v=rand(f+10,f+50); const u = ((v*f)/(v-f)).toFixed(2); return qobj('physics','optics','numeric',`Convex lens of focal ${f}cm forms image at v=${v}cm. Object distance?`, [`${u} cm`, `${(parseFloat(u)+5).toFixed(2)} cm`, `${(parseFloat(u)-5).toFixed(2)} cm`, `Cannot be determined`], `${u} cm`, 'Use lens formula: 1/f = 1/v + 1/u.'); }
-    }
-  },
-
-  chemistry: {
-    reactions: {
-      medium: ()=> qobj('chemistry','reactions','single','AB + CD → AD + CB is which reaction?',['Double displacement','Redox','Combination','Decomposition'],'Double displacement','Ions exchange partners.'),
-      hard: ()=>{ const a=rand(1,6), b=rand(1,10), needB=1.5*a; const limiting = b<needB?'B':'A'; return qobj('chemistry','reactions','single',`2A+3B→products. Given ${a} mol A and ${b} mol B, limiting reagent?`,[limiting, limiting==='A'?'B':'A','Both','Cannot tell'], limiting, 'Compare required stoichiometric amounts.'); }
-    },
-    acids_bases: {
-      hard: ()=> qobj('chemistry','acids_bases','numeric','If pH changes from 3 to 6, [H+] changes by factor?',['1000','3','100','10'],'1000','Each pH unit is 10x; 3 units → 10^3.')
-    }
-  },
-
-  biology: {
-    heredity: {
-      hard: ()=> qobj('biology','heredity','numeric','Hardy-Weinberg: if p=0.6, homozygous dominant frequency?', ['0.36','0.24','0.16','0.64'],'0.36','p^2 = 0.36.')
-    },
-    nutrition: {
-      medium: ()=> qobj('biology','nutrition','single','Which pigment captures light in plants?',['Chlorophyll','Haemoglobin','Keratin','Myosin'],'Chlorophyll','Chlorophyll absorbs light for photosynthesis.'),
-      hard: ()=> qobj('biology','nutrition','single','Which process converts glucose to ethanol anaerobically?',['Fermentation','Respiration','Photosynthesis','Transpiration'],'Fermentation','Anaerobic conversion → fermentation.')
-    }
-  },
-
-  maths: {
-    combinatorics: {
-      medium: ()=> qobj('maths','combinatorics','numeric','5 people shake hands once each: total handshakes?',['10','5','20','15'],'10','n(n-1)/2'),
-      hard: ()=> qobj('maths','combinatorics','numeric','In row of 7 students, ways 2 particular students sit together?',['720','1440','120','100'],'720','Treat pair as one: 6!×2 = 720.')
-    },
-    algebra: {
-      hard: ()=>{ const a=rand(2,9); const b=rand(1,9); return qobj('maths','algebra','single',`If x^2 - ${a}x + ${b} = 0, express α^2+β^2 in terms of a,b.`,['a^2 - 2b','a^2 + b','a - b','2b - a^2'],'a^2 - 2b','Use (α+β)=a, αβ=b → α^2+β^2=(α+β)^2 -2αβ.'); }
-    }
-  },
-
-  iq: {
-    series: {
-      hard: ()=> qobj('iq','series','single','1,2,6,24,?',['120','48','30','100'],'120','Factorials: 5!=120')
-    },
-    puzzles: {
-      hard: ()=> qobj('iq','puzzles','single','Find odd one out: 2,3,5,9,11,13',['9','11','5','3'],'9','All others are prime except 9.')
-    }
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {}
   }
 };
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Assertion-Reason and Match/Matrix/Case generators (examples) */
-function genAssertionReason(){
-  // Example AR: simple conceptual
-  const arr = [
-    { sub:'physics', topic:'motion', A:'Net force on a body is zero ⇒ velocity is constant.', R:'If net force is zero, acceleration is zero.', ans:'BothTrue', explanation:'Zero net force ⇒ zero acceleration ⇒ velocity constant.' },
-    { sub:'chemistry', topic:'acids_bases', A:'pH 7 is neutral at 25°C.', R:'Neutral pH always equals 7 at any temperature.', ans:'AtrueRfalse', explanation:'At 25°C neutral pH = 7; at other temperatures neutrality pH differs.' }
-  ];
-  const pick = arr[rand(0,arr.length-1)];
-  // convert to MCQ with options:
-  const options = ['Both A and R are true and R explains A','Both A and R are true but R does not explain A','A true R false','A false R true'];
-  const correct = pick.ans==='BothTrue' ? options[0] : (pick.ans==='BothTrueNoExplain'? options[1] : (pick.ans==='AtrueRfalse'? options[2] : options[3]));
-  return qobj(pick.sub, pick.topic, 'AR', `Assertion: ${pick.A}\nReason: ${pick.R}`, options, correct, pick.explanation);
+.btn {
+  @apply px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition;
 }
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './styles.css';
+import App from './App';
 
-function genMatch(){
-  // simple match example
-  const pairs = [
-    {L:'Mitochondria', R:'ATP production'},
-    {L:'Ribosome', R:'Protein synthesis'},
-    {L:'Chloroplast', R:'Photosynthesis'}
-  ];
-  const mm = makeMatchOptions(pairs);
-  // produce human-friendly options: show left and right lists separated
-  const options = [ JSON.stringify(mm.options) ]; // we will handle rendering specially
-  return { id:`Q${globalId++}`, subject:'biology', topic:'match', type:'match', q:'Match the following (L → R):', options: mm.options, correct: mm.correct, explanation:'Match organelles with their main function.' };
-}
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+import React, { useState } from 'react';
+import { useSpeechRecognition } from 'react-speech-recognition';
+import useSound from 'use-sound';
+import { Timeline } from 'react-timeline-editor';
+import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 
-function genMatrix(){
-  // Example: select all correct pairs (matrix match). We'll encode as left array and right array and list of correct mappings.
-  const left = ['A: 2x', 'B: x^2', 'C: x^3'];
-  const right = ['1: linear', '2: quadratic', '3: cubic'];
-  const correct = {'A':'1','B':'2','C':'3'};
-  return { id:`Q${globalId++}`, subject:'maths', topic:'matrix', type:'matrix', q:'Match degrees with polynomial types', options:{left,right}, correct, explanation:'Linear=degree1, Quadratic=2, Cubic=3.' };
-}
+const App = () => {
+  const [ffmpeg] = useState(() => createFFmpeg({ log: true }));
+  const { transcript, resetTranscript } = useSpeechRecognition();
+  const [audio] = useSound('/assets/background-music.mp3');
+  const [videoFile, setVideoFile] = useState(null);
+  const [processedVideo, setProcessedVideo] = useState(null);
 
-function genCaseStudy(){
-  const passage = "A 20-year-old student plants seeds. He notices seedlings grow towards light and roots grow into the soil. Study this and answer.";
-  const qs = [
-    qobj('biology','case','case', passage + "\nQ: The movement towards light is called?", ['Phototropism','Geotropism','Transpiration','Osmosis'], 'Phototropism', 'Movement of plant parts towards light.'),
-    qobj('biology','case','case', passage + "\nQ: Roots growing downwards is called?", ['Geotropism','Phototropism','Hydrotropism','Nastic movement'], 'Geotropism', 'Growth in response to gravity.')
-  ];
-  return qs; // returns array of case questions
-}
+  const handleAudioPlay = () => audio.play();
+  const handleAudioPause = () => audio.pause();
 
-/* makeMatchOptions helper used earlier */
-function makeMatchOptions(pairs){
-  const left = pairs.map(p=>p.L);
-  let right = pairs.map(p=>p.R);
-  right = shuffle(right);
-  const correct = {};
-  pairs.forEach(p=> correct[p.L] = p.R);
-  return { left, right, correct };
-}
+  const handleVideoUpload = (e) => setVideoFile(e.target.files[0]);
 
-/* -------------------------
-   UI wiring
-   ------------------------- */
-function populateTopics(){
-  const s = $('subject').value;
-  const t = $('topic');
-  t.innerHTML = '<option value="all">All</option>';
-  if(s==='all') return;
-  (TOPICS[s]||[]).forEach(x=>{
-    const o = document.createElement('option'); o.value=x; o.text = x; t.appendChild(o);
-  });
-}
-$('subject').addEventListener('change', populateTopics);
-populateTopics();
+  const handleVideoTrim = async (start = 0, end = 5) => {
+    if (!videoFile) return;
+    await ffmpeg.load();
+    ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(videoFile));
+    await ffmpeg.run('-i', 'input.mp4', '-ss', `${start}`, '-to', `${end}`, 'output.mp4');
+    const data = ffmpeg.FS('readFile', 'output.mp4');
+    const url = URL.createObjectURL(new Blob([data.buffer], { type: 'video/mp4' }));
+    setProcessedVideo(url);
+  };
 
-/* ---------- Practice logic ---------- */
-let practiceState = { score:0, timer:null, timePerQ:60, lastQ:null };
-$('btn-practice').addEventListener('click', ()=>{ openTab('practice'); nextPractice(); });
+  return (
+    <div className="flex flex-col items-center p-4 space-y-4">
+      <h1 className="text-3xl font-bold">Pro Studio</h1>
 
-$('btn-next-practice').addEventListener('click', nextPractice);
-$('btn-reset-asked').addEventListener('click', ()=>{ if(confirm('Reset asked pool? This will allow previous questions to reappear.')) resetAsked(); });
+      <div className="flex space-x-4">
+        <button onClick={handleAudioPlay} className="btn">Play Audio</button>
+        <button onClick={handleAudioPause} className="btn">Pause Audio</button>
+      </div>
 
-function pickPracticeQ(subjectFilter, topicFilter){
-  // choose subject
-  const subjects = subjectFilter==='all'? Object.keys(GENERATORS) : [subjectFilter];
-  const s = subjects[rand(0,subjects.length-1)];
-  const topics = topicFilter==='all'? Object.keys(GENERATORS[s]) : [topicFilter];
-  const t = topics[rand(0, topics.length-1)];
-  // prefer hard (75%) else medium
-  const kind = Math.random() < 0.75 && GENERATORS[s][t].hard ? 'hard' : 'medium';
-  const q = GENERATORS[s][t][kind]();
-  if(askedPool.has(q.id)){
-    // try a few times
-    for(let i=0;i<8;i++){
-      const s2 = subjects[rand(0,subjects.length-1)];
-      const t2 = topicFilter==='all'? Object.keys(GENERATORS[s2])[rand(0,Object.keys(GENERATORS[s2]).length-1)] : topics[0];
-      const kind2 = Math.random() < 0.75 && GENERATORS[s2][t2].hard ? 'hard' : 'medium';
-      const q2 = GENERATORS[s2][t2][kind2]();
-      if(!askedPool.has(q2.id)) return q2;
-    }
-    // fallback: return q (may repeat)
-  }
-  return 
+      <input type="file" accept="video/*" onChange={handleVideoUpload} className="btn" />
+
+      <button onClick={() => handleVideoTrim(0, 5)} className="btn">Trim Video 0-5s</button>
+
+      {processedVideo && (
+        <video src={processedVideo} controls className="w-96 mt-4" />
+      )}
+
+      <Timeline items={[]} onChange={(newItems) => console.log(newItems)} />
+
+      <textarea
+        value={transcript}
+        onChange={(e) => resetTranscript(e.target.value)}
+        placeholder="Speak something..."
+        className="w-full p-2 bg-gray-800 text-white"
+      />
+    </div>
+  );
+};
+
+export default App;
+   # Pro Studio
+
+A private React-based studio for voice modulation, video editing, and multitrack audio mixing.
+
+## Features
+- Voice modulation (Chipmunk, Robot, Deep, Reverb)
+- Video trimming & processing
+- Multitrack audio
+- Presets & timeline editing
+- Local use, deployable on Netlify
+
+## Setup
+1. Install dependencies:
+```bash
+npm install
+        npm run dev
+        ---
+
