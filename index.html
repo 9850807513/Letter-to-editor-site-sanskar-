@@ -1,160 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Legendary AI Video Editor</title>
-  <style>
-    /* Basic Reset */
-    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Arial', sans-serif;}
-    body {background:#121212; color:#fff;}
-    .container {display:flex; flex-direction:column; height:100vh;}
-    header {background:#1e1e1e; padding:12px; text-align:center; font-size:1.6rem; letter-spacing:1px; color:#00ffff; text-shadow:0 0 5px #00ffff,0 0 10px #00ffff;}
-    main {flex:1; display:flex; flex-direction:column; padding:10px;}
-    #videoPlayer {width:100%; height:300px; background:#000; border-radius:8px; margin-bottom:10px;}
-    #timeline {display:flex; align-items:center; margin:10px 0; gap:10px;}
-    #timeline input[type=range] {flex:1;}
-    .controls {display:flex; flex-wrap:wrap; gap:10px;}
-    button {background:#333; border:none; padding:10px 14px; border-radius:6px; color:#fff; cursor:pointer; transition:0.2s;}
-    button:hover {background:#555;}
-    .tools {display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;}
-    .tools button {flex:1;}
-    .slider-group {display:flex; flex-direction:column; margin-bottom:10px;}
-    .slider-group label {margin-bottom:4px;}
-    input[type=range]{width:100%;}
-    footer {background:#1e1e1e; padding:10px; text-align:center; font-size:0.85rem;}
-    .neon {color:#00ffff; text-shadow:0 0 5px #00ffff,0 0 10px #00ffff;}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legendary Video Editor</title>
+<style>
+body { margin:0; font-family: Arial, sans-serif; background:#121212; color:#fff; }
+header { text-align:center; font-size:28px; color:#00ffff; padding:10px; text-shadow:0 0 5px #00ffff; }
+#video { width:100%; max-height:300px; margin-bottom:10px; background:#000; }
+.controls { display:flex; flex-wrap:wrap; gap:10px; margin:10px; justify-content:center; }
+button, input[type=range] { padding:10px; border:none; border-radius:5px; cursor:pointer; }
+button { background:#00ffff; color:#121212; font-weight:bold; }
+button:hover { background:#00dddd; }
+input[type=range] { width:150px; }
+.panel { margin:10px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+</style>
 </head>
 <body>
-  <div class="container">
-    <header class="neon">Legendary AI Video Editor</header>
-    <main>
-      <video id="videoPlayer" controls></video>
-      <!-- Timeline -->
-      <div id="timeline">
-        <input type="range" id="timelineRange" min="0" max="100" value="0">
-        <span id="currentTime">0:00</span>
-      </div>
-      <!-- Controls -->
-      <div class="controls">
-        <button id="playPauseBtn">Play</button>
-        <button id="stopBtn">Stop</button>
-        <button id="muteBtn">Mute</button>
-        <button id="uploadBtn">Choose Video</button>
-        <button id="saveBtn">Save Video</button>
-      </div>
-      <!-- Tools -->
-      <div class="tools">
-        <button id="trimBtn">Trim</button>
-        <button id="speedBtn">Speed</button>
-        <button id="filterBtn">Filters</button>
-        <button id="voiceBtn">Voice Edit</button>
-        <button id="musicBtn">Add Music</button>
-        <button id="aiBtn">AI Auto Edit</button>
-      </div>
-      <!-- Editor Panels -->
-      <div id="editorPanel">
-        <div class="slider-group">
-          <label for="speedRange">Speed: <span id="speedVal">1x</span></label>
-          <input type="range" id="speedRange" min="0.25" max="3" value="1" step="0.05">
-        </div>
-        <div class="slider-group">
-          <label for="pitchRange">Voice Pitch: <span id="pitchVal">0</span></label>
-          <input type="range" id="pitchRange" min="-12" max="12" value="0">
-        </div>
-        <div class="slider-group">
-          <label for="echoRange">Echo: <span id="echoVal">0</span></label>
-          <input type="range" id="echoRange" min="0" max="10" value="0">
-        </div>
-        <div class="slider-group">
-          <label for="filterRange">Filter Intensity: <span id="filterVal">0</span></label>
-          <input type="range" id="filterRange" min="0" max="100" value="0">
-        </div>
-      </div>
-    </main>
-    <footer>© 2025 Sanskar Legendary Editor</footer>
-  </div>
-  <script>
-    // Elements
-    const videoPlayer = document.getElementById('videoPlayer');
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    const stopBtn = document.getElementById('stopBtn');
-    const muteBtn = document.getElementById('muteBtn');
-    const timelineRange = document.getElementById('timelineRange');
-    const currentTimeDisplay = document.getElementById('currentTime');
-    const uploadBtn = document.getElementById('uploadBtn');
-    const saveBtn = document.getElementById('saveBtn');
-    const speedRange = document.getElementById('speedRange');
-    const speedVal = document.getElementById('speedVal');
-    const pitchRange = document.getElementById('pitchRange');
-    const pitchVal = document.getElementById('pitchVal');
-    const echoRange = document.getElementById('echoRange');
-    const echoVal = document.getElementById('echoVal');
-    const filterRange = document.getElementById('filterRange');
-    const filterVal = document.getElementById('filterVal');
-    const aiBtn = document.getElementById('aiBtn');
+<header>Legendary Video Editor</header>
+<video id="video" controls></video>
 
-    let isPlaying = false;
-    let isMuted = false;
+<div class="controls">
+<button id="upload">Choose Video</button>
+<button id="trim">Trim 5-10s</button>
+<button id="speed">Speed 2x</button>
+<button id="pitch">Pitch +2</button>
+<button id="echo">Echo</button>
+<button id="brightness">Brightness +0.1</button>
+<button id="export">Export MP4</button>
+</div>
 
-    // Web Audio Setup
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    let trackNode = null;
-    let pitchNode = audioCtx.createGain();
-    let delayNode = audioCtx.createDelay();
-    delayNode.delayTime.value = 0;
+<div class="panel">
+<label>Volume/Speed:</label>
+<input type="range" id="volume" min="0.5" max="2" step="0.1" value="1">
+</div>
 
-    // Upload Video
-    uploadBtn.addEventListener('click', () => {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'video/*';
-      input.onchange = e => {
-        const file = e.target.files[0];
-        const url = URL.createObjectURL(file);
-        videoPlayer.src = url;
-        if (trackNode) trackNode.disconnect();
-        trackNode = audioCtx.createMediaElementSource(videoPlayer);
-        trackNode.connect(pitchNode).connect(delayNode).connect(audioCtx.destination);
-      };
-      input.click();
-    });
+<script type="module">
+import { createFFmpeg, fetchFile } from 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.1/dist/ffmpeg.min.js';
 
-    // Play/Pause
-    playPauseBtn.addEventListener('click', () => {
-      if (isPlaying) {
-        videoPlayer.pause();
-        playPauseBtn.textContent = 'Play';
-      } else {
-        videoPlayer.play();
-        playPauseBtn.textContent = 'Pause';
-      }
-      isPlaying = !isPlaying;
-    });
+const ffmpeg = createFFmpeg({ log: true });
+let fileData;
+const video = document.getElementById('video');
 
-    // Stop
-    stopBtn.addEventListener('click', () => {
-      videoPlayer.pause();
-      videoPlayer.currentTime = 0;
-      playPauseBtn.textContent = 'Play';
-      isPlaying = false;
-    });
+document.getElementById('upload').onclick = () => {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'video/*';
+  input.onchange = async e => {
+    fileData = e.target.files[0];
+    video.src = URL.createObjectURL(fileData);
+  };
+  input.click();
+};
 
-    // Mute
-    muteBtn.addEventListener('click', () => {
-      videoPlayer.muted = !isMuted;
-      muteBtn.textContent = isMuted ? 'Mute' : 'Unmute';
-      isMuted = !isMuted;
-    });
+// Basic Trim
+document.getElementById('trim').onclick = async () => {
+  if(!fileData){alert("Upload a video first"); return;}
+  await ffmpeg.load();
+  ffmpeg.FS('writeFile','input.mp4',await fetchFile(fileData));
+  await ffmpeg.run('-i','input.mp4','-ss','5','-to','10','-c','copy','output.mp4');
+  const data = ffmpeg.FS('readFile','output.mp4');
+  const url = URL.createObjectURL(new Blob([data.buffer], { type:'video/mp4' }));
+  video.src = url;
+  fileData = new File([data.buffer],'output.mp4',{ type:'video/mp4' });
+};
 
-    // Timeline
-    videoPlayer.addEventListener('timeupdate', () => {
-      const currentTime = videoPlayer.currentTime;
-      const duration = videoPlayer.duration || 1;
-      timelineRange.value = (currentTime / duration) * 100;
-      currentTimeDisplay.textContent = formatTime(currentTime);
-    });
-    timelineRange.addEventListener('input', () => {
-      const duration = videoPlayer.duration || 1;
-      video0
+// Speed
+document.getElementById('speed').onclick = async () => {
+  if(!fileData){alert("Upload a video first"); return;}
+  await ffmpeg.load();
+  ffmpeg.FS('writeFile','input.mp4',await fetchFile(fileData));
+  await ffmpeg.run('-i','input.mp4','-filter:v','setpts=0.5*PTS','output.mp4');
+  const data = ffmpeg.FS('readFile','output.mp4');
+  const url = URL.createObjectURL(new Blob([data.buffer], { type:'video/mp4' }));
+  video.src = url;
+  fileData = new File([data.buffer],'output.mp4',{ type:'video/mp4' });
+};
+
+// Pitch
+document.getElementById('pitch').onclick = async () => {
+  if(!fileData){alert("Upload a video first"); return;}
+  await ffmpeg.load();
+  ffmpeg.FS('writeFile','input.mp4',await fetchFile(fileData));
+  await ffmpeg.run('-i','input.mp4','-af','asetrate=44100*1.2,aresample=44100','output.mp4');
+  const data = ffmpeg.FS('readFile','output.mp4');
+  const url = URL.createObjectURL(new Blob([data.buffer], { type:'video/mp4' }));
+  video.src = url;
+  fileData = new File([data.buffer],'output.mp4',{ type:'video/mp4' });
+};
+
+// Echo
+document.getElementById('echo').onclick = async () => {
+  if(!fileData){alert("Upload a video first"); return;}
+  await ffmpeg.load();
+  ffmpeg.FS('writeFile','input.mp4',await fetchFile(fileData));
+  await ffmpeg.run('-i','input.mp4','-af','aecho=0.8:0.9:1000:0.3','output.mp4');
+  const data = ffmpeg.FS('readFile','output.mp4');
+  const url = URL.createObjectURL(new Blob([data.buffer], { type:'video/mp4' }));
+  video.src = url;
+  fileData = new File([data.buffer],'output.mp4',{ type:'video/mp4' });
+};
+
+// Brightness
+document.getElementById('brightness').onclick = async () => {
+  if(!fileData){alert("Upload a video first"); return;}
+  await ffmpeg.load();
+  ffmpeg.FS('writeFile','input.mp4',await fetchFile(fileData));
+  await ffmpeg.run('-i','input.mp4','-vf','eq=brightness=0.1','output.mp4');
+  const data = ffmpeg.FS('readFile','output.mp4');
+  const url = URL.createObjectURL(new Blob([data.buffer], { type:'video/mp4' }));
+  video.src = url;
+  fileData = new File([data.buffer],'output.mp4',{ type:'video/mp4' });
+};
+
+// Export
+document.getElementById('export').onclick = () => {
+  if(!fileData){alert("No video to export"); return;}
+  const url = URL.createObjectURL(fileData);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'edited_video.mp4';
+  a.click();
+};
+
+// Volume / Speed slider
+document.getElementById('volume').oninput = e => {
+  video.playbackRate = parseFloat(e.target.value);
+}
+</script>
+</body>
+</html>
