@@ -31,17 +31,26 @@ input[type=range] { width:150px; }
 </div>
 
 <div class="panel">
-<label>Volume/Speed:</label>
+<label>Playback Speed:</label>
 <input type="range" id="volume" min="0.5" max="2" step="0.1" value="1">
 </div>
 
 <script type="module">
 import { createFFmpeg, fetchFile } from 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.1/dist/ffmpeg.min.js';
 
-const ffmpeg = createFFmpeg({ log: true });
+const ffmpeg = createFFmpeg({ log:true });
 let fileData;
+let isLoaded = false;
 const video = document.getElementById('video');
 
+const loadFFmpegOnce = async () => {
+  if(!isLoaded){
+    await ffmpeg.load();
+    isLoaded = true;
+  }
+}
+
+// Upload Video
 document.getElementById('upload').onclick = () => {
   const input = document.createElement('input');
   input.type = 'file';
@@ -51,67 +60,44 @@ document.getElementById('upload').onclick = () => {
     video.src = URL.createObjectURL(fileData);
   };
   input.click();
-};
+}
 
-// Basic Trim
+// Helper to process video
+const processVideo = async (ffmpegArgs) => {
+  if(!fileData){alert("Upload a video first"); return;}
+  await loadFFmpegOnce();
+  ffmpeg.FS('writeFile','input.mp4',await fetchFile(fileData));
+  await ffmpeg.run(...ffmpegArgs);
+  const data = ffmpeg.FS('readFile','output.mp4');
+  const url = URL.createObjectURL(new Blob([data.buffer], { type:'video/mp4' }));
+  video.src = url;
+  fileData = new File([data.buffer],'output.mp4',{ type:'video/mp4' });
+}
+
+// Trim 5-10s
 document.getElementById('trim').onclick = async () => {
-  if(!fileData){alert("Upload a video first"); return;}
-  await ffmpeg.load();
-  ffmpeg.FS('writeFile','input.mp4',await fetchFile(fileData));
-  await ffmpeg.run('-i','input.mp4','-ss','5','-to','10','-c','copy','output.mp4');
-  const data = ffmpeg.FS('readFile','output.mp4');
-  const url = URL.createObjectURL(new Blob([data.buffer], { type:'video/mp4' }));
-  video.src = url;
-  fileData = new File([data.buffer],'output.mp4',{ type:'video/mp4' });
-};
+  await processVideo(['-i','input.mp4','-ss','5','-to','10','-c','copy','output.mp4']);
+}
 
-// Speed
+// Speed 2x
 document.getElementById('speed').onclick = async () => {
-  if(!fileData){alert("Upload a video first"); return;}
-  await ffmpeg.load();
-  ffmpeg.FS('writeFile','input.mp4',await fetchFile(fileData));
-  await ffmpeg.run('-i','input.mp4','-filter:v','setpts=0.5*PTS','output.mp4');
-  const data = ffmpeg.FS('readFile','output.mp4');
-  const url = URL.createObjectURL(new Blob([data.buffer], { type:'video/mp4' }));
-  video.src = url;
-  fileData = new File([data.buffer],'output.mp4',{ type:'video/mp4' });
-};
+  await processVideo(['-i','input.mp4','-filter:v','setpts=0.5*PTS','output.mp4']);
+}
 
-// Pitch
+// Pitch +2
 document.getElementById('pitch').onclick = async () => {
-  if(!fileData){alert("Upload a video first"); return;}
-  await ffmpeg.load();
-  ffmpeg.FS('writeFile','input.mp4',await fetchFile(fileData));
-  await ffmpeg.run('-i','input.mp4','-af','asetrate=44100*1.2,aresample=44100','output.mp4');
-  const data = ffmpeg.FS('readFile','output.mp4');
-  const url = URL.createObjectURL(new Blob([data.buffer], { type:'video/mp4' }));
-  video.src = url;
-  fileData = new File([data.buffer],'output.mp4',{ type:'video/mp4' });
-};
+  await processVideo(['-i','input.mp4','-af','asetrate=44100*1.2,aresample=44100','output.mp4']);
+}
 
 // Echo
 document.getElementById('echo').onclick = async () => {
-  if(!fileData){alert("Upload a video first"); return;}
-  await ffmpeg.load();
-  ffmpeg.FS('writeFile','input.mp4',await fetchFile(fileData));
-  await ffmpeg.run('-i','input.mp4','-af','aecho=0.8:0.9:1000:0.3','output.mp4');
-  const data = ffmpeg.FS('readFile','output.mp4');
-  const url = URL.createObjectURL(new Blob([data.buffer], { type:'video/mp4' }));
-  video.src = url;
-  fileData = new File([data.buffer],'output.mp4',{ type:'video/mp4' });
-};
+  await processVideo(['-i','input.mp4','-af','aecho=0.8:0.9:1000:0.3','output.mp4']);
+}
 
-// Brightness
+// Brightness +0.1
 document.getElementById('brightness').onclick = async () => {
-  if(!fileData){alert("Upload a video first"); return;}
-  await ffmpeg.load();
-  ffmpeg.FS('writeFile','input.mp4',await fetchFile(fileData));
-  await ffmpeg.run('-i','input.mp4','-vf','eq=brightness=0.1','output.mp4');
-  const data = ffmpeg.FS('readFile','output.mp4');
-  const url = URL.createObjectURL(new Blob([data.buffer], { type:'video/mp4' }));
-  video.src = url;
-  fileData = new File([data.buffer],'output.mp4',{ type:'video/mp4' });
-};
+  await processVideo(['-i','input.mp4','-vf','eq=brightness=0.1','output.mp4']);
+}
 
 // Export
 document.getElementById('export').onclick = () => {
@@ -121,9 +107,9 @@ document.getElementById('export').onclick = () => {
   a.href = url;
   a.download = 'edited_video.mp4';
   a.click();
-};
+}
 
-// Volume / Speed slider
+// Playback speed slider
 document.getElementById('volume').oninput = e => {
   video.playbackRate = parseFloat(e.target.value);
 }
