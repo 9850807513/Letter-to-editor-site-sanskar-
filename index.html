@@ -1,174 +1,379 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pro Studio - Professional UI</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pro Studio — Legendary Pro Trim & AI Enhance</title>
+<link rel="icon" href="data:," />
 <style>
-/* Reset & Body */
-* { box-sizing:border-box; margin:0; padding:0; }
-body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f0f; color:#fff; padding:20px; }
-h1 { text-align:center; margin-bottom:30px; font-size:2.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
-h2 { font-size:1.5rem; margin-bottom:15px; text-align:center; }
+  :root{
+    --bg:#071422; --card:#0b1620; --muted:#98b7c2; --accent1:#06b6d4; --accent2:#7c3aed;
+    --glass: rgba(255,255,255,0.03);
+    --round:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,#041623 0%, #071421 100%); color:#e6f7fb; padding:18px;
+  }
+  .wrap{max-width:1280px;margin:0 auto;}
+  header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+  .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent2),var(--accent1));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+  .title h1{font-size:20px;margin:0}
+  .title p{margin:0;color:var(--muted);font-size:13px}
 
-/* Sections */
-.section { background: rgba(255,255,255,0.05); padding:25px; border-radius:15px; margin-bottom:30px; box-shadow: 0 0 25px rgba(0,0,0,0.7); transition: transform 0.3s; }
-.section:hover { transform: translateY(-5px); }
+  /* layout */
+  .grid{display:grid;grid-template-columns:320px 1fr;gap:18px}
+  @media (max-width:980px){ .grid{grid-template-columns:1fr} }
 
-/* Buttons */
-.btn { background: linear-gradient(90deg,#1E90FF,#00BFFF); color:white; padding:12px 28px; border:none; border-radius:12px; cursor:pointer; font-weight:bold; margin:5px; transition:all 0.3s ease; font-size:1rem; }
-.btn:hover:not(:disabled) { transform: scale(1.05); background: linear-gradient(90deg,#00BFFF,#1E90FF); }
-.btn:disabled { background: grey; cursor:not-allowed; }
+  .card{background:var(--card);border-radius:var(--round);padding:14px;box-shadow:0 12px 40px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.03)}
+  .section-title{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+  .section-title h2{font-size:15px;margin:0}
+  .muted{color:var(--muted);font-size:13px}
 
-/* Inputs */
-input[type=file], input[type=text], input[type=range], select, textarea { width:100%; padding:12px; border-radius:12px; border:none; margin:8px 0; background:#222; color:#fff; font-size:1rem; }
-input[type=range] { accent-color:#00BFFF; }
+  .btn{
+    background: linear-gradient(90deg,var(--accent2),var(--accent1)); color:#fff; border:0; padding:10px 14px; border-radius:10px; cursor:pointer;
+    font-weight:700; box-shadow:0 8px 24px rgba(3,7,18,0.5); transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover:not([disabled]){ transform:translateY(-3px) }
+  .btn.ghost{ background:transparent; border:1px solid rgba(255,255,255,0.06); padding:8px 10px }
+  .btn.small{ padding:8px 10px; font-size:13px; border-radius:8px }
+  .btn[disabled]{ opacity:.55; cursor:not-allowed; transform:none; box-shadow:none; }
 
-/* Flex helper */
-.flex-center { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; }
-video { display:block; margin:20px auto; max-width:90%; border-radius:15px; border:2px solid #00BFFF; box-shadow:0 0 25px #00BFFF; }
-.track { display:flex; align-items:center; gap:12px; background:#222; padding:12px; border-radius:12px; margin:8px 0; }
+  input[type=file]{display:block;background:var(--glass);padding:10px;border-radius:10px;color:var(--muted);width:100%;border:1px dashed rgba(255,255,255,0.03)}
+  input[type=text], select, textarea{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit}
+  input[type=range]{width:100%}
 
-/* Labels */
-label { display:block; margin:12px 0 5px; font-weight:bold; }
-
-/* Loading text */
-#loading { text-align:center; color:#00BFFF; font-weight:bold; margin-top:10px; }
+  label{display:block;margin-bottom:6px;font-size:13px;color:var(--muted)}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .small{font-size:13px;color:var(--muted)}
+  video{width:100%;border-radius:10px;background:#000;border:1px solid rgba(255,255,255,.03)}
+  pre.log{height:160px;overflow:auto;padding:8px;background:#03141A;border-radius:10px;border:1px solid rgba(255,255,255,0.03);color:#bfefff;font-size:13px}
+  .nav{display:flex;flex-direction:column;gap:8px}
+  .timeline{height:110px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border-radius:10px;padding:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.02)}
+  .track{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid rgba(255,255,255,0.02)}
+  .handles { position:relative; height:44px; margin-top:8px; }
+  .bar { position:absolute; left:0; right:0; top:18px; height:8px; border-radius:6px; background:rgba(255,255,255,0.03); }
+  .range { position:absolute; top:8px; height:30px; width:100%; pointer-events:none; }
+  .range input[type=range]{ pointer-events:all; -webkit-appearance: none; appearance:none; position:absolute; left:0; top:8px; width:100%; height:30px; background:transparent }
+  .thumb { height:30px; width:8px; background:linear-gradient(180deg,var(--accent2),var(--accent1)); border-radius:4px; display:inline-block; }
+  .selectedRange { position:absolute; top:18px; height:8px; border-radius:6px; background:linear-gradient(90deg,var(--accent1),var(--accent2)); }
+  .timeLabel{display:flex;justify-content:space-between;margin-top:8px;font-size:13px;color:var(--muted)}
+  footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
 </style>
 </head>
 <body>
+  <div class="wrap">
+    <header>
+      <div class="logo">PS</div>
+      <div class="title">
+        <h1>Pro Studio — Legendary Pro Trim & AI Enhance</h1>
+        <p class="muted">Pro timeline trim • Separate Voice Editor • AI-Enhance audio • Auto-caption burn-in — single file</p>
+      </div>
+    </header>
 
-<h1>🎵 Pro Studio</h1>
+    <div class="grid">
+      <!-- left: navigation & quick controls -->
+      <div>
+        <div class="card nav">
+          <div class="section-title"><h2>Menu</h2></div>
+          <button class="btn ghost" id="navVideo">🎬 Video Editor</button>
+          <button class="btn ghost" id="navVoice">🗣 Voice Editor</button>
+          <button class="btn ghost" id="navExport">📤 Export</button>
+          <div style="margin-top:10px" class="small muted">System</div>
+          <div class="row" style="margin-top:8px">
+            <button class="btn small" id="btnLoadFF">Load FFmpeg</button>
+            <button class="btn small ghost" id="btnReset">Reset</button>
+          </div>
+          <div style="margin-top:10px">
+            <div class="small muted">FFmpeg progress</div>
+            <div style="height:8px;background:rgba(255,255,255,0.03);border-radius:6px;margin-top:6px">
+              <div id="ffprog" style="height:100%;width:0%;background:linear-gradient(90deg,var(--accent2),var(--accent1));border-radius:6px"></div>
+            </div>
+          </div>
+        </div>
 
-<!-- Background Music -->
-<div class="section">
-  <h2>🎶 Background Music</h2>
-  <div class="flex-center">
-    <button class="btn" id="playAudio">▶ Play Music</button>
-    <button class="btn" id="pauseAudio">⏸ Pause Music</button>
+        <div class="card" style="margin-top:12px">
+          <div class="section-title"><h2>Quick Test</h2></div>
+          <div class="small muted">Test assets for quick checks</div>
+          <div class="row" style="margin-top:8px">
+            <button class="btn small" id="loadTestVideo">Test Video</button>
+            <button class="btn small" id="loadTestAudio">Test Audio</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- right: main editor -->
+      <div id="mainArea">
+        <!-- Video Editor -->
+        <div id="viewVideo" class="card">
+          <div class="section-title"><h2>🎬 Video Editor</h2><div style="margin-left:auto" id="videoStatus"><span class="small muted">Upload from phone or desktop</span></div></div>
+
+          <label>Upload video</label>
+          <input id="videoInput" type="file" accept="video/*">
+
+          <div class="row" style="margin-top:10px">
+            <button class="btn" id="btnTrim" disabled>✂ Trim Selected Range</button>
+            <button class="btn ghost small" id="btnAIEnhance" disabled>🤖 AI-Enhance Audio</button>
+            <button class="btn ghost small" id="btnGenerateCaptions" disabled>📝 Auto-Captions</button>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:14px;flex-wrap:wrap">
+            <div style="flex:1;min-width:260px">
+              <label>Background music (optional)</label>
+              <input id="bgInput" type="file" accept="audio/*">
+              <div class="row" style="margin-top:8px">
+                <button class="btn small" id="btnAddBg" disabled>Add BG</button>
+                <button class="btn small ghost" id="btnClearBg">Clear BG</button>
+              </div>
+            </div>
+            <div style="width:260px">
+              <label>Caption burn-in (optional)</label>
+              <input id="captionText" type="text" placeholder="Caption text (auto-populated by Captions)">
+              <div class="row" style="margin-top:8px">
+                <select id="captionPos"><option value="bottom">Bottom</option><option value="top">Top</option><option value="center">Center</option></select>
+                <input id="captionSize" type="number" value="36" min="12" max="120" style="width:90px">
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px">
+            <label>Preview</label>
+            <video id="videoPreview" controls playsinline></video>
+          </div>
+
+          <div style="margin-top:12px">
+            <label class="small muted">Trim Timeline</label>
+            <div class="timeline">
+              <div class="handles">
+                <div class="bar"></div>
+                <div class="selectedRange" id="selectedRange" style="left:0%; right:0%"></div>
+                <div class="range">
+                  <input id="rangeStart" type="range" min="0" max="100" value="0" step="0.01">
+                  <input id="rangeEnd" type="range" min="0" max="100" value="100" step="0.01">
+                </div>
+              </div>
+              <div class="timeLabel"><div>Start: <span id="timeStart">0.00s</span></div><div>End: <span id="timeEnd">0.00s</span></div></div>
+              <div class="small muted" style="margin-top:8px">Drag handles to choose trim range. Use AI-Enhance to replace audio, and Auto-Captions to generate subtitles.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Voice Editor -->
+        <div id="viewVoice" class="card" style="margin-top:12px;display:none">
+          <div class="section-title"><h2>🗣 Voice Editor</h2><div style="margin-left:auto" id="voiceStatus"><span class="small muted">Record or upload audio</span></div></div>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn" id="btnStartMic">Start Mic</button>
+            <button class="btn ghost small" id="btnStopMic" disabled>Stop Mic</button>
+            <button class="btn" id="btnRecord" disabled>● Record</button>
+            <button class="btn ghost small" id="btnStopRecord" disabled>■ Stop</button>
+            <a id="dlRecorded" class="btn ghost small" style="display:none">⬇ Download</a>
+          </div>
+
+          <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div>
+              <label>Upload audio</label>
+              <input id="audioInput" type="file" accept="audio/*">
+            </div>
+            <div>
+              <label>Preview</label>
+              <audio id="audioPreview" controls></audio>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <label>Effects</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div><label>Pitch (semitones)</label><input id="voicePitch" type="number" value="0" min="-12" max="12"></div>
+              <div><label>Speed</label><input id="voiceSpeed" type="range" min="0.5" max="2" step="0.01" value="1"></div>
+              <div><label>Echo</label><input id="voiceEcho" type="range" min="0" max="0.9" step="0.01" value="0.12"></div>
+              <div><label>Noise HP filter</label><input id="voiceNoise" type="range" min="0" max="1200" step="1" value="60"></div>
+            </div>
+            <div class="row" style="margin-top:10px">
+              <button class="btn" id="btnApplyVoice">Apply Effects → Preview</button>
+              <button class="btn ghost small" id="btnExportVoice">Export WAV</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Export -->
+        <div id="viewExport" class="card" style="margin-top:12px;display:none">
+          <div class="section-title"><h2>📤 Export</h2></div>
+          <div class="small muted">Export trimmed video with edited audio and optional caption burn-in.</div>
+          <div style="margin-top:12px" class="row">
+            <button class="btn" id="btnExportVideo" disabled>Export Video</button>
+            <a id="downloadExport" class="btn ghost small" style="display:none">⬇ Download</a>
+          </div>
+          <div style="margin-top:10px" class="small muted">Ensure FFmpeg loaded, and an edited audio blob (AI-Enhance or Voice Editor output) is available to replace audio.</div>
+          <div style="margin-top:12px"><div class="small muted">Export Log</div><pre id="log" class="log">Ready.</pre></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>Pro Studio — high-quality in-browser editing. Best on desktop Chrome/Edge.</footer>
   </div>
-</div>
 
-<!-- Video Upload & Trim -->
-<div class="section">
-  <h2>🎬 Video Upload & Trim</h2>
-  <input type="file" id="videoUpload" accept="video/*">
-  <div class="flex-center">
-    <button class="btn" id="trimVideo" disabled>✂ Trim 0-5s</button>
-  </div>
-  <div id="loading"></div>
-  <video id="videoPlayer" controls></video>
-</div>
+<script type="module">
+/* ========================
+   Pro Studio - Final
+   ======================== */
 
-<!-- Multitrack Audio -->
-<div class="section">
-  <h2>🎚 Multitrack Audio</h2>
-  <div id="tracksContainer"></div>
-  <div class="flex-center">
-    <button class="btn" id="addTrack">➕ Add Track</button>
-    <button class="btn" id="mixTracks">🔀 Mix Tracks</button>
-  </div>
-</div>
+/* Helpers */
+const $ = id => document.getElementById(id);
+const logEl = $('log');
+function log(...p){ const s = p.map(x => typeof x === 'string' ? x : JSON.stringify(x)).join(' '); logEl.textContent += '\n' + s; logEl.scrollTop = logEl.scrollHeight; }
+function enable(el){ el.disabled = false; }
+function disable(el){ el.disabled = true; }
 
-<!-- Voice Modulation -->
-<div class="section">
-  <h2>🗣 Voice Modulation</h2>
-  <label>Pitch Control</label>
-  <input type="range" id="pitchSlider" min="0.5" max="2" step="0.05" value="1">
-  <div class="flex-center">
-    <button class="btn" id="playVoice" disabled>🔊 Play Modulated Voice</button>
-  </div>
-</div>
-
-<!-- Speech Recognition -->
-<div class="section">
-  <h2>🎤 Speech Recognition</h2>
-  <textarea id="speechText" placeholder="Your speech transcript will appear here..."></textarea>
-  <div class="flex-center">
-    <button class="btn" id="startSpeech">🎙 Start Recognition</button>
-    <button class="btn" id="stopSpeech">⏹ Stop Recognition</button>
-  </div>
-</div>
-
-<!-- Presets -->
-<div class="section">
-  <h2>💾 Presets</h2>
-  <input type="text" id="presetName" placeholder="Enter preset name">
-  <div class="flex-center">
-    <button class="btn" id="savePreset">💾 Save Preset</button>
-    <select id="loadPreset"></select>
-    <button class="btn" id="applyPreset">⚡ Apply Preset</button>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.0/dist/ffmpeg.min.js"></script>
-<script>
-/* Background Music */
-const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
-document.getElementById('playAudio').onclick = ()=>audio.play();
-document.getElementById('pauseAudio').onclick = ()=>audio.pause();
-
-/* FFmpeg Video Trim */
-const { createFFmpeg, fetchFile } = FFmpeg;
-const ffmpeg = createFFmpeg({ log:true });
-let videoFile;
-const trimBtn = document.getElementById('trimVideo');
-const playVoiceBtn = document.getElementById('playVoice');
-const loadingDiv = document.getElementById('loading');
-
-document.getElementById('videoUpload').addEventListener('change', e => {
-  videoFile = e.target.files[0];
-  if(videoFile){ trimBtn.disabled=false; playVoiceBtn.disabled=false; }
+/* FFmpeg setup */
+import { createFFmpeg, fetchFile } from 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.0/dist/ffmpeg.min.js';
+const ffmpeg = createFFmpeg({ log: true });
+$('btnLoadFF').addEventListener('click', async ()=>{
+  try{
+    if(ffmpeg.isLoaded()){ log('FFmpeg already loaded'); $('btnLoadFF').disabled = true; return; }
+    log('Loading FFmpeg (20–60s)...');
+    $('btnLoadFF').textContent = 'Loading...'; $('btnLoadFF').disabled = true;
+    ffmpeg.setLogger(({message}) => log('[ffmpeg] ' + message));
+    ffmpeg.setProgress(({ratio}) => { $('ffprog').style.width = Math.round(ratio*100) + '%'; });
+    await ffmpeg.load();
+    $('btnLoadFF').textContent = 'FFmpeg Loaded';
+    log('FFmpeg loaded.');
+    // enable export button if other prerequisites met
+    checkExportReady();
+  }catch(e){ log('FFmpeg load error', e); alert('FFmpeg load failed (check console)'); $('btnLoadFF').textContent = 'Load FFmpeg'; $('btnLoadFF').disabled=false; }
 });
 
-trimBtn.addEventListener('click', async ()=>{
-  if(!videoFile){ alert("Upload a video first"); return; }
-  trimBtn.disabled=true; loadingDiv.textContent="Loading FFmpeg...";
-  if(!ffmpeg.isLoaded()) await ffmpeg.load();
-  loadingDiv.textContent="Processing video...";
-  ffmpeg.FS('writeFile','input.mp4', await fetchFile(videoFile));
-  await ffmpeg.run('-i','input.mp4','-ss','0','-to','5','output.mp4');
-  const data = ffmpeg.FS('readFile','output.mp4');
-  const url = URL.createObjectURL(new Blob([data.buffer], {type:'video/mp4'}));
-  document.getElementById('videoPlayer').src=url;
-  loadingDiv.textContent="✅ Video ready!";
-  trimBtn.disabled=false;
+/* Navigation */
+function showView(name){
+  ['viewVideo','viewVoice','viewExport'].forEach(id => $(id).style.display = (id===name ? 'block' : 'none'));
+}
+$('navVideo').onclick = ()=> showView('viewVideo');
+$('navVoice').onclick = ()=> showView('viewVoice');
+$('navExport').onclick = ()=> showView('viewExport');
+
+/* Test assets */
+const TEST_VIDEO = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
+const TEST_AUDIO = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+$('loadTestVideo').addEventListener('click', async ()=>{
+  try{ const r = await fetch(TEST_VIDEO); const b=await r.blob(); const f = new File([b],'test.mp4',{type:b.type}); setVideoFile(f); $('videoInput').files = fileListFromFile(f); log('Test video loaded'); }catch(e){ log('Test video load failed', e); }
+});
+$('loadTestAudio').addEventListener('click', async ()=>{
+  try{ const r = await fetch(TEST_AUDIO); const b=await r.blob(); addBgFile(new File([b],'bg.mp3',{type:b.type})); log('Test audio loaded'); }catch(e){ log('Test audio load failed', e); }
+});
+function fileListFromFile(file){ const dt = new DataTransfer(); dt.items.add(file); return dt.files; }
+
+/* ---------- Video Editor: timeline and trimming ---------- */
+let currentVideoFile = null;
+let currentVideoUrl = null;
+let videoDuration = 0;
+let bgAudioFile = null;
+let editedAudioBlob = null; // last processed audio to be used for export (from voice editor or AI-Enhance)
+
+const rangeStart = $('rangeStart');
+const rangeEnd = $('rangeEnd');
+const selectedRange = $('selectedRange');
+const timeStart = $('timeStart');
+const timeEnd = $('timeEnd');
+
+$('videoInput').addEventListener('change', e => {
+  const f = e.target.files[0]; if(f) setVideoFile(f); else clearVideo();
 });
 
-/* Multitrack Audio */
-const tracksContainer = document.getElementById('tracksContainer');
-let tracks = [];
-document.getElementById('addTrack').onclick = ()=>{
-  const div = document.createElement('div'); div.className='track';
-  const input = document.createElement('input'); input.type='file'; input.accept='audio/*';
-  div.appendChild(input); tracksContainer.appendChild(div); tracks.push(input);
-};
-document.getElementById('mixTracks').onclick = ()=>{
-  alert("Multitrack mix simulated. Full mix requires advanced Web Audio API setup.");
-};
+function setVideoFile(f){
+  currentVideoFile = f;
+  currentVideoUrl = URL.createObjectURL(f);
+  $('videoPreview').src = currentVideoUrl;
+  $('videoPreview').onloadedmetadata = () => {
+    videoDuration = $('videoPreview').duration || 0;
+    // initialize handles
+    rangeStart.min = 0; rangeStart.max = 100; rangeEnd.min = 0; rangeEnd.max = 100;
+    rangeStart.value = 0; rangeEnd.value = 100;
+    updateRangeUI();
+    enable($('btnTrim')); enable($('btnAIEnhance')); enable($('btnGenerateCaptions')); enable($('btnAddBg'));
+    setStatus('Video loaded: ' + f.name);
+    log('Video loaded:', f.name, 'duration', videoDuration.toFixed(2)+'s');
+    checkExportReady();
+  };
+}
 
-/* Voice Modulation */
-const audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-const gainNode = audioCtx.createGain();
-let source;
-document.getElementById('playVoice').onclick = async ()=>{
-  if(!videoFile){ alert("Upload a video first"); return; }
-  const pitch = parseFloat(document.getElementById('pitchSlider').value);
-  const fileArrayBuffer = await videoFile.arrayBuffer();
-  const buffer = await audioCtx.decodeAudioData(fileArrayBuffer);
-  if(source) source.stop();
-  source = audioCtx.createBufferSource();
-  source.buffer = buffer;
-  source.playbackRate.value = pitch;
-  source.connect(gainNode).connect(audioCtx.destination);
-  source.start();
-};
+function clearVideo(){
+  currentVideoFile = null; currentVideoUrl = null; $('videoPreview').src = ''; disable($('btnTrim')); disable($('btnAIEnhance')); disable($('btnGenerateCaptions')); disable($('btnAddBg'));
+  setStatus('Video cleared'); log('Video cleared'); checkExportReady();
+}
 
-/* Speech Recognition */
-const speechText = document.getElementById('speechText');
-let recognition;
-if('webkitSpeechRecognition' in window){
-  recognition = new webkitSpeechRecognition();
-  recognition.continuous=true; recognition.interimResults=true;
-  recognition.onresult=e=>{
-    let transcript=''; for(let i=e.resultIndex;i<e.results.length;i++) transcript+=e.results[i][0
+function updateRangeUI(){
+  // rangeStart & rangeEnd are percentages (0..100)
+  let a = parseFloat(rangeStart.value); let b = parseFloat(rangeEnd.value);
+  if(a > b){ // swap to avoid inverted selection
+    const tmp = a; a = b; b = tmp;
+    rangeStart.value = a; rangeEnd.value = b;
+  }
+  selectedRange.style.left = a + '%';
+  selectedRange.style.right = (100 - b) + '%';
+  const startSec = (a/100) * videoDuration;
+  const endSec = (b/100) * videoDuration;
+  timeStart.textContent = startSec.toFixed(2) + 's';
+  timeEnd.textContent = endSec.toFixed(2) + 's';
+}
+rangeStart.addEventListener('input', updateRangeUI);
+rangeEnd.addEventListener('input', updateRangeUI);
+
+/* Trim button handler uses start/end (in seconds) */
+$('btnTrim').addEventListener('click', async ()=>{
+  if(!currentVideoFile) return alert('Upload a video first');
+  if(!ffmpeg.isLoaded()){ alert('Please load FFmpeg first'); return; }
+  const a = parseFloat(rangeStart.value)/100 * videoDuration;
+  const b = parseFloat(rangeEnd.value)/100 * videoDuration;
+  if(b - a < 0.05) return alert('Trim length too short');
+  try{
+    $('btnTrim').disabled = true; setStatus('Trimming...'); log('Trim start', a.toFixed(2), '→', b.toFixed(2));
+    await ffmpeg.FS('writeFile','input.mp4', await fetchFile(currentVideoFile));
+    // if caption text provided, build drawtext filter
+    const caption = $('captionText').value.trim();
+    const captionSize = Math.max(12, Number($('captionSize').value || 36));
+    const pos = $('captionPos').value;
+    let vfArgs = [];
+    if(caption){
+      const y = pos === 'top' ? '20' : (pos === 'center' ? '(h-text_h)/2' : 'h-text_h-20');
+      vfArgs = ['-vf', `drawtext=text='${caption.replace(/'/g,"\\'")}':fontcolor=white:fontsize=${captionSize}:x=(w-text_w)/2:y=${y}:box=1:boxcolor=black@0.5`];
+    }
+    // prepare args
+    const args = ['-i','input.mp4','-ss',String(a.toFixed(2)),'-to',String(b.toFixed(2)),'-c:v','libx264','-preset','veryfast','-c:a','aac','-b:a','160k', ...vfArgs, 'trim_out.mp4'];
+    await ffmpeg.run(...args);
+    const out = ffmpeg.FS('readFile','trim_out.mp4');
+    const blob = new Blob([out.buffer], {type:'video/mp4'});
+    const url = URL.createObjectURL(blob);
+    $('videoPreview').src = url;
+    setStatus('Trim complete — preview updated'); log('Trim complete');
+    try{ ffmpeg.FS('unlink','input.mp4'); ffmpeg.FS('unlink','trim_out.mp4'); }catch(e){}
+  }catch(err){ console.error(err); log('Trim error', err); alert('Trim failed — see log'); setStatus('Trim failed'); }
+  finally{ $('btnTrim').disabled = false; }
+});
+
+/* Background music */
+$('bgInput').addEventListener('change', e => { if(e.target.files[0]) enable($('btnAddBg')); });
+$('btnAddBg').addEventListener('click', ()=> {
+  const f = $('bgInput').files[0];
+  if(!f) return alert('Select BG audio first');
+  addBgFile(f);
+});
+$('btnClearBg').addEventListener('click', ()=> { bgAudioFile=null; $('bgInput').value=''; log('BG cleared'); });
+
+function addBgFile(file){ bgAudioFile = file; log('BG added:', file.name); setStatus('Background music ready'); checkExportReady(); }
+
+/* ---------------------------
+   AI-Enhance: process audio track of current video
+   --------------------------- */
+$('btnAIEnhance').addEventListener('click', async ()=>{
+  if(!currentVideoFile) return alert('Upload a video first');
+  setStatus('Extracting audio & enhancing...'); log('AI-Enhance start');
+  try{
+    // ensure ffmpeg loaded
+    if(!ffmpeg.isLoaded()){ alert('Load FFmpeg first'); return; }
+    // write video
+    $('btnAIEnhance').disabled = true;
+    await ffmpeg.FS('writeFile','v_in.mp4', await fetchFile(currentVideoFile));
+    // extract audio as WAV
+    await ffmpeg.run('-
